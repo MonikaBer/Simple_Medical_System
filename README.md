@@ -1,5 +1,5 @@
 # Simple_Medical_System
-Program for managing patient's medical information (personal data, dates and types of medical tests and treatments, periods of hospitalization). The program stores information in a file in JSON format.
+Program for managing patient's medical information (personal data, dates and types of medical tests and treatments, periods of hospitalization). The program stores information in embedded database.
 
 ## Tools
 Java 11, Swing, Maven, Apache Derby. 
