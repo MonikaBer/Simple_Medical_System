@@ -3,81 +3,30 @@ package project.model.person;
 
 public class Patient extends Person {
 
-	private String street;
-	private String homeNr;
-	private String flatNr;
-	private String locality;
-	private String postcode;
-	private String phoneNr;
 	private String insurance;
-	
-	public Patient(String name, String surname, String pesel, String street, String homeNr, String flatNr,
-				   String locality, String postcode, String phoneNr, String insurance){
+	private String address;
+
+	public Patient(String name, String surname, String pesel, String insurance, String address){
 
 		super(name, surname, pesel);
-		this.street = street;
-		this.homeNr = homeNr;
-		this.flatNr = flatNr;
-		this.locality = locality;
-		this.postcode = postcode;
-		this.phoneNr = phoneNr;
 		this.insurance = insurance;
-	}
-
-	public String getStreet() {
-		return street;
-	}
-
-	public String getHomeNr() {
-		return homeNr;
-	}
-
-	public String getFlatNr() {
-		return flatNr;
-	}
-
-	public String getLocality() {
-		return locality;
-	}
-
-	public String getPostcode() {
-		return postcode;
-	}
-
-	public String getPhoneNr() {
-		return phoneNr;
+		this.address = address;
 	}
 
 	public String getInsurance() {
 		return insurance;
 	}
 
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
-	public void setHomeNr(String homeNr) {
-		this.homeNr = homeNr;
-	}
-
-	public void setFlatNr(String flatNr) {
-		this.flatNr = flatNr;
-	}
-
-	public void setLocality(String locality) {
-		this.locality = locality;
-	}
-
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
-	}
-
-	public void setPhoneNr(String phoneNr) {
-		this.phoneNr = phoneNr;
-	}
-
 	public void setInsurance(String insurance) {
 		this.insurance = insurance;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 //	@Override

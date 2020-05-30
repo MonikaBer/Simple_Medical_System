@@ -7,6 +7,7 @@ import project.view.windows.mainWindow.panels.SelectionPanel;
 import project.view.windows.mainWindow.panels.actionPanel.ActionPanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -14,7 +15,7 @@ import java.awt.event.MouseListener;
 
 public class MainWindow extends JFrame implements ActionListener, MouseListener {
 
-    private JPanel mainPanel, topPanel, bottomPanel;
+    private JPanel mainPanel, leftPanel, rightPanel;
     private MenuPanel menuPanel;
     private AboutPatientPanel aboutPatientPanel;
     private SelectionPanel selectionPanel;
@@ -30,15 +31,35 @@ public class MainWindow extends JFrame implements ActionListener, MouseListener 
     public void createMainWindow() {
         this.menuPanel = new MenuPanel();
         setJMenuBar(this.menuPanel.getMenuBar());
-
         this.menuPanel.getMClose().addActionListener(this);
         this.menuPanel.getMPatientsList().addActionListener(this);
+
+        this.mainPanel = new JPanel();
+        this.mainPanel.setLayout(new BoxLayout(this.mainPanel, BoxLayout.X_AXIS));
+        this.getContentPane().add(this.mainPanel);
+
+        this.leftPanel = new JPanel();
+        this.leftPanel.setLayout(new BoxLayout(this.leftPanel, BoxLayout.Y_AXIS));
+        this.mainPanel.add(this.leftPanel);
+
+        this.rightPanel = new JPanel();
+        this.rightPanel.setLayout(new BoxLayout(this.rightPanel, BoxLayout.Y_AXIS));
+        this.mainPanel.add(this.rightPanel);
+
+        this.aboutPatientPanel = new AboutPatientPanel(250, 150);
+        this.leftPanel.add(this.aboutPatientPanel);
+
+        this.selectionPanel = new SelectionPanel(250, 350);
+        this.leftPanel.add(this.selectionPanel);
+
+        this.actionPanel = new ActionPanel(650, 500);
+        this.rightPanel.add(this.actionPanel);
 
         this.pack();
     }
 
     public void setMainWindowProperties() {
-        this.setSize(1110, 500);
+        this.setSize(900, 500);
         this.setResizable(false);
         this.setTitle("System informacji medycznej pacjenta");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
