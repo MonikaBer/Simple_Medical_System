@@ -18,7 +18,8 @@ public class Main {
 				//Controller controller = new Controller(view, model);
 				Controller controller = new Controller(view);
 				view.getMainWindow().addListener(controller);
-			}	
+				view.getPatientsListWindow().addListener(controller);
+			}
 		};
 		SwingUtilities.invokeLater(program);
 	}

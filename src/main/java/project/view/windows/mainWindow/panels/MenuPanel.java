@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class MenuPanel extends JMenu {
 
-    private JMenuBar menuBar;
+    private final JMenuBar menuBar;
     private JMenu menuApp;
     private JMenuItem mPatientsList;
     private JMenuItem mClose;
@@ -28,7 +28,7 @@ public class MenuPanel extends JMenu {
     }
 
     public JMenuItem getMPatientsList() {
-        return mClose;
+        return mPatientsList;
     }
 
     public JMenuItem getMClose() {

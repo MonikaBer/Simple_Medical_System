@@ -1,9 +1,7 @@
 package project.view;
 
 
-import project.view.windows.otherWindows.HospitalisationAdditionWindow;
-import project.view.windows.otherWindows.MedicalTestResultAdditionWindow;
-import project.view.windows.otherWindows.VisitAdditionWindow;
+import project.view.windows.otherWindows.*;
 import project.view.windows.mainWindow.MainWindow;
 
 
@@ -11,16 +9,16 @@ import project.view.windows.mainWindow.MainWindow;
 public class View {
 
 	private MainWindow mainWindow;
+	private PatientsListWindow patientsListWindow;
+	private NewPatientAdditionWindow newPatientAdditionWindow;
 	private HospitalisationAdditionWindow hospitalisationAdditionWindow;
 	private MedicalTestResultAdditionWindow medicalTestResultAdditionWindow;
 	private VisitAdditionWindow visitAdditionWindow;
 
 	public View() {
-		this.initMainView();
-	}
+		this.mainWindow = new MainWindow();
+		this.patientsListWindow = new PatientsListWindow();
 
-	public void initMainView() {
-		mainWindow = new MainWindow();
 	}
 
 	public MainWindow getMainWindow() {
@@ -53,5 +51,21 @@ public class View {
 
 	public void setVisitAdditionWindow(VisitAdditionWindow visitAdditionWindow) {
 		this.visitAdditionWindow = visitAdditionWindow;
+	}
+
+	public PatientsListWindow getPatientsListWindow() {
+		return patientsListWindow;
+	}
+
+	public void setPatientsListWindow(PatientsListWindow patientsListWindow) {
+		this.patientsListWindow = patientsListWindow;
+	}
+
+	public NewPatientAdditionWindow getNewPatientAdditionWindow() {
+		return newPatientAdditionWindow;
+	}
+
+	public void setNewPatientAdditionWindow(NewPatientAdditionWindow newPatientAdditionWindow) {
+		this.newPatientAdditionWindow = newPatientAdditionWindow;
 	}
 }

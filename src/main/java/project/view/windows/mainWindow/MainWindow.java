@@ -7,7 +7,6 @@ import project.view.windows.mainWindow.panels.SelectionPanel;
 import project.view.windows.mainWindow.panels.actionPanel.ActionPanel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -31,7 +30,6 @@ public class MainWindow extends JFrame implements ActionListener, MouseListener 
     public void createMainWindow() {
         this.menuPanel = new MenuPanel();
         setJMenuBar(this.menuPanel.getMenuBar());
-        this.menuPanel.getMPatientsList().addActionListener(this);
 
         this.mainPanel = new JPanel();
         this.mainPanel.setLayout(new BoxLayout(this.mainPanel, BoxLayout.X_AXIS));
