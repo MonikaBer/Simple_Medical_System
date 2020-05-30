@@ -20,34 +20,79 @@ public class ActionPanel extends JPanel {
         this.setPreferredSize(new Dimension(x,y));
 
         this.personalDataView = new PersonalDataView(this);
-        this.setPersonalDataViewVisibility(false);
         this.scheduledVisitsView = new ScheduledVisitsView(this);
-        this.setScheduledVisitsViewVisibility(false);
         this.medicalTestsResultsView = new MedicalTestsResultsView(this);
-        this.setMedicalTestsResultsViewVisibility(false);
         this.archivedVisitsView = new ArchivedVisitsView(this);
-        this.setArchivedVisitsViewVisibility(false);
         this.hospitalisationsView = new HospitalisationsView(this);
-        this.setHospitalisationsViewVisibility(false);
     }
 
     public void setPersonalDataViewVisibility(boolean isVisible) {
         this.personalDataView.setVisibility(isVisible);
+        if (isVisible) {
+            this.scheduledVisitsView.setVisibility(false);
+            this.medicalTestsResultsView.setVisibility(false);
+            this.archivedVisitsView.setVisibility(false);
+            this.hospitalisationsView.setVisibility(false);
+        }
     }
 
     public void setScheduledVisitsViewVisibility(boolean isVisible) {
         this.scheduledVisitsView.setVisibility(isVisible);
+        if (isVisible) {
+            this.personalDataView.setVisibility(false);
+            this.medicalTestsResultsView.setVisibility(false);
+            this.archivedVisitsView.setVisibility(false);
+            this.hospitalisationsView.setVisibility(false);
+        }
     }
 
     public void setMedicalTestsResultsViewVisibility(boolean isVisible) {
         this.medicalTestsResultsView.setVisibility(isVisible);
+        if (isVisible) {
+            this.personalDataView.setVisibility(false);
+            this.scheduledVisitsView.setVisibility(false);
+            this.archivedVisitsView.setVisibility(false);
+            this.hospitalisationsView.setVisibility(false);
+        }
     }
 
     public void setArchivedVisitsViewVisibility(boolean isVisible) {
         this.archivedVisitsView.setVisibility(isVisible);
+        if (isVisible) {
+            this.personalDataView.setVisibility(false);
+            this.scheduledVisitsView.setVisibility(false);
+            this.medicalTestsResultsView.setVisibility(false);
+            this.hospitalisationsView.setVisibility(false);
+        }
     }
 
     public void setHospitalisationsViewVisibility(boolean isVisible) {
         this.hospitalisationsView.setVisibility(isVisible);
+        if (isVisible) {
+            this.personalDataView.setVisibility(false);
+            this.scheduledVisitsView.setVisibility(false);
+            this.medicalTestsResultsView.setVisibility(false);
+            this.archivedVisitsView.setVisibility(false);
+        }
+    }
+
+    public PersonalDataView getPersonalDataView() {
+        return personalDataView;
+    }
+
+    public ScheduledVisitsView getScheduledVisitsView() {
+        return scheduledVisitsView;
+    }
+
+    public MedicalTestsResultsView getMedicalTestsResultsView() {
+        return medicalTestsResultsView;
+    }
+
+    public ArchivedVisitsView getArchivedVisitsView() {
+        return archivedVisitsView;
+    }
+
+    public HospitalisationsView getHospitalisationsView() {
+        return hospitalisationsView;
     }
 }

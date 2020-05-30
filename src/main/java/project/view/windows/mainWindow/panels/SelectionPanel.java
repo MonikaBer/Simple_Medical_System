@@ -5,7 +5,11 @@ import java.awt.*;
 
 public class SelectionPanel extends JPanel {
 
-    private JButton bPersonalData, bScheduledVisits, bMedicalTestsResults, bArchivedVisits, bHospitalisations;
+    private final JButton bPersonalData;
+    private final JButton bScheduledVisits;
+    private final JButton bMedicalTestsResults;
+    private final JButton bArchivedVisits;
+    private final JButton bHospitalisations;
 
     public SelectionPanel(int x, int y) {
         super();
@@ -32,5 +36,25 @@ public class SelectionPanel extends JPanel {
         this.bHospitalisations = new JButton("Hospitalizacje");
         this.bHospitalisations.setBounds(20, 240, 200, 30);
         this.add(this.bHospitalisations);
+    }
+
+    public JButton getbPersonalData() {
+        return bPersonalData;
+    }
+
+    public JButton getbScheduledVisits() {
+        return bScheduledVisits;
+    }
+
+    public JButton getbMedicalTestsResults() {
+        return bMedicalTestsResults;
+    }
+
+    public JButton getbArchivedVisits() {
+        return bArchivedVisits;
+    }
+
+    public JButton getbHospitalisations() {
+        return bHospitalisations;
     }
 }

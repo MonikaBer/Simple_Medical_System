@@ -4,10 +4,14 @@ import javax.swing.*;
 
 public class PersonalDataView implements ActionPanelViews {
 
-    private JLabel lName, lSurname, lPesel, lInsurance, lAddress;
+    private final JLabel lName;
+    private final JLabel lSurname;
+    private final JLabel lPesel;
+    private final JLabel lInsurance;
+    private final JLabel lAddress;
     private JTextField tName, tSurname, tPesel, tAddress;
     private JComboBox<String> cbInsurance;
-    private JButton bSave;
+    private final JButton bSave;
 
     public PersonalDataView(JPanel actionPanel) {
         this.lName = new JLabel("Imię:");
@@ -126,5 +130,9 @@ public class PersonalDataView implements ActionPanelViews {
 
     public void setCbInsurance(JComboBox<String> cbInsurance) {
         this.cbInsurance = cbInsurance;
+    }
+
+    public JButton getbSave() {
+        return bSave;
     }
 }

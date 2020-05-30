@@ -26,6 +26,18 @@ public class Controller implements ViewListener {
 		if (window == mainWindow) {
 			if (source == mainWindow.getMenuPanel().getMClose()) {
 				mainWindow.dispose();
+			} else if (source == mainWindow.getMenuPanel().getMPatientsList()) {
+				
+			} else if (source == mainWindow.getSelectionPanel().getbPersonalData()) {
+				mainWindow.getActionPanel().setPersonalDataViewVisibility(true);
+			} else if (source == mainWindow.getSelectionPanel().getbScheduledVisits()) {
+				mainWindow.getActionPanel().setScheduledVisitsViewVisibility(true);
+			} else if (source == mainWindow.getSelectionPanel().getbMedicalTestsResults()) {
+				mainWindow.getActionPanel().setMedicalTestsResultsViewVisibility(true);
+			} else if (source == mainWindow.getSelectionPanel().getbArchivedVisits()) {
+				mainWindow.getActionPanel().setArchivedVisitsViewVisibility(true);
+			} else if (source == mainWindow.getSelectionPanel().getbHospitalisations()) {
+				mainWindow.getActionPanel().setHospitalisationsViewVisibility(true);
 			}
 		}
 	}

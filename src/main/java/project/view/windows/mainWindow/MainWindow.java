@@ -31,7 +31,6 @@ public class MainWindow extends JFrame implements ActionListener, MouseListener 
     public void createMainWindow() {
         this.menuPanel = new MenuPanel();
         setJMenuBar(this.menuPanel.getMenuBar());
-        this.menuPanel.getMClose().addActionListener(this);
         this.menuPanel.getMPatientsList().addActionListener(this);
 
         this.mainPanel = new JPanel();
@@ -55,6 +54,32 @@ public class MainWindow extends JFrame implements ActionListener, MouseListener 
         this.actionPanel = new ActionPanel(650, 500);
         this.rightPanel.add(this.actionPanel);
 
+        //add ActionListener for view elements
+        this.menuPanel.getMClose().addActionListener(this);
+        this.menuPanel.getMPatientsList().addActionListener(this);
+
+        this.selectionPanel.getbPersonalData().addActionListener(this);
+        this.selectionPanel.getbScheduledVisits().addActionListener(this);
+        this.selectionPanel.getbMedicalTestsResults().addActionListener(this);
+        this.selectionPanel.getbArchivedVisits().addActionListener(this);
+        this.selectionPanel.getbHospitalisations().addActionListener(this);
+
+        this.actionPanel.getPersonalDataView().getbSave().addActionListener(this);
+
+        this.actionPanel.getScheduledVisitsView().getbAdd().addActionListener(this);
+        this.actionPanel.getScheduledVisitsView().getbArchive().addActionListener(this);
+        this.actionPanel.getScheduledVisitsView().getbDelete().addActionListener(this);
+
+        this.actionPanel.getMedicalTestsResultsView().getbAdd().addActionListener(this);
+        this.actionPanel.getMedicalTestsResultsView().getbDelete().addActionListener(this);
+
+        this.actionPanel.getArchivedVisitsView().getbDelete().addActionListener(this);
+        this.actionPanel.getArchivedVisitsView().getbShowDesc().addActionListener(this);
+
+        this.actionPanel.getHospitalisationsView().getbAdd().addActionListener(this);
+        this.actionPanel.getHospitalisationsView().getbDelete().addActionListener(this);
+        this.actionPanel.getHospitalisationsView().getbShowDesc().addActionListener(this);
+
         this.pack();
     }
 
@@ -68,6 +93,18 @@ public class MainWindow extends JFrame implements ActionListener, MouseListener 
 
     public MenuPanel getMenuPanel() {
         return menuPanel;
+    }
+
+    public AboutPatientPanel getAboutPatientPanel() {
+        return aboutPatientPanel;
+    }
+
+    public SelectionPanel getSelectionPanel() {
+        return selectionPanel;
+    }
+
+    public ActionPanel getActionPanel() {
+        return actionPanel;
     }
 
     //listeners management
