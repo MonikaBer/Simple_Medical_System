@@ -84,13 +84,13 @@ public class MedicalTestResultAdditionWindow extends JFrame implements ActionLis
     }
 
     @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-
+    public void actionPerformed(ActionEvent e) {
+        this.viewListener.viewChanged(this, e.getSource());
     }
 
     @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
-
+    public void mouseClicked(MouseEvent e) {
+        this.viewListener.viewChanged(this, e.getSource());
     }
 
     @Override

@@ -37,18 +37,57 @@ public class Controller implements ViewListener {
 		if (window == this.mainWindow) {
 			if (source == this.mainWindow.getMenuPanel().getMClose()) {
 				this.mainWindow.dispose();
-			} else if (source == this.mainWindow.getMenuPanel().getMPatientsList()) {
+			}
+			else if (source == this.mainWindow.getMenuPanel().getMPatientsList()) {
 				this.patientsListWindow.setVisible(true);
-			} else if (source == this.mainWindow.getSelectionPanel().getbPersonalData()) {
+			}
+			else if (source == this.mainWindow.getSelectionPanel().getbPersonalData()) {
 				this.mainWindow.getActionPanel().setPersonalDataViewVisibility(true);
-			} else if (source == this.mainWindow.getSelectionPanel().getbScheduledVisits()) {
+			}
+			else if (source == this.mainWindow.getSelectionPanel().getbScheduledVisits()) {
 				this.mainWindow.getActionPanel().setScheduledVisitsViewVisibility(true);
-			} else if (source == this.mainWindow.getSelectionPanel().getbMedicalTestsResults()) {
+			}
+			else if (source == this.mainWindow.getSelectionPanel().getbMedicalTestsResults()) {
 				this.mainWindow.getActionPanel().setMedicalTestsResultsViewVisibility(true);
-			} else if (source == this.mainWindow.getSelectionPanel().getbArchivedVisits()) {
+			}
+			else if (source == this.mainWindow.getSelectionPanel().getbArchivedVisits()) {
 				this.mainWindow.getActionPanel().setArchivedVisitsViewVisibility(true);
-			} else if (source == this.mainWindow.getSelectionPanel().getbHospitalisations()) {
+			}
+			else if (source == this.mainWindow.getSelectionPanel().getbHospitalisations()) {
 				this.mainWindow.getActionPanel().setHospitalisationsViewVisibility(true);
+			}
+			else if (source == this.mainWindow.getActionPanel().getPersonalDataView().getbSave()) {
+				//save patient's data
+			}
+			else if (source == this.mainWindow.getActionPanel().getScheduledVisitsView().getbArchive()) {
+				//archive this visit
+			}
+			else if (source == this.mainWindow.getActionPanel().getScheduledVisitsView().getbAdd()) {
+				this.visitAdditionWindow.setVisible(true);
+			}
+			else if (source == this.mainWindow.getActionPanel().getScheduledVisitsView().getbDelete()) {
+				//delete this visit
+			}
+			else if (source == this.mainWindow.getActionPanel().getMedicalTestsResultsView().getbAdd()) {
+				this.medicalTestResultAdditionWindow.setVisible(true);
+			}
+			else if (source == this.mainWindow.getActionPanel().getMedicalTestsResultsView().getbDelete()) {
+				//delete this medical test result
+			}
+			else if (source == this.mainWindow.getActionPanel().getArchivedVisitsView().getbDelete()) {
+				//delete this archived visit
+			}
+			else if (source == this.mainWindow.getActionPanel().getArchivedVisitsView().getbShowDesc()) {
+				//show description from this archived visit
+			}
+			else if (source == this.mainWindow.getActionPanel().getHospitalisationsView().getbAdd()) {
+				this.hospitalisationAdditionWindow.setVisible(true);
+			}
+			else if (source == this.mainWindow.getActionPanel().getHospitalisationsView().getbDelete()) {
+				//delete this hospitalisation
+			}
+			else if (source == this.mainWindow.getActionPanel().getHospitalisationsView().getbShowDesc()) {
+				//show description from this hospitalisation
 			}
 		}
 

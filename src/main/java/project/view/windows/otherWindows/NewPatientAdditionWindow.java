@@ -119,13 +119,13 @@ public class NewPatientAdditionWindow extends JFrame implements ActionListener, 
     }
 
     @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-
+    public void actionPerformed(ActionEvent e) {
+        this.viewListener.viewChanged(this, e.getSource());
     }
 
     @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
-
+    public void mouseClicked(MouseEvent e) {
+        this.viewListener.viewChanged(this, e.getSource());
     }
 
     @Override

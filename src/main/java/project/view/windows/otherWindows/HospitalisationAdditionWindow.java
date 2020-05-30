@@ -59,7 +59,7 @@ public class HospitalisationAdditionWindow extends JFrame implements ActionListe
         this.setTitle("Okno dodawania hospitalizacji pacjenta");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
-        this.setVisible(true);
+        this.setVisible(false);
     }
 
     public JTextField gettFrom() {
@@ -84,13 +84,13 @@ public class HospitalisationAdditionWindow extends JFrame implements ActionListe
     }
 
     @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-
+    public void actionPerformed(ActionEvent e) {
+        this.viewListener.viewChanged(this, e.getSource());
     }
 
     @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
-
+    public void mouseClicked(MouseEvent e) {
+        this.viewListener.viewChanged(this, e.getSource());
     }
 
     @Override
