@@ -6,24 +6,21 @@ import java.util.Date;
 
 public class ScheduledVisit extends Visit {
 
-    private Date date;
-    private String type;
-    private Doctor doctor;
-    private String reason;
+    private String time;
     private Double payment;
 
-    public ScheduledVisit(Date date, String type, Doctor doctor, String reason, Double payment) {
+    public ScheduledVisit(Date date, String time, String type, Doctor doctor, Double payment) {
         super(date, type, doctor);
-        this.reason = reason;
+        this.time = time;
         this.payment = payment;
     }
 
-    public String getReason() {
-        return reason;
+    public String getTime() {
+        return time;
     }
 
-    public void setReason(String reason) {
-        this.reason = reason;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public Double getPayment() {

@@ -22,9 +22,9 @@ public class ActionPanel extends JPanel {
         this.personalDataView = new PersonalDataView(this);
         this.setPersonalDataViewVisibility(false);
         this.scheduledVisitsView = new ScheduledVisitsView(this);
-        this.setScheduledVisitsViewVisibility(true);
+        this.setScheduledVisitsViewVisibility(false);
         this.medicalTestsResultsView = new MedicalTestsResultsView(this);
-        this.setMedicalTestsResultsViewVisibility(false);
+        this.setMedicalTestsResultsViewVisibility(true);
         this.archivedVisitsView = new ArchivedVisitsView(this);
         this.setArchivedVisitsViewVisibility(false);
         this.hospitalisationsView = new HospitalisationsView(this);

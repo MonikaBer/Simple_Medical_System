@@ -1,6 +1,7 @@
 package project.view.windows.mainWindow.panels.actionPanel.views;
 
 import project.model.person.Doctor;
+import project.model.visit.ScheduledVisit;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -34,7 +35,6 @@ public class ScheduledVisitsView implements ActionPanelViews {
         this.spScheduledVisits = new JScrollPane(this.tabScheduledVisits);
         this.spScheduledVisits.setBounds(30, 30, 590, 350);
         actionPanel.add(this.spScheduledVisits);
-        this.tabScheduledVisits.setEnabled(false);
 
         this.rowSelectedNr = -1;
 
@@ -75,9 +75,11 @@ public class ScheduledVisitsView implements ActionPanelViews {
         this.tableModel.removeRow(this.rowSelectedNr);
     }
 
-    public void addScheduledVisit(Date date, String time, String visitType, Doctor doctor, String payment) {
-        this.tableModel.addRow(new Object[]{date, time, visitType, doctor.getName()+" "+doctor.getSurname(),
-                doctor.getSpecialisation(), payment});
+    public void addScheduledVisit(ScheduledVisit scheduledVisit) {
+        this.tableModel.addRow(new Object[]{scheduledVisit.getDate(), scheduledVisit.getTime(),
+                scheduledVisit.getType(), scheduledVisit.getDoctor().getName()+" "+
+                scheduledVisit.getDoctor().getSurname(), scheduledVisit.getDoctor().getSpecialisation(),
+                scheduledVisit.getPayment()});
     }
 
     public void deleteScheduledVisit() {
