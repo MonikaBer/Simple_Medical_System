@@ -18,7 +18,10 @@ public class View {
 	public View() {
 		this.mainWindow = new MainWindow();
 		this.patientsListWindow = new PatientsListWindow();
-
+		this.newPatientAdditionWindow = new NewPatientAdditionWindow();
+		this.visitAdditionWindow = new VisitAdditionWindow();
+		this.medicalTestResultAdditionWindow = new MedicalTestResultAdditionWindow();
+		this.hospitalisationAdditionWindow = new HospitalisationAdditionWindow();
 	}
 
 	public MainWindow getMainWindow() {

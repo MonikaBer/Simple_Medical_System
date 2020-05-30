@@ -47,15 +47,15 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
         this.rowSelectedNr = -1;
 
         this.lPesel = new JLabel("PESEL pacjenta:");
-        this.lPesel.setBounds(30, 350, 150, 20);
+        this.lPesel.setBounds(70, 350, 150, 20);
         this.add(this.lPesel);
 
         this.tPesel = new JTextField();
-        this.tPesel.setBounds(220, 300, 150, 20);
+        this.tPesel.setBounds(280, 350, 150, 20);
         this.add(this.tPesel);
 
         this.bChoose = new JButton("Wybierz");
-        this.bChoose.setBounds(125, 350, 150, 20);
+        this.bChoose.setBounds(175, 400, 150, 20);
         this.add(this.bChoose);
 
         this.bChoose.addActionListener(this);

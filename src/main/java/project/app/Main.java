@@ -19,6 +19,10 @@ public class Main {
 				Controller controller = new Controller(view);
 				view.getMainWindow().addListener(controller);
 				view.getPatientsListWindow().addListener(controller);
+				view.getNewPatientAdditionWindow().addListener(controller);
+				view.getVisitAdditionWindow().addListener(controller);
+				view.getMedicalTestResultAdditionWindow().addListener(controller);
+				view.getHospitalisationAdditionWindow().addListener(controller);
 			}
 		};
 		SwingUtilities.invokeLater(program);
