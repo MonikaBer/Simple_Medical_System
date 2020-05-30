@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 
 public class MainWindow extends JFrame implements ActionListener, MouseListener {
 
@@ -112,12 +113,20 @@ public class MainWindow extends JFrame implements ActionListener, MouseListener 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.viewListener.viewChanged(this, e.getSource());
+        try {
+            this.viewListener.viewChanged(this, e.getSource());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        this.viewListener.viewChanged(this, e.getSource());
+        try {
+            this.viewListener.viewChanged(this, e.getSource());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override

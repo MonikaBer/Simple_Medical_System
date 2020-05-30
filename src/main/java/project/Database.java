@@ -196,6 +196,15 @@ public class Database {
                 dateFrom + "' AND dateTo='" + dateTo + "'");
     }
 
+    public boolean ifPatientExist(String pesel) throws SQLException {
+        this.result = this.statement.executeQuery("SELECT FROM HOSPITALISATIONS WHERE pesel='" + pesel + "'");
+        if (!this.result.next()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public void printPatients() throws SQLException {
         System.out.println("\nRekordy tabeli PATIENTS:");
         this.result = this.statement.executeQuery("SELECT * FROM PATIENTS");

@@ -1,5 +1,7 @@
 package project.view.windows.mainWindow.panels.actionPanel.views;
 
+import project.model.visit.ArchivedVisit;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -56,6 +58,12 @@ public class ArchivedVisitsView implements ActionPanelViews {
             this.bDelete.setVisible(false);
             this.bShowDesc.setVisible(false);
         }
+    }
+
+    public void addArchivedVisit(ArchivedVisit archivedVisit) {
+        this.tableModel.addRow(new Object[]{archivedVisit.getDate(), archivedVisit.getType(),
+                archivedVisit.getDoctor().getName()+" "+archivedVisit.getDoctor().getSurname(),
+                archivedVisit.getDoctor().getSpecialisation(), archivedVisit.getDescription()});
     }
 
     public void deleteScheduledVisit() {

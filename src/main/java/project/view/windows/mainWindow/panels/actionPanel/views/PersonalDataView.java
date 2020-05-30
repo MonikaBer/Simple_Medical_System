@@ -124,12 +124,12 @@ public class PersonalDataView implements ActionPanelViews {
         this.tAddress = tAddress;
     }
 
-    public JComboBox<String> getCbInsurance() {
-        return cbInsurance;
+    public String getInsurance() {
+        return cbInsurance.getSelectedItem().toString();
     }
 
-    public void setCbInsurance(JComboBox<String> cbInsurance) {
-        this.cbInsurance = cbInsurance;
+    public void setInsurance(String insurance) {
+        this.cbInsurance.setSelectedItem(insurance);
     }
 
     public JButton getbSave() {

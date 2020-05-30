@@ -2,11 +2,15 @@ package project.controller;
 
 import project.Database;
 import project.interfaces.ViewListener;
+import project.model.person.Patient;
+import project.model.visit.ArchivedVisit;
+import project.model.visit.ScheduledVisit;
 import project.view.View;
 import project.view.windows.mainWindow.MainWindow;
 import project.view.windows.otherWindows.*;
 
 import javax.swing.*;
+import java.sql.SQLException;
 
 
 public class Controller implements ViewListener {
@@ -18,6 +22,7 @@ public class Controller implements ViewListener {
 	private MedicalTestResultAdditionWindow medicalTestResultAdditionWindow = null;
 	private HospitalisationAdditionWindow hospitalisationAdditionWindow = null;
     private Database database = null;
+    private Patient chosenPatient = null;
     
     public Controller(View view, Database database) {
 		this.mainWindow = view.getMainWindow();
@@ -30,13 +35,14 @@ public class Controller implements ViewListener {
     }
 
 	@Override
-	public void viewChanged(JFrame window, Object source) {
+	public void viewChanged(JFrame window, Object source) throws SQLException {
 		if (window == this.mainWindow) {
 			if (source == this.mainWindow.getMenuPanel().getMClose()) {
 				this.mainWindow.dispose();
 			}
 			else if (source == this.mainWindow.getMenuPanel().getMPatientsList()) {
 				this.patientsListWindow.setVisible(true);
+				this.mainWindow.setEnabled(false);
 			}
 			else if (source == this.mainWindow.getSelectionPanel().getbPersonalData()) {
 				this.mainWindow.getActionPanel().setPersonalDataViewVisibility(true);
@@ -55,12 +61,36 @@ public class Controller implements ViewListener {
 			}
 			else if (source == this.mainWindow.getActionPanel().getPersonalDataView().getbSave()) {
 				//save patient's data
+				chosenPatient.setName(this.mainWindow.getActionPanel().getPersonalDataView().gettName().getText());
+				chosenPatient.setSurname(this.mainWindow.getActionPanel().getPersonalDataView().gettSurname().getText());
+				chosenPatient.setPesel(this.mainWindow.getActionPanel().getPersonalDataView().gettPesel().getText());
+				chosenPatient.setInsurance(this.mainWindow.getActionPanel().getPersonalDataView().getInsurance());
+				chosenPatient.setAddress(this.mainWindow.getActionPanel().getPersonalDataView().gettAddress().getText());
+				if (database.ifPatientExist(chosenPatient.getPesel())) {
+					database.deletePatient(chosenPatient.getPesel());
+				}
+				database.addPatient(chosenPatient);
 			}
 			else if (source == this.mainWindow.getActionPanel().getScheduledVisitsView().getbArchive()) {
 				//archive this visit
+				this.mainWindow.getActionPanel().getScheduledVisitsView().
+						setRowSelectedNr(this.mainWindow.getActionPanel().getScheduledVisitsView().
+								getTabScheduledVisits().getSelectedRow());
+				if(this.mainWindow.getActionPanel().getScheduledVisitsView().getRowSelectedNr() != -1) {
+					ScheduledVisit scheduledVisit = this.mainWindow.getActionPanel().getScheduledVisitsView().
+							getScheduledVisit();
+					database.deleteScheduledVisit(chosenPatient.getPesel(), scheduledVisit.getDate(),
+							scheduledVisit.getTime());
+					this.mainWindow.getActionPanel().getScheduledVisitsView().deleteScheduledVisit();
+					ArchivedVisit archivedVisit = new ArchivedVisit(scheduledVisit.getDate(), scheduledVisit.getType(),
+							scheduledVisit.getDoctor(), "");
+					database.addArchivedVisit(chosenPatient, archivedVisit);
+					this.mainWindow.getActionPanel().getArchivedVisitsView().addArchivedVisit(archivedVisit);
+				}
 			}
 			else if (source == this.mainWindow.getActionPanel().getScheduledVisitsView().getbAdd()) {
 				this.visitAdditionWindow.setVisible(true);
+				this.mainWindow.setEnabled(false);
 			}
 			else if (source == this.mainWindow.getActionPanel().getScheduledVisitsView().getbDelete()) {
 				//delete this visit
@@ -92,6 +122,7 @@ public class Controller implements ViewListener {
 			if (source == this.patientsListWindow.getbChoose()) {
 				//TODO: add ChooseDialog
 				this.newPatientAdditionWindow.setVisible(true);
+				this.patientsListWindow.setEnabled(false);
 			}
 		}
 
@@ -101,6 +132,7 @@ public class Controller implements ViewListener {
 				//TODO: clear inscirbed data in newPatientAdditionWindow and patientsListWindow
 				this.newPatientAdditionWindow.setVisible(false);
 				this.patientsListWindow.setVisible(false);
+				this.mainWindow.setEnabled(true);
 			}
 		}
 
@@ -109,6 +141,7 @@ public class Controller implements ViewListener {
 				//TODO: check inscribed data
 				//TODO: clear inscirbed data in this window
 				this.visitAdditionWindow.setVisible(false);
+				this.mainWindow.setEnabled(true);
 			}
 		}
 
@@ -117,6 +150,7 @@ public class Controller implements ViewListener {
 				//TODO: check inscribed data
 				//TODO: clear inscirbed data in this window
 				this.medicalTestResultAdditionWindow.setVisible(false);
+				this.mainWindow.setEnabled(true);
 			}
 		}
 
@@ -125,6 +159,7 @@ public class Controller implements ViewListener {
 				//TODO: check inscribed data
 				//TODO: clear inscirbed data in this window
 				this.hospitalisationAdditionWindow.setVisible(false);
+				this.mainWindow.setEnabled(true);
 			}
 		}
 	}

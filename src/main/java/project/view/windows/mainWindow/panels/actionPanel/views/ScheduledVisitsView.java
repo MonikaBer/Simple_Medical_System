@@ -1,8 +1,10 @@
 package project.view.windows.mainWindow.panels.actionPanel.views;
 
+import project.model.person.Doctor;
 import project.model.visit.ScheduledVisit;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.Date;
 
 public class ScheduledVisitsView implements ActionPanelViews {
 
@@ -67,11 +69,6 @@ public class ScheduledVisitsView implements ActionPanelViews {
         }
     }
 
-    public void archiveScheduledVisit() {
-        //archive
-        this.tableModel.removeRow(this.rowSelectedNr);
-    }
-
     public void addScheduledVisit(ScheduledVisit scheduledVisit) {
         this.tableModel.addRow(new Object[]{scheduledVisit.getDate(), scheduledVisit.getTime(),
                 scheduledVisit.getType(), scheduledVisit.getDoctor().getName()+" "+
@@ -81,6 +78,20 @@ public class ScheduledVisitsView implements ActionPanelViews {
 
     public void deleteScheduledVisit() {
         this.tableModel.removeRow(this.rowSelectedNr);
+    }
+
+    public ScheduledVisit getScheduledVisit() {
+        String date = this.tableModel.getValueAt(this.rowSelectedNr, 0).toString();
+        String time = this.tableModel.getValueAt(this.rowSelectedNr, 1).toString();
+        String type = this.tableModel.getValueAt(this.rowSelectedNr, 2).toString();
+        String doctor = this.tableModel.getValueAt(this.rowSelectedNr, 3).toString();
+        int index = doctor.indexOf(" ");
+        String doctorName = doctor.substring(0, index).trim();
+        String doctorSurname = doctor.substring(index).trim();
+        String specialisation = this.tableModel.getValueAt(this.rowSelectedNr, 4).toString();
+        String payment = this.tableModel.getValueAt(this.rowSelectedNr, 5).toString();
+        return new ScheduledVisit(date, time, type, new Doctor(doctorName, doctorSurname, "", specialisation),
+                Double.parseDouble(payment));
     }
 
     public JTable getTabScheduledVisits() {

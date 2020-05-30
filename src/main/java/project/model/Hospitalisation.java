@@ -3,29 +3,29 @@ package project.model;
 import java.util.Date;
 
 public class Hospitalisation {
-    private Date from;
-    private Date to;
+    private String from;
+    private String to;
     private String reason;
 
-    public Hospitalisation(Date from, Date to, String reason) {
+    public Hospitalisation(String from, String to, String reason) {
         this.from = from;
         this.to = to;
         this.reason = reason;
     }
 
-    public Date getFrom() {
+    public String getFrom() {
         return from;
     }
 
-    public void setFrom(Date from) {
+    public void setFrom(String from) {
         this.from = from;
     }
 
-    public Date getTo() {
+    public String getTo() {
         return to;
     }
 
-    public void setTo(Date to) {
+    public void setTo(String to) {
         this.to = to;
     }
 

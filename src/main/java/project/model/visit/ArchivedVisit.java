@@ -8,7 +8,7 @@ public class ArchivedVisit extends Visit {
 
     private String description;
 
-    public ArchivedVisit(Date date, String type, Doctor doctor, String description) {
+    public ArchivedVisit(String date, String type, Doctor doctor, String description) {
         super(date, type, doctor);
         this.description = description;
     }

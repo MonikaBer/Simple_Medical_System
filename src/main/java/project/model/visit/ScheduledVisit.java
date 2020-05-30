@@ -9,7 +9,7 @@ public class ScheduledVisit extends Visit {
     private String time;
     private Double payment;
 
-    public ScheduledVisit(Date date, String time, String type, Doctor doctor, Double payment) {
+    public ScheduledVisit(String date, String time, String type, Doctor doctor, Double payment) {
         super(date, type, doctor);
         this.time = time;
         this.payment = payment;

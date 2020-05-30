@@ -5,21 +5,21 @@ import project.model.person.Doctor;
 import java.util.Date;
 
 public abstract class Visit {
-    private Date date;
+    private String date;
     private String type;
     private Doctor doctor;
 
-    public Visit(Date date, String type, Doctor doctor) {
+    public Visit(String date, String type, Doctor doctor) {
         this.date = date;
         this.type = type;
         this.doctor = doctor;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
