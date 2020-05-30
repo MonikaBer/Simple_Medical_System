@@ -2,8 +2,12 @@ package project.app;
 
 import javax.swing.SwingUtilities;
 
+import project.Database;
 import project.controller.Controller;
+import project.model.person.Patient;
 import project.view.View;
+
+import java.sql.SQLException;
 
 
 public class Main {
@@ -23,6 +27,18 @@ public class Main {
 				view.getVisitAdditionWindow().addListener(controller);
 				view.getMedicalTestResultAdditionWindow().addListener(controller);
 				view.getHospitalisationAdditionWindow().addListener(controller);
+
+				//database tests
+				try {
+					Database database = new Database();
+//					database.addPatient(new Patient("Filip", "Kalski", "11111111111",
+//							"NFZ", "ul. Komputerowa, Warszawa"));
+//					database.addPatient(new Patient("Aleksandra", "Kowalska", "22222222222",
+//							"Prywatne", "ul. Krakowska 33 Poznań"));
+//					database.printPatients();
+				} catch (ClassNotFoundException | SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		};
 		SwingUtilities.invokeLater(program);

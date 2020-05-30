@@ -4,14 +4,12 @@ import java.util.Date;
 
 
 public class MedicalTestResult {
-	
 	private Date date;
 	private String type;
 	private Double result;
 	private String units;
 
 	public MedicalTestResult(Date date, String type, Double result, String units) {
-		
 		this.date = date;
 		this.type = type;
 		this.result = result;

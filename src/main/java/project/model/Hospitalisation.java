@@ -3,7 +3,6 @@ package project.model;
 import java.util.Date;
 
 public class Hospitalisation {
-
     private Date from;
     private Date to;
     private String reason;

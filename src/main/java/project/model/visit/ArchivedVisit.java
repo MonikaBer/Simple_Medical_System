@@ -6,18 +6,18 @@ import java.util.Date;
 
 public class ArchivedVisit extends Visit {
 
-    private String shortDescription;
+    private String description;
 
-    public ArchivedVisit(Date date, String type, Doctor doctor, String shortDescription) {
+    public ArchivedVisit(Date date, String type, Doctor doctor, String description) {
         super(date, type, doctor);
-        this.shortDescription = shortDescription;
+        this.description = description;
     }
 
-    public String getShortDescription() {
-        return shortDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
