@@ -6,14 +6,12 @@ public class Hospitalisation {
 
     private Date from;
     private Date to;
-    private String drugs;
-    private String conditions;
+    private String reason;
 
-    public Hospitalisation(Date from, Date to, String drugs, String conditions) {
+    public Hospitalisation(Date from, Date to, String reason) {
         this.from = from;
         this.to = to;
-        this.drugs = drugs;
-        this.conditions = conditions;
+        this.reason = reason;
     }
 
     public Date getFrom() {
@@ -32,19 +30,11 @@ public class Hospitalisation {
         this.to = to;
     }
 
-    public String getDrugs() {
-        return drugs;
+    public String getReason() {
+        return reason;
     }
 
-    public void setDrugs(String drugs) {
-        this.drugs = drugs;
-    }
-
-    public String getConditions() {
-        return conditions;
-    }
-
-    public void setConditions(String conditions) {
-        this.conditions = conditions;
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }

@@ -28,7 +28,7 @@ public class ActionPanel extends JPanel {
         this.archivedVisitsView = new ArchivedVisitsView(this);
         this.setArchivedVisitsViewVisibility(false);
         this.hospitalisationsView = new HospitalisationsView(this);
-        this.setHospitalisationsViewVisibility(true);
+        this.setHospitalisationsViewVisibility(false);
     }
 
     public void setPersonalDataViewVisibility(boolean isVisible) {
