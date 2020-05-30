@@ -7,46 +7,7 @@ public class PersonalDataView implements ActionPanelViews {
     private JLabel lName, lSurname, lPesel, lInsurance, lAddress;
     private JTextField tName, tSurname, tPesel, tAddress;
     private JComboBox<String> cbInsurance;
-
-    public JTextField gettName() {
-        return tName;
-    }
-
-    public void settName(JTextField tName) {
-        this.tName = tName;
-    }
-
-    public JTextField gettSurname() {
-        return tSurname;
-    }
-
-    public void settSurname(JTextField tSurname) {
-        this.tSurname = tSurname;
-    }
-
-    public JTextField gettPesel() {
-        return tPesel;
-    }
-
-    public void settPesel(JTextField tPesel) {
-        this.tPesel = tPesel;
-    }
-
-    public JTextField gettAddress() {
-        return tAddress;
-    }
-
-    public void settAddress(JTextField tAddress) {
-        this.tAddress = tAddress;
-    }
-
-    public JComboBox<String> getCbInsurance() {
-        return cbInsurance;
-    }
-
-    public void setCbInsurance(JComboBox<String> cbInsurance) {
-        this.cbInsurance = cbInsurance;
-    }
+    private JButton bSave;
 
     public PersonalDataView(JPanel actionPanel) {
         this.lName = new JLabel("Imię:");
@@ -91,6 +52,10 @@ public class PersonalDataView implements ActionPanelViews {
         this.tAddress.setBounds(250, 250, 150, 20);
         actionPanel.add(this.tAddress);
 
+        this.bSave = new JButton("Zapisz");
+        this.bSave.setBounds(150, 325, 100, 20);
+        actionPanel.add(this.bSave);
+
         this.setVisibility(false);
     }
 
@@ -102,24 +67,64 @@ public class PersonalDataView implements ActionPanelViews {
             this.lPesel.setVisible(true);
             this.lInsurance.setVisible(true);
             this.lAddress.setVisible(true);
-
             this.tName.setVisible(true);
             this.tSurname.setVisible(true);
             this.tPesel.setVisible(true);
             this.cbInsurance.setVisible(true);
             this.tAddress.setVisible(true);
+            this.bSave.setVisible(true);
         } else{
             this.lName.setVisible(false);
             this.lSurname.setVisible(false);
             this.lPesel.setVisible(false);
             this.lInsurance.setVisible(false);
             this.lAddress.setVisible(false);
-
             this.tName.setVisible(false);
             this.tSurname.setVisible(false);
             this.tPesel.setVisible(false);
             this.cbInsurance.setVisible(false);
             this.tAddress.setVisible(false);
+            this.bSave.setVisible(false);
         }
+    }
+
+    public JTextField gettName() {
+        return tName;
+    }
+
+    public void settName(JTextField tName) {
+        this.tName = tName;
+    }
+
+    public JTextField gettSurname() {
+        return tSurname;
+    }
+
+    public void settSurname(JTextField tSurname) {
+        this.tSurname = tSurname;
+    }
+
+    public JTextField gettPesel() {
+        return tPesel;
+    }
+
+    public void settPesel(JTextField tPesel) {
+        this.tPesel = tPesel;
+    }
+
+    public JTextField gettAddress() {
+        return tAddress;
+    }
+
+    public void settAddress(JTextField tAddress) {
+        this.tAddress = tAddress;
+    }
+
+    public JComboBox<String> getCbInsurance() {
+        return cbInsurance;
+    }
+
+    public void setCbInsurance(JComboBox<String> cbInsurance) {
+        this.cbInsurance = cbInsurance;
     }
 }

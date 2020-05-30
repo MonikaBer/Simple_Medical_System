@@ -20,9 +20,9 @@ public class ActionPanel extends JPanel {
         this.setPreferredSize(new Dimension(x,y));
 
         this.personalDataView = new PersonalDataView(this);
-        this.setPersonalDataViewVisibility(true);
+        this.setPersonalDataViewVisibility(false);
         this.scheduledVisitsView = new ScheduledVisitsView(this);
-        this.setScheduledVisitsViewVisibility(false);
+        this.setScheduledVisitsViewVisibility(true);
         this.medicalTestsResultsView = new MedicalTestsResultsView(this);
         this.setMedicalTestsResultsViewVisibility(false);
         this.archivedVisitsView = new ArchivedVisitsView(this);
