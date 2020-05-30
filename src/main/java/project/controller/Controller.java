@@ -1,5 +1,6 @@
 package project.controller;
 
+import project.Database;
 import project.interfaces.ViewListener;
 import project.view.View;
 import project.view.windows.mainWindow.MainWindow;
@@ -16,21 +17,17 @@ public class Controller implements ViewListener {
 	private VisitAdditionWindow visitAdditionWindow = null;
 	private MedicalTestResultAdditionWindow medicalTestResultAdditionWindow = null;
 	private HospitalisationAdditionWindow hospitalisationAdditionWindow = null;
-    //private Model model = null;
+    private Database database = null;
     
-//    public Controller(View v, Model m) {
-//    	this.view = v;
-//    	this.model = m;
-//    }
-
-	public Controller(View view) {
+    public Controller(View view, Database database) {
 		this.mainWindow = view.getMainWindow();
 		this.patientsListWindow = view.getPatientsListWindow();
 		this.newPatientAdditionWindow = view.getNewPatientAdditionWindow();
 		this.visitAdditionWindow = view.getVisitAdditionWindow();
 		this.medicalTestResultAdditionWindow = view.getMedicalTestResultAdditionWindow();
 		this.hospitalisationAdditionWindow = view.getHospitalisationAdditionWindow();
-	}
+    	this.database = database;
+    }
 
 	@Override
 	public void viewChanged(JFrame window, Object source) {

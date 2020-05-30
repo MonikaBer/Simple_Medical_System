@@ -131,41 +131,69 @@ public class Database {
 
     public void addPatient(Patient patient) throws SQLException {
         this.statement.execute("INSERT INTO PATIENTS (name, surname, pesel, insurance, address) VALUES" +
-                "("+ patient.getName() + "," + patient.getSurname() + "," + patient.getPesel() + "," +
-                patient.getInsurance() + "," + patient.getAddress() + ")");
+                "('"+ patient.getName() + "','" + patient.getSurname() + "','" + patient.getPesel() + "','" +
+                patient.getInsurance() + "','" + patient.getAddress() + "')");
     }
 
     public void addDoctor(Doctor doctor) throws SQLException {
         this.statement.execute("INSERT INTO DOCTORS (name, surname, pesel, specialisation) VALUES" +
-                "("+ doctor.getName() + "," + doctor.getSurname() + "," + doctor.getPesel() + "," +
-                doctor.getSpecialisation() + ")");
+                "('"+ doctor.getName() + "','" + doctor.getSurname() + "','" + doctor.getPesel() + "','" +
+                doctor.getSpecialisation() + "')");
     }
 
     public void addMedicalTestResult(Patient patient, MedicalTestResult medicalTestResult) throws SQLException {
         this.statement.execute("INSERT INTO DOCTORS (data, type, result, pesel) VALUES" +
-                "("+ medicalTestResult.getDate() + "," + medicalTestResult.getType() + "," +
-                medicalTestResult.getResult() + "," + patient.getPesel() + ")");
+                "('"+ medicalTestResult.getDate() + "','" + medicalTestResult.getType() + "','" +
+                medicalTestResult.getResult() + "','" + patient.getPesel() + "')");
     }
 
     public void addScheduledVisit(Patient patient, ScheduledVisit scheduledVisit) throws SQLException {
         this.statement.execute("INSERT INTO SCHEDULED_VISITS (data, time, type, payment, patient_pesel, " +
-                "doctor_pesel)" + " VALUES" + "("+ scheduledVisit.getDate() + "," + scheduledVisit.getTime() +
-                "," + scheduledVisit.getType() + "," + scheduledVisit.getDoctor() + "," +
-                scheduledVisit.getPayment() + "," + patient.getPesel() + "," +
-                scheduledVisit.getDoctor().getPesel() + ")");
+                "doctor_pesel)" + " VALUES" + "('"+ scheduledVisit.getDate() + "','" + scheduledVisit.getTime() +
+                "','" + scheduledVisit.getType() + "','" + scheduledVisit.getDoctor() + "','" +
+                scheduledVisit.getPayment() + "','" + patient.getPesel() + "','" +
+                scheduledVisit.getDoctor().getPesel() + "')");
     }
 
     public void addArchivedVisit(Patient patient, ArchivedVisit archivedVisit) throws SQLException {
         this.statement.execute("INSERT INTO ARCHIVED_VISITS (data, type, description, patient_pesel, " +
-                "doctor_pesel)" + " VALUES" + "("+ archivedVisit.getDate() + "," + archivedVisit.getType()
-                + "," + archivedVisit.getDoctor() + "," + archivedVisit.getDescription() + "," +
-                patient.getPesel() + "," + archivedVisit.getDoctor().getPesel()+ ")");
+                "doctor_pesel)" + " VALUES" + "('"+ archivedVisit.getDate() + "','" + archivedVisit.getType()
+                + "','" + archivedVisit.getDoctor() + "','" + archivedVisit.getDescription() + "','" +
+                patient.getPesel() + "','" + archivedVisit.getDoctor().getPesel()+ "')");
     }
 
     public void addHospitalisation(Patient patient, Hospitalisation hospitalisation) throws SQLException {
         this.statement.execute("INSERT INTO HOSPITALISATIONS (dateFrom, dateTo, reason, pesel) VALUES" +
-                "("+ hospitalisation.getFrom() + "," + hospitalisation.getTo() + "," +
-                hospitalisation.getReason() + "," + patient.getPesel() + ")");
+                "'('"+ hospitalisation.getFrom() + "','" + hospitalisation.getTo() + "','" +
+                hospitalisation.getReason() + "','" + patient.getPesel() + "')");
+    }
+
+    public void deletePatient(String pesel) throws SQLException {
+        this.statement.execute("DELETE FROM PATIENTS WHERE pesel='" + pesel + "'");
+    }
+
+    public void deleteDoctor(String pesel) throws SQLException {
+        this.statement.execute("DELETE FROM DOCTORS WHERE pesel='" + pesel + "'");
+    }
+
+    public void deleteMedicalTestResult(String pesel, String date, String type) throws SQLException {
+        this.statement.execute("DELETE FROM MEDICAL_TESTS_RESULTS WHERE pesel='" + pesel + "' AND date='" +
+                date + "' AND type='" + type + "'");
+    }
+
+    public void deleteScheduledVisit(String patientPesel, String date, String time) throws SQLException {
+        this.statement.execute("DELETE FROM SCHEDULED_VISITS WHERE patient_pesel='" + patientPesel +
+                "' AND date='" + date + "' AND time='" + time + "'");
+    }
+
+    public void deleteArchivedVisit(String patientPesel, String date, String doctorPesel) throws SQLException {
+        this.statement.execute("DELETE FROM ARCHIVED_VISITS WHERE patient_pesel='" + patientPesel +
+                "' AND doctor_pesel='" + doctorPesel + "'AND date='" + date + "'");
+    }
+
+    public void deleteHospitalisation(String pesel, String dateFrom, String dateTo) throws SQLException {
+        this.statement.execute("DELETE FROM HOSPITALISATIONS WHERE pesel='" + pesel + "' AND dateFrom='" +
+                dateFrom + "' AND dateTo='" + dateTo + "'");
     }
 
     public void printPatients() throws SQLException {

@@ -19,26 +19,36 @@ public class Main {
 			public void run() {
 				View view = new View();
 				//Model model = new Model();
-				//Controller controller = new Controller(view, model);
-				Controller controller = new Controller(view);
-				view.getMainWindow().addListener(controller);
-				view.getPatientsListWindow().addListener(controller);
-				view.getNewPatientAdditionWindow().addListener(controller);
-				view.getVisitAdditionWindow().addListener(controller);
-				view.getMedicalTestResultAdditionWindow().addListener(controller);
-				view.getHospitalisationAdditionWindow().addListener(controller);
-
-				//database tests
 				try {
 					Database database = new Database();
-//					database.addPatient(new Patient("Filip", "Kalski", "11111111111",
-//							"NFZ", "ul. Komputerowa, Warszawa"));
-//					database.addPatient(new Patient("Aleksandra", "Kowalska", "22222222222",
-//							"Prywatne", "ul. Krakowska 33 Poznań"));
-//					database.printPatients();
-				} catch (ClassNotFoundException | SQLException e) {
+					Controller controller = new Controller(view, database);
+					view.getMainWindow().addListener(controller);
+					view.getPatientsListWindow().addListener(controller);
+					view.getNewPatientAdditionWindow().addListener(controller);
+					view.getVisitAdditionWindow().addListener(controller);
+					view.getMedicalTestResultAdditionWindow().addListener(controller);
+					view.getHospitalisationAdditionWindow().addListener(controller);
+				}
+				catch (ClassNotFoundException | SQLException e) {
 					e.printStackTrace();
 				}
+
+				//database tests
+//				try {
+//					Database database = new Database();
+//
+//					//INSERT_AND_DELETE_PATIENT_TEST
+////					database.addPatient(new Patient("Filip", "Kalski", "11111111111",
+////							"NFZ", "ul. Komputerowa, Warszawa"));
+////					database.addPatient(new Patient("Aleksandra", "Kowalska", "22222222222",
+////							"Prywatne", "ul. Krakowska 33 Poznań"));
+//
+//					//database.deletePatient("11111111111");
+//					//database.deletePatient("22222222222");
+//					//database.printPatients();
+//				} catch (ClassNotFoundException | SQLException e) {
+//					e.printStackTrace();
+//				}
 			}
 		};
 		SwingUtilities.invokeLater(program);
