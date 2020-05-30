@@ -21,11 +21,23 @@
     </repositories>
 
     <dependencies>
-      <dependency>
-        <groupId>com.toedter</groupId>
-        <artifactId>jcalendar</artifactId>
-        <version>1.4</version>
-      </dependency>
+        <dependency>
+          <groupId>com.toedter</groupId>
+          <artifactId>jcalendar</artifactId>
+          <version>1.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>10.13.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>4.3.7.RELEASE</version>
+        </dependency>
     </dependencies>
 
     <build>
