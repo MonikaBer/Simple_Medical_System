@@ -5,3 +5,5 @@ Program for managing patient's medical information (personal data, dates and typ
 Java 11, Swing, Maven
 
 ## Usage
+mvn package
+java -jar ./target/project-1.0.0.jar
