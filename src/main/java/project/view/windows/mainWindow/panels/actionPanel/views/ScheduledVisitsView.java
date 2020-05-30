@@ -1,11 +1,8 @@
 package project.view.windows.mainWindow.panels.actionPanel.views;
 
-import project.model.person.Doctor;
 import project.model.visit.ScheduledVisit;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.util.Date;
 
 public class ScheduledVisitsView implements ActionPanelViews {
 

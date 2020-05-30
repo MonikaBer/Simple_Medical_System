@@ -24,11 +24,11 @@ public class ActionPanel extends JPanel {
         this.scheduledVisitsView = new ScheduledVisitsView(this);
         this.setScheduledVisitsViewVisibility(false);
         this.medicalTestsResultsView = new MedicalTestsResultsView(this);
-        this.setMedicalTestsResultsViewVisibility(true);
+        this.setMedicalTestsResultsViewVisibility(false);
         this.archivedVisitsView = new ArchivedVisitsView(this);
         this.setArchivedVisitsViewVisibility(false);
         this.hospitalisationsView = new HospitalisationsView(this);
-        this.setHospitalisationsViewVisibility(false);
+        this.setHospitalisationsViewVisibility(true);
     }
 
     public void setPersonalDataViewVisibility(boolean isVisible) {
