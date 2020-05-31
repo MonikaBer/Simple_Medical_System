@@ -6,6 +6,7 @@ import project.model.visit.ScheduledVisit;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 
 public class ArchivedVisitsView implements ActionPanelViews {
 
@@ -45,6 +46,19 @@ public class ArchivedVisitsView implements ActionPanelViews {
         actionPanel.add(this.bShowDesc);
 
         this.setVisibility(false);
+    }
+
+    public void loadPatientArchivedVisits(ArrayList<ArchivedVisit> archivedVisits) {
+        this.clearTabArchivedVisits();
+        for (int i = 0; i < archivedVisits.size(); i++) {
+            this.addArchivedVisit(archivedVisits.get(i));
+        }
+    }
+
+    public void clearTabArchivedVisits() {
+        for (int i = 0; i < this.tabArchivedVisits.getRowCount(); i++) {
+            this.tableModel.removeRow(i);
+        }
     }
 
     @Override

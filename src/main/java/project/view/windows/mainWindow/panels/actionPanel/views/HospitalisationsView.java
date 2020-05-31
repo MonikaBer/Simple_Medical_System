@@ -6,6 +6,7 @@ import project.model.visit.ScheduledVisit;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 
 public class HospitalisationsView implements ActionPanelViews {
 
@@ -48,6 +49,19 @@ public class HospitalisationsView implements ActionPanelViews {
         actionPanel.add(this.bShowDesc);
 
         this.setVisibility(false);
+    }
+
+    public void loadPatientHospitalisations(ArrayList<Hospitalisation> hospitalisations) {
+        this.clearTabHospitalisations();
+        for (int i = 0; i < hospitalisations.size(); i++) {
+            this.addHospitalisation(hospitalisations.get(i));
+        }
+    }
+
+    public void clearTabHospitalisations() {
+        for (int i = 0; i < this.tabHospitalisations.getRowCount(); i++) {
+            this.tableModel.removeRow(i);
+        }
     }
 
     @Override

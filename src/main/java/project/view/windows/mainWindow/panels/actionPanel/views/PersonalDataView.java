@@ -1,5 +1,7 @@
 package project.view.windows.mainWindow.panels.actionPanel.views;
 
+import project.model.person.Patient;
+
 import javax.swing.*;
 
 public class PersonalDataView implements ActionPanelViews {
@@ -61,6 +63,14 @@ public class PersonalDataView implements ActionPanelViews {
         actionPanel.add(this.bSave);
 
         this.setVisibility(false);
+    }
+
+    public void loadPatientPersonalData(Patient patient) {
+        this.tName.setText(patient.getName());
+        this.tSurname.setText(patient.getSurname());
+        this.tPesel.setText(patient.getPesel());
+        this.setInsurance(patient.getInsurance());
+        this.tAddress.setText(patient.getAddress());
     }
 
     @Override

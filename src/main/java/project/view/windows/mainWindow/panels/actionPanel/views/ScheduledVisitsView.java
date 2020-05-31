@@ -1,9 +1,11 @@
 package project.view.windows.mainWindow.panels.actionPanel.views;
 
+import project.model.MedicalTestResult;
 import project.model.person.Doctor;
 import project.model.visit.ScheduledVisit;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ScheduledVisitsView implements ActionPanelViews {
@@ -66,6 +68,19 @@ public class ScheduledVisitsView implements ActionPanelViews {
             this.bArchive.setVisible(false);
             this.bAdd.setVisible(false);
             this.bDelete.setVisible(false);
+        }
+    }
+
+    public void loadPatientScheduledVisits(ArrayList<ScheduledVisit> scheduledVisits) {
+        this.clearTabScheduledVisits();
+        for (int i = 0; i < scheduledVisits.size(); i++) {
+            this.addScheduledVisit(scheduledVisits.get(i));
+        }
+    }
+
+    public void clearTabScheduledVisits() {
+        for (int i = 0; i < this.tabScheduledVisits.getRowCount(); i++) {
+            this.tableModel.removeRow(i);
         }
     }
 

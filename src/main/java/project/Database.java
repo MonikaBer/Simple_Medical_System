@@ -16,6 +16,7 @@ public class Database {
     private DatabaseMetaData dbmd = null;
     private Statement statement = null;
     private ResultSet result = null;
+    private ResultSet result2 = null;
 
     public Database() throws ClassNotFoundException, SQLException {
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -222,6 +223,58 @@ public class Database {
                     this.result.getString("address")));
         }
         return patients;
+    }
+
+    public ArrayList<MedicalTestResult> getPatientMedicalTestResults(String pesel) throws SQLException {
+        ArrayList<MedicalTestResult> medicalTestResults = new ArrayList<>();
+        this.result = this.statement.executeQuery("SELECT * FROM MEDICAL_TESTS_RESULTS WHERE pesel='" + pesel + "'");
+        while (this.result.next()) {
+            medicalTestResults.add(new MedicalTestResult(this.result.getString("date"),
+                    this.result.getString("type"), Double.parseDouble(this.result.getString("result")),
+                    this.result.getString("units")));
+        }
+        return medicalTestResults;
+    }
+
+    public ArrayList<ScheduledVisit> getPatientScheduledVisits(String pesel) throws SQLException {
+        ArrayList<ScheduledVisit> scheduledVisits = new ArrayList<>();
+        this.result = this.statement.executeQuery("SELECT * FROM SCHEDULED_VISITS WHERE patient_pesel='" +
+                pesel + "'");
+        while (this.result.next()) {
+            this.result2 = this.statement.executeQuery("SELECT * FROM DOCTORS WHERE pesel='" +
+                    this.result.getString("doctor_pesel") + "'");
+            Doctor doctor = new Doctor(this.result2.getString("name"), this.result2.getString("surname"),
+                    this.result2.getString("pesel"), this.result2.getString("specialisation"));
+            scheduledVisits.add(new ScheduledVisit(this.result.getString("date"),
+                    this.result.getString("time"), this.result.getString("type"),
+                    doctor, Double.parseDouble(this.result.getString("payment"))));
+        }
+        return scheduledVisits;
+    }
+
+    public ArrayList<ArchivedVisit> getPatientArchivedVisits(String pesel) throws SQLException {
+        ArrayList<ArchivedVisit> archivedVisits = new ArrayList<>();
+        this.result = this.statement.executeQuery("SELECT * FROM ARCHIVED_VISITS WHERE patient_pesel='" +
+                pesel + "'");
+        while (this.result.next()) {
+            this.result2 = this.statement.executeQuery("SELECT * FROM DOCTORS WHERE pesel='" +
+                    this.result.getString("doctor_pesel") + "'");
+            Doctor doctor = new Doctor(this.result2.getString("name"), this.result2.getString("surname"),
+                    this.result2.getString("pesel"), this.result2.getString("specialisation"));
+            archivedVisits.add(new ArchivedVisit(this.result.getString("date"),
+                    this.result.getString("type"), doctor, this.result.getString("description")));
+        }
+        return archivedVisits;
+    }
+
+    public ArrayList<Hospitalisation> getPatientHospitalisations(String pesel) throws SQLException {
+        ArrayList<Hospitalisation> hospitalisations = new ArrayList<>();
+        this.result = this.statement.executeQuery("SELECT * FROM HOSPITALISATIONS WHERE pesel='" + pesel + "'");
+        while (this.result.next()) {
+            hospitalisations.add(new Hospitalisation(this.result.getString("dateFrom"),
+                    this.result.getString("dateTo"), this.result.getString("reason")));
+        }
+        return hospitalisations;
     }
 
     public void printPatients() throws SQLException {

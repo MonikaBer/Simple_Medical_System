@@ -14,7 +14,6 @@ import project.view.windows.otherWindows.*;
 
 import javax.swing.*;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 
 public class Controller implements ViewListener {
@@ -172,6 +171,8 @@ public class Controller implements ViewListener {
 				if (!pesel.equals("")) {
 					if (this.database.ifPatientExist(pesel)) {
 						chosenPatient = this.database.getPatient(pesel);
+						this.mainWindow.getAboutPatientPanel().setPatientInfo(chosenPatient);
+						this.mainWindow.getActionPanel().loadPatientData(chosenPatient, this.database);
 						this.patientsListWindow.setVisible(false);
 						this.mainWindow.setEnabled(true);
 					} else {
@@ -184,6 +185,8 @@ public class Controller implements ViewListener {
 							getSelectedRow());
 					if(this.patientsListWindow.getRowSelectedNr() != -1) {
 						chosenPatient = this.patientsListWindow.getPatient();
+						this.mainWindow.getAboutPatientPanel().setPatientInfo(chosenPatient);
+						this.mainWindow.getActionPanel().loadPatientData(chosenPatient, this.database);
 						this.patientsListWindow.setVisible(false);
 						this.mainWindow.setEnabled(true);
 					}
@@ -201,6 +204,8 @@ public class Controller implements ViewListener {
 				String address = this.newPatientAdditionWindow.gettAddress().getText();
 				//TODO: check inscribed data
 				chosenPatient = new Patient(name, surname, pesel, insurance, address);
+				this.mainWindow.getAboutPatientPanel().setPatientInfo(chosenPatient);
+				this.mainWindow.getActionPanel().loadPatientData(chosenPatient, this.database);
 				database.addPatient(chosenPatient);
 				//clear incribed data in patientsListWindow and newPatientAdditionWindow
 				this.patientsListWindow.clear();

@@ -1,9 +1,17 @@
 package project.view.windows.mainWindow.panels.actionPanel;
 
+import project.Database;
+import project.model.Hospitalisation;
+import project.model.MedicalTestResult;
+import project.model.person.Patient;
+import project.model.visit.ArchivedVisit;
+import project.model.visit.ScheduledVisit;
 import project.view.windows.mainWindow.panels.actionPanel.views.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ActionPanel extends JPanel {
 
@@ -24,6 +32,18 @@ public class ActionPanel extends JPanel {
         this.medicalTestsResultsView = new MedicalTestsResultsView(this);
         this.archivedVisitsView = new ArchivedVisitsView(this);
         this.hospitalisationsView = new HospitalisationsView(this);
+    }
+
+    public void loadPatientData(Patient patient, Database database) throws SQLException {
+        this.personalDataView.loadPatientPersonalData(patient);
+        ArrayList<MedicalTestResult> medicalTestsResults = database.getPatientMedicalTestResults(patient.getPesel());
+        this.medicalTestsResultsView.loadPatientMedicalTestsResults(medicalTestsResults);
+        ArrayList <ScheduledVisit> scheduledVisits = database.getPatientScheduledVisits(patient.getPesel());
+        this.scheduledVisitsView.loadPatientScheduledVisits(scheduledVisits);
+        ArrayList<ArchivedVisit> archivedVisits = database.getPatientArchivedVisits(patient.getPesel());
+        this.archivedVisitsView.loadPatientArchivedVisits(archivedVisits);
+        ArrayList<Hospitalisation> hospitalisations = database.getPatientHospitalisations(patient.getPesel());
+        this.hospitalisationsView.loadPatientHospitalisations(hospitalisations);
     }
 
     public void setPersonalDataViewVisibility(boolean isVisible) {
