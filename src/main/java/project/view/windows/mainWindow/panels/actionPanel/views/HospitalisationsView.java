@@ -1,6 +1,8 @@
 package project.view.windows.mainWindow.panels.actionPanel.views;
 
 import project.model.Hospitalisation;
+import project.model.person.Doctor;
+import project.model.visit.ScheduledVisit;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -72,6 +74,13 @@ public class HospitalisationsView implements ActionPanelViews {
 
     public void deleteHospitalisation() {
         this.tableModel.removeRow(this.rowSelectedNr);
+    }
+
+    public Hospitalisation getHospitalisation() {
+        String from = this.tableModel.getValueAt(this.rowSelectedNr, 0).toString();
+        String to = this.tableModel.getValueAt(this.rowSelectedNr, 1).toString();
+        String reason = this.tableModel.getValueAt(this.rowSelectedNr, 2).toString();
+        return new Hospitalisation(from, to, reason);
     }
 
     public void showHospitalisationDescription() {

@@ -2,6 +2,8 @@ package project.controller;
 
 import project.Database;
 import project.interfaces.ViewListener;
+import project.model.Hospitalisation;
+import project.model.MedicalTestResult;
 import project.model.person.Patient;
 import project.model.visit.ArchivedVisit;
 import project.model.visit.ScheduledVisit;
@@ -32,6 +34,8 @@ public class Controller implements ViewListener {
 		this.medicalTestResultAdditionWindow = view.getMedicalTestResultAdditionWindow();
 		this.hospitalisationAdditionWindow = view.getHospitalisationAdditionWindow();
     	this.database = database;
+
+
     }
 
 	@Override
@@ -94,24 +98,66 @@ public class Controller implements ViewListener {
 			}
 			else if (source == this.mainWindow.getActionPanel().getScheduledVisitsView().getbDelete()) {
 				//delete this visit
+				this.mainWindow.getActionPanel().getScheduledVisitsView().
+						setRowSelectedNr(this.mainWindow.getActionPanel().getScheduledVisitsView().
+								getTabScheduledVisits().getSelectedRow());
+				if(this.mainWindow.getActionPanel().getScheduledVisitsView().getRowSelectedNr() != -1) {
+					ScheduledVisit scheduledVisit = this.mainWindow.getActionPanel().getScheduledVisitsView().
+							getScheduledVisit();
+					this.mainWindow.getActionPanel().getScheduledVisitsView().deleteScheduledVisit();
+					database.deleteScheduledVisit(chosenPatient.getPesel(), scheduledVisit.getDate(),
+							scheduledVisit.getTime());
+				}
 			}
 			else if (source == this.mainWindow.getActionPanel().getMedicalTestsResultsView().getbAdd()) {
 				this.medicalTestResultAdditionWindow.setVisible(true);
+				this.mainWindow.setEnabled(false);
 			}
 			else if (source == this.mainWindow.getActionPanel().getMedicalTestsResultsView().getbDelete()) {
 				//delete this medical test result
+				this.mainWindow.getActionPanel().getMedicalTestsResultsView().
+						setRowSelectedNr(this.mainWindow.getActionPanel().getMedicalTestsResultsView().
+								getTabMedicalTestsResults().getSelectedRow());
+				if(this.mainWindow.getActionPanel().getMedicalTestsResultsView().getRowSelectedNr() != -1) {
+					MedicalTestResult medicalTestResult = this.mainWindow.getActionPanel().getMedicalTestsResultsView().
+							getMedicalTestResult();
+					this.mainWindow.getActionPanel().getMedicalTestsResultsView().deleteMedicalTestResult();
+					database.deleteMedicalTestResult(chosenPatient.getPesel(), medicalTestResult.getDate(),
+							medicalTestResult.getType());
+				}
 			}
 			else if (source == this.mainWindow.getActionPanel().getArchivedVisitsView().getbDelete()) {
 				//delete this archived visit
+				this.mainWindow.getActionPanel().getArchivedVisitsView().
+						setRowSelectedNr(this.mainWindow.getActionPanel().getArchivedVisitsView().
+								getTabArchivedVisits().getSelectedRow());
+				if(this.mainWindow.getActionPanel().getArchivedVisitsView().getRowSelectedNr() != -1) {
+					ArchivedVisit archivedVisit = this.mainWindow.getActionPanel().getArchivedVisitsView().
+							getArchivedVisit();
+					this.mainWindow.getActionPanel().getArchivedVisitsView().deleteArchivedVisit();
+					database.deleteArchivedVisit(chosenPatient.getPesel(), archivedVisit.getDate(),
+							archivedVisit.getDoctor().getPesel());
+				}
 			}
 			else if (source == this.mainWindow.getActionPanel().getArchivedVisitsView().getbShowDesc()) {
 				//show description from this archived visit
 			}
 			else if (source == this.mainWindow.getActionPanel().getHospitalisationsView().getbAdd()) {
 				this.hospitalisationAdditionWindow.setVisible(true);
+				this.mainWindow.setEnabled(false);
 			}
 			else if (source == this.mainWindow.getActionPanel().getHospitalisationsView().getbDelete()) {
 				//delete this hospitalisation
+				this.mainWindow.getActionPanel().getHospitalisationsView().
+						setRowSelectedNr(this.mainWindow.getActionPanel().getHospitalisationsView().
+								getTabHospitalisations().getSelectedRow());
+				if(this.mainWindow.getActionPanel().getHospitalisationsView().getRowSelectedNr() != -1) {
+					Hospitalisation hospitalisation = this.mainWindow.getActionPanel().getHospitalisationsView().
+							getHospitalisation();
+					this.mainWindow.getActionPanel().getHospitalisationsView().deleteHospitalisation();
+					database.deleteHospitalisation(chosenPatient.getPesel(), hospitalisation.getFrom(),
+							hospitalisation.getTo());
+				}
 			}
 			else if (source == this.mainWindow.getActionPanel().getHospitalisationsView().getbShowDesc()) {
 				//show description from this hospitalisation

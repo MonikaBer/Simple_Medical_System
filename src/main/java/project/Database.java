@@ -8,6 +8,7 @@ import project.model.visit.ArchivedVisit;
 import project.model.visit.ScheduledVisit;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Database {
 
@@ -203,6 +204,17 @@ public class Database {
         } else {
             return true;
         }
+    }
+
+    public ArrayList<Patient> getPatients() throws SQLException {
+        ArrayList<Patient> patients = new ArrayList<>();
+        this.result = this.statement.executeQuery("SELECT * FROM PATIENTS");
+        while (this.result.next()) {
+            patients.add(new Patient(this.result.getString("name"), this.result.getString("surname"),
+                    this.result.getString("pesel"), this.result.getString("insurance"),
+                    this.result.getString("address")));
+        }
+        return patients;
     }
 
     public void printPatients() throws SQLException {
