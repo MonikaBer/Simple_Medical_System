@@ -199,7 +199,8 @@ public class Database {
     }
 
     public boolean ifPatientExist(String pesel) throws SQLException {
-        this.result = this.statement.executeQuery("SELECT FROM HOSPITALISATIONS WHERE pesel='" + pesel + "'");
+        System.out.println("aaaaa");
+        this.result = this.statement.executeQuery("SELECT * FROM PATIENTS WHERE pesel='" + pesel + "'");
         if (!this.result.next()) {
             return false;
         } else {

@@ -75,6 +75,7 @@ public class Controller implements ViewListener {
 					database.deletePatient(chosenPatient.getPesel());
 				}
 				database.addPatient(chosenPatient);
+				this.mainWindow.getAboutPatientPanel().setPatientInfo(chosenPatient);
 			}
 			else if (source == this.mainWindow.getActionPanel().getScheduledVisitsView().getbArchive()) {
 				//archive this visit
@@ -206,6 +207,7 @@ public class Controller implements ViewListener {
 				chosenPatient = new Patient(name, surname, pesel, insurance, address);
 				this.mainWindow.getAboutPatientPanel().setPatientInfo(chosenPatient);
 				this.mainWindow.getActionPanel().loadPatientData(chosenPatient, this.database);
+				this.patientsListWindow.addPatient(chosenPatient);
 				database.addPatient(chosenPatient);
 				//clear incribed data in patientsListWindow and newPatientAdditionWindow
 				this.patientsListWindow.clear();
