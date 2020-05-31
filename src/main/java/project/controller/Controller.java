@@ -13,6 +13,7 @@ import project.view.windows.otherWindows.*;
 
 import javax.swing.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class Controller implements ViewListener {
@@ -26,7 +27,7 @@ public class Controller implements ViewListener {
     private Database database = null;
     private Patient chosenPatient = null;
     
-    public Controller(View view, Database database) {
+    public Controller(View view, Database database) throws SQLException {
 		this.mainWindow = view.getMainWindow();
 		this.patientsListWindow = view.getPatientsListWindow();
 		this.newPatientAdditionWindow = view.getNewPatientAdditionWindow();
@@ -35,7 +36,7 @@ public class Controller implements ViewListener {
 		this.hospitalisationAdditionWindow = view.getHospitalisationAdditionWindow();
     	this.database = database;
 
-
+		this.patientsListWindow.loadPatients(this.database.getPatients());
     }
 
 	@Override

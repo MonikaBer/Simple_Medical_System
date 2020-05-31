@@ -1,6 +1,7 @@
 package project.view.windows.otherWindows;
 
 import project.interfaces.ViewListener;
+import project.model.person.Patient;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -9,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class PatientsListWindow extends JFrame implements ActionListener, MouseListener {
 
@@ -89,6 +91,16 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
 
     public void setRowSelectedNr(int rowSelectedNr) {
         this.rowSelectedNr = rowSelectedNr;
+    }
+
+    public void loadPatients(ArrayList<Patient> patients) {
+        for (int i = 0; i < patients.size(); i++) {
+            this.addPatient(patients.get(i));
+        }
+    }
+
+    public void addPatient(Patient patient) {
+        this.tableModel.addRow(new Object[]{patient.getName(), patient.getSurname(), patient.getPesel()});
     }
 
     //listeners management
