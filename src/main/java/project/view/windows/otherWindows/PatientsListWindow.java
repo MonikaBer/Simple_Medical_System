@@ -1,6 +1,7 @@
 package project.view.windows.otherWindows;
 
 import project.interfaces.ViewListener;
+import project.model.MedicalTestResult;
 import project.model.person.Patient;
 
 import javax.swing.*;
@@ -101,6 +102,17 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
 
     public void addPatient(Patient patient) {
         this.tableModel.addRow(new Object[]{patient.getName(), patient.getSurname(), patient.getPesel()});
+    }
+
+    public Patient getPatient() {
+        String name = this.tableModel.getValueAt(this.rowSelectedNr, 0).toString();
+        String surname = this.tableModel.getValueAt(this.rowSelectedNr, 1).toString();
+        String pesel = this.tableModel.getValueAt(this.rowSelectedNr, 2).toString();
+        return new Patient(name, surname, pesel, "", "");
+    }
+
+    public void clear() {
+        this.tPesel.setText("");
     }
 
     //listeners management

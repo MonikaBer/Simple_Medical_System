@@ -206,6 +206,13 @@ public class Database {
         }
     }
 
+    public Patient getPatient(String pesel) throws SQLException {
+        this.result = this.statement.executeQuery("SELECT * FROM PATIENTS WHERE pesel='" + pesel + "'");
+        return new Patient(this.result.getString("name"), this.result.getString("surname"),
+                this.result.getString("pesel"), this.result.getString("insurance"),
+                this.result.getString("address"));
+    }
+
     public ArrayList<Patient> getPatients() throws SQLException {
         ArrayList<Patient> patients = new ArrayList<>();
         this.result = this.statement.executeQuery("SELECT * FROM PATIENTS");

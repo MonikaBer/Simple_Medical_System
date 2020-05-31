@@ -4,6 +4,7 @@ import project.Database;
 import project.interfaces.ViewListener;
 import project.model.Hospitalisation;
 import project.model.MedicalTestResult;
+import project.model.person.Doctor;
 import project.model.person.Patient;
 import project.model.visit.ArchivedVisit;
 import project.model.visit.ScheduledVisit;
@@ -167,16 +168,44 @@ public class Controller implements ViewListener {
 
 		else if (window == this.patientsListWindow) {
 			if (source == this.patientsListWindow.getbChoose()) {
-				//TODO: add ChooseDialog
-				this.newPatientAdditionWindow.setVisible(true);
-				this.patientsListWindow.setEnabled(false);
+				String pesel = this.patientsListWindow.gettPesel().getText();
+				if (!pesel.equals("")) {
+					if (this.database.ifPatientExist(pesel)) {
+						chosenPatient = this.database.getPatient(pesel);
+						this.patientsListWindow.setVisible(false);
+						this.mainWindow.setEnabled(true);
+					} else {
+						//TODO: add ChooseDialog "Czy chcesz dodać nowego pacjenta?"
+						this.newPatientAdditionWindow.setVisible(true);
+						this.patientsListWindow.setEnabled(false);
+					}
+				} else {
+					this.patientsListWindow.setRowSelectedNr(this.patientsListWindow.getTabPatientsList().
+							getSelectedRow());
+					if(this.patientsListWindow.getRowSelectedNr() != -1) {
+						chosenPatient = this.patientsListWindow.getPatient();
+						this.patientsListWindow.setVisible(false);
+						this.mainWindow.setEnabled(true);
+					}
+				}
 			}
 		}
 
 		else if (window == this.newPatientAdditionWindow) {
 			if (source == this.newPatientAdditionWindow.getbSave()) {
+				//save new patient data
+				String name = this.newPatientAdditionWindow.gettName().getText();
+				String surname = this.newPatientAdditionWindow.gettSurname().getText();
+				String pesel = this.newPatientAdditionWindow.gettPesel().getText();
+				String insurance = this.newPatientAdditionWindow.getInsurance();
+				String address = this.newPatientAdditionWindow.gettAddress().getText();
 				//TODO: check inscribed data
-				//TODO: clear inscirbed data in newPatientAdditionWindow and patientsListWindow
+				chosenPatient = new Patient(name, surname, pesel, insurance, address);
+				database.addPatient(chosenPatient);
+				//clear incribed data in patientsListWindow and newPatientAdditionWindow
+				this.patientsListWindow.clear();
+				this.newPatientAdditionWindow.clear();
+				//
 				this.newPatientAdditionWindow.setVisible(false);
 				this.patientsListWindow.setVisible(false);
 				this.mainWindow.setEnabled(true);
@@ -185,8 +214,27 @@ public class Controller implements ViewListener {
 
 		else if (window == this.visitAdditionWindow) {
 			if (source == this.visitAdditionWindow.getbSave()) {
+				String date = this.visitAdditionWindow.gettDate().getText();
+				String time = this.visitAdditionWindow.gettTime().getText();
+				String type = this.visitAdditionWindow.gettType().getText();
+				String doctor = this.visitAdditionWindow.gettDoctor().getText();
+				int index = doctor.indexOf(" ");
+				String doctorName = doctor.substring(0, index).trim();
+				String doctorSurname = doctor.substring(index).trim();
+				Double payment = Double.parseDouble(this.visitAdditionWindow.gettPayment().getText());
 				//TODO: check inscribed data
-				//TODO: clear inscirbed data in this window
+				ScheduledVisit scheduledVisit = new ScheduledVisit(date, time, type, new Doctor(doctorName, doctorSurname,
+						"", ""), payment);
+				database.addPatient(chosenPatient);
+				//clear incribed data in patientsListWindow and newPatientAdditionWindow
+				this.patientsListWindow.clear();
+				this.newPatientAdditionWindow.clear();
+				//
+				this.newPatientAdditionWindow.setVisible(false);
+				this.patientsListWindow.setVisible(false);
+				this.mainWindow.setEnabled(true);
+
+
 				this.visitAdditionWindow.setVisible(false);
 				this.mainWindow.setEnabled(true);
 			}

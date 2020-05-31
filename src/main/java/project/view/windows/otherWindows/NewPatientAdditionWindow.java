@@ -86,8 +86,11 @@ public class NewPatientAdditionWindow extends JFrame implements ActionListener, 
         this.setVisible(false);
     }
 
-    public void setCbInsurance(JComboBox<String> cbInsurance) {
-        this.cbInsurance = cbInsurance;
+    public void clear() {
+        this.tName.setText("");
+        this.tSurname.setText("");
+        this.tPesel.setText("");
+        this.tAddress.setText("");
     }
 
     public JTextField gettName() {
@@ -106,8 +109,12 @@ public class NewPatientAdditionWindow extends JFrame implements ActionListener, 
         return tAddress;
     }
 
-    public JComboBox<String> getCbInsurance() {
-        return cbInsurance;
+    public String getInsurance() {
+        return cbInsurance.getSelectedItem().toString();
+    }
+
+    public void setInsurance(String insurance) {
+        this.cbInsurance.setSelectedItem(insurance);
     }
 
     public JButton getbSave() {

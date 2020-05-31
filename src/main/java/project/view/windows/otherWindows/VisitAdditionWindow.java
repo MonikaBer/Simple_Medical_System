@@ -14,9 +14,10 @@ public class VisitAdditionWindow extends JFrame implements ActionListener, Mouse
 
     private JLabel lDate;
     private JLabel lTime;
+    private JLabel lType;
     private JLabel lDoctor;
     private JLabel lPayment;
-    private JTextField tDate, tTime, tDoctor, tPayment;
+    private JTextField tDate, tTime, tType, tDoctor, tPayment;
     private JButton bSave;
 
     private ViewListener viewListener = null;
@@ -35,12 +36,16 @@ public class VisitAdditionWindow extends JFrame implements ActionListener, Mouse
         this.lTime.setBounds(50, 100, 200, 20);
         this.add(this.lTime);
 
+        this.lType = new JLabel("Rodzaj wizyty:");
+        this.lType.setBounds(50, 150, 200, 20);
+        this.add(this.lType);
+
         this.lDoctor = new JLabel("Imię i nazwisko lekarza:");
-        this.lDoctor.setBounds(50, 150, 200, 20);
+        this.lDoctor.setBounds(50, 200, 200, 20);
         this.add(this.lDoctor);
 
         this.lPayment = new JLabel("Płatność za wizytę [zł]:");
-        this.lPayment.setBounds(50, 200, 200, 20);
+        this.lPayment.setBounds(50, 250, 200, 20);
         this.add(this.lPayment);
 
         this.tDate = new JTextField();
@@ -51,16 +56,20 @@ public class VisitAdditionWindow extends JFrame implements ActionListener, Mouse
         this.tTime.setBounds(250, 100, 200, 20);
         this.add(this.tTime);
 
+        this.tType = new JTextField();
+        this.tType.setBounds(250, 150, 200, 20);
+        this.add(this.tType);
+
         this.tDoctor = new JTextField();
-        this.tDoctor.setBounds(250, 150, 200, 20);
+        this.tDoctor.setBounds(250, 200, 200, 20);
         this.add(this.tDoctor);
 
         this.tPayment = new JTextField();
-        this.tPayment.setBounds(250, 200, 200, 20);
+        this.tPayment.setBounds(250, 250, 200, 20);
         this.add(this.tPayment);
 
         this.bSave = new JButton("Zapisz");
-        this.bSave.setBounds(175, 300, 150, 20);
+        this.bSave.setBounds(175, 400, 150, 20);
         this.add(this.bSave);
 
         this.bSave.addActionListener(this);
@@ -81,6 +90,10 @@ public class VisitAdditionWindow extends JFrame implements ActionListener, Mouse
 
     public JTextField gettTime() {
         return tTime;
+    }
+
+    public JTextField gettType() {
+        return tType;
     }
 
     public JTextField gettDoctor() {
