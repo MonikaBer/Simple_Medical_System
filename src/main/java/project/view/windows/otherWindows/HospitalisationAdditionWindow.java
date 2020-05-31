@@ -63,6 +63,12 @@ public class HospitalisationAdditionWindow extends JFrame implements ActionListe
         this.setVisible(false);
     }
 
+    public void clear() {
+        this.tFrom.setText("");
+        this.tTo.setText("");
+        this.tReason.setText("");
+    }
+
     public JTextField gettFrom() {
         return tFrom;
     }

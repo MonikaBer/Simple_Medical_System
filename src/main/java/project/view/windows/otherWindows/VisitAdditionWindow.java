@@ -84,6 +84,14 @@ public class VisitAdditionWindow extends JFrame implements ActionListener, Mouse
         this.setVisible(false);
     }
 
+    public void clear() {
+        this.tDate.setText("");
+        this.tTime.setText("");
+        this.tType.setText("");
+        this.tDoctor.setText("");
+        this.tPayment.setText("");
+    }
+
     public JTextField gettDate() {
         return tDate;
     }

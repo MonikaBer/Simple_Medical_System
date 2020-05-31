@@ -225,16 +225,12 @@ public class Controller implements ViewListener {
 				//TODO: check inscribed data
 				ScheduledVisit scheduledVisit = new ScheduledVisit(date, time, type, new Doctor(doctorName, doctorSurname,
 						"", ""), payment);
-				database.addPatient(chosenPatient);
-				//clear incribed data in patientsListWindow and newPatientAdditionWindow
-				this.patientsListWindow.clear();
-				this.newPatientAdditionWindow.clear();
+				//TODO: check if this scheduled visit exist in database
+				database.addScheduledVisit(chosenPatient, scheduledVisit);
+				this.mainWindow.getActionPanel().getScheduledVisitsView().addScheduledVisit(scheduledVisit);
+				//clear incribed data in visitAdditionWindow
+				this.visitAdditionWindow.clear();
 				//
-				this.newPatientAdditionWindow.setVisible(false);
-				this.patientsListWindow.setVisible(false);
-				this.mainWindow.setEnabled(true);
-
-
 				this.visitAdditionWindow.setVisible(false);
 				this.mainWindow.setEnabled(true);
 			}
@@ -242,8 +238,20 @@ public class Controller implements ViewListener {
 
 		else if (window == this.medicalTestResultAdditionWindow) {
 			if (source == this.medicalTestResultAdditionWindow.getbSave()) {
+				String date = this.medicalTestResultAdditionWindow.gettDate().getText();
+				String type = this.medicalTestResultAdditionWindow.gettMedicalTestType().getText();
+				String resultTmp = this.medicalTestResultAdditionWindow.gettMedicalTestResult().getText();
+				int index = resultTmp.indexOf(" ");
+				Double result = Double.parseDouble(resultTmp.substring(0, index).trim());
+				String units = resultTmp.substring(index).trim();
 				//TODO: check inscribed data
-				//TODO: clear inscirbed data in this window
+				MedicalTestResult medicalTestResult = new MedicalTestResult(date, type, result, units);
+				//TODO: check if this medical test result exist in database
+				database.addMedicalTestResult(chosenPatient, medicalTestResult);
+				this.mainWindow.getActionPanel().getMedicalTestsResultsView().addMedicalTestResult(medicalTestResult);
+				//clear incribed data in medicalTestResultAdditionWindow
+				this.medicalTestResultAdditionWindow.clear();
+				//
 				this.medicalTestResultAdditionWindow.setVisible(false);
 				this.mainWindow.setEnabled(true);
 			}
@@ -251,8 +259,17 @@ public class Controller implements ViewListener {
 
 		else if (window == this.hospitalisationAdditionWindow) {
 			if (source == this.hospitalisationAdditionWindow.getbSave()) {
+				String from = this.hospitalisationAdditionWindow.gettFrom().getText();
+				String to = this.hospitalisationAdditionWindow.gettTo().getText();
+				String reason = this.hospitalisationAdditionWindow.gettReason().getText();
 				//TODO: check inscribed data
-				//TODO: clear inscirbed data in this window
+				Hospitalisation hospitalisation = new Hospitalisation(from, to, reason);
+				//TODO: check if this hospitalisation exist in database
+				database.addHospitalisation(chosenPatient, hospitalisation);
+				this.mainWindow.getActionPanel().getHospitalisationsView().addHospitalisation(hospitalisation);
+				//clear incribed data in hospitalisationAdditionWindow
+				this.hospitalisationAdditionWindow.clear();
+				//
 				this.hospitalisationAdditionWindow.setVisible(false);
 				this.mainWindow.setEnabled(true);
 			}

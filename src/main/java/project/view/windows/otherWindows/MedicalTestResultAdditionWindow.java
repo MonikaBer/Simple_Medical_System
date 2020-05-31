@@ -63,6 +63,12 @@ public class MedicalTestResultAdditionWindow extends JFrame implements ActionLis
         this.setVisible(false);
     }
 
+    public void clear() {
+        this.tDate.setText("");
+        this.tMedicalTestType.setText("");
+        this.tMedicalTestResult.setText("");
+    }
+
     public JTextField gettDate() {
         return tDate;
     }
