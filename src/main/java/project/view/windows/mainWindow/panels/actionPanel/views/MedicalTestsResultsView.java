@@ -1,5 +1,6 @@
 package project.view.windows.mainWindow.panels.actionPanel.views;
 
+import project.DataParsingException;
 import project.model.MedicalTestResult;
 
 import javax.swing.*;
@@ -26,6 +27,7 @@ public class MedicalTestsResultsView implements ActionPanelViews {
         this.tableModel.addColumn("Data");
         this.tableModel.addColumn("Badanie");
         this.tableModel.addColumn("Wynik");
+        this.tableModel.addColumn("Jednostki");
         this.tabMedicalTestsResults.isEditing();
 
         this.spMedicalTestsResults = new JScrollPane(this.tabMedicalTestsResults);
@@ -75,17 +77,16 @@ public class MedicalTestsResultsView implements ActionPanelViews {
 
     public void addMedicalTestResult(MedicalTestResult medicalTestResult) {
         this.tableModel.addRow(new Object[]{medicalTestResult.getDate(), medicalTestResult.getType(),
-                medicalTestResult.getResult()+" "+medicalTestResult.getUnits()});
+                medicalTestResult.getResult().toString(), medicalTestResult.getUnits()});
     }
 
     public MedicalTestResult getMedicalTestResult() {
         String date = this.tableModel.getValueAt(this.rowSelectedNr, 0).toString();
         String type = this.tableModel.getValueAt(this.rowSelectedNr, 1).toString();
-        String resultTmp = this.tableModel.getValueAt(this.rowSelectedNr, 2).toString();
-        int index = resultTmp.indexOf(" ");
-        Float result = Float.parseFloat(resultTmp.substring(0, index).trim());
-        String units = resultTmp.substring(index).trim();
+        String units = this.tableModel.getValueAt(this.rowSelectedNr, 3).toString();
+        Float result = Float.parseFloat(this.tableModel.getValueAt(this.rowSelectedNr, 2).toString());
         return new MedicalTestResult(date, type, result, units);
+
     }
 
     public void deleteMedicalTestResult() {

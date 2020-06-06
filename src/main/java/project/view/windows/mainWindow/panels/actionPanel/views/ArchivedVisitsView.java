@@ -2,7 +2,6 @@ package project.view.windows.mainWindow.panels.actionPanel.views;
 
 import project.model.person.Doctor;
 import project.model.visit.ArchivedVisit;
-import project.model.visit.ScheduledVisit;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -79,7 +78,7 @@ public class ArchivedVisitsView implements ActionPanelViews {
     public void addArchivedVisit(ArchivedVisit archivedVisit) {
         this.tableModel.addRow(new Object[]{archivedVisit.getDate(), archivedVisit.getType(),
                 archivedVisit.getDoctor().getName()+" "+archivedVisit.getDoctor().getSurname(),
-                archivedVisit.getDoctor().getSpecialisation(), archivedVisit.getDescription()});
+                archivedVisit.getDoctor().getSpecialisation()});
     }
 
     public void deleteArchivedVisit() {
@@ -98,7 +97,7 @@ public class ArchivedVisitsView implements ActionPanelViews {
                 "");
     }
 
-    public void showScheduleVisitDescription() {
+    public void showScheduledVisitDescription() {
         //show message dialog with description
     }
 

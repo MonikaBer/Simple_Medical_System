@@ -1,16 +1,15 @@
 package project.view.windows.otherWindows;
 
 import project.AppException;
+import project.DataParsingException;
 import project.interfaces.ViewListener;
+import project.model.person.Patient;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.sql.SQLException;
 
-public class NewPatientAdditionWindow extends JFrame implements ActionListener, MouseListener {
+public class NewPatientAdditionWindow extends JFrame implements ActionListener {
 
     private JLabel lName;
     private JLabel lSurname;
@@ -20,6 +19,7 @@ public class NewPatientAdditionWindow extends JFrame implements ActionListener, 
     private JTextField tName, tSurname, tPesel, tAddress;
     private JComboBox<String> cbInsurance;
     private JButton bSave;
+    private JButton bDiscard;
 
     private ViewListener viewListener = null;
 
@@ -28,7 +28,7 @@ public class NewPatientAdditionWindow extends JFrame implements ActionListener, 
         this.setNewPatientWindowProperties();
     }
 
-    private void createNewPatientWindow() {
+    public void createNewPatientWindow() {
         this.lName = new JLabel("Imię:");
         this.lName.setBounds(70, 50, 150, 20);
         this.add(this.lName);
@@ -72,17 +72,21 @@ public class NewPatientAdditionWindow extends JFrame implements ActionListener, 
         this.add(this.tAddress);
 
         this.bSave = new JButton("Zapisz");
-        this.bSave.setBounds(200, 350, 100, 20);
+        this.bSave.setBounds(80, 350, 100, 20);
         this.add(this.bSave);
 
+        this.bDiscard = new JButton("Odrzuć");
+        this.bDiscard.setBounds(220, 350, 100, 20);
+        this.add(this.bDiscard);
+
         this.bSave.addActionListener(this);
+        this.bDiscard.addActionListener(this);
     }
 
-    private void setNewPatientWindowProperties() {
+    public void setNewPatientWindowProperties() {
         this.setSize(500, 500);
         this.setResizable(false);
         this.setTitle("Okno dodawania nowego pacjenta");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
         this.setVisible(false);
     }
@@ -91,35 +95,55 @@ public class NewPatientAdditionWindow extends JFrame implements ActionListener, 
         this.tName.setText("");
         this.tSurname.setText("");
         this.tPesel.setText("");
+        this.cbInsurance.setSelectedItem("NFZ");
         this.tAddress.setText("");
     }
 
-    public JTextField gettName() {
-        return tName;
-    }
+//    public JTextField gettName() {
+//        return tName;
+//    }
+//
+//    public JTextField gettSurname() {
+//        return tSurname;
+//    }
+//
+//    public JTextField gettPesel() {
+//        return tPesel;
+//    }
+//
+//    public JTextField gettAddress() {
+//        return tAddress;
+//    }
+//
+//    public String getInsurance() {
+//        return cbInsurance.getSelectedItem().toString();
+//    }
 
-    public JTextField gettSurname() {
-        return tSurname;
-    }
+//    public void setInsurance(String insurance) {
+//        this.cbInsurance.setSelectedItem(insurance);
+//    }
 
-    public JTextField gettPesel() {
-        return tPesel;
-    }
+    public Patient getNewPatient() throws DataParsingException {
+        String name = tName.getText().trim();
+        String surname = tSurname.getText().trim();
+        String pesel = tPesel.getText().trim();
+        String insurance = cbInsurance.getSelectedItem().toString();
+        String address = tAddress.getText().trim();
 
-    public JTextField gettAddress() {
-        return tAddress;
-    }
-
-    public String getInsurance() {
-        return cbInsurance.getSelectedItem().toString();
-    }
-
-    public void setInsurance(String insurance) {
-        this.cbInsurance.setSelectedItem(insurance);
+        try {
+            Float.parseFloat(pesel);
+            return new Patient(name, surname, pesel, insurance, address);
+        } catch (Exception exception) {
+            throw new DataParsingException();
+        }
     }
 
     public JButton getbSave() {
         return bSave;
+    }
+
+    public JButton getbDiscard() {
+        return bDiscard;
     }
 
     //listeners management
@@ -134,34 +158,5 @@ public class NewPatientAdditionWindow extends JFrame implements ActionListener, 
         } catch (AppException throwables) {
             throwables.printStackTrace();
         }
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        try {
-            this.viewListener.viewChanged(this, e.getSource());
-        } catch (AppException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent mouseEvent) {
-
     }
 }

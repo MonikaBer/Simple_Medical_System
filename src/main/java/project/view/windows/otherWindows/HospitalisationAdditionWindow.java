@@ -3,18 +3,19 @@ package project.view.windows.otherWindows;
 import project.AppException;
 import project.interfaces.ViewListener;
 
+import com.toedter.calendar.JDateChooser;
+import project.model.Hospitalisation;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.sql.SQLException;
 
-public class HospitalisationAdditionWindow extends JFrame implements ActionListener, MouseListener {
+public class HospitalisationAdditionWindow extends JFrame implements ActionListener {
 
     private JLabel lFrom, lTo, lReason;
-    private JTextField tFrom, tTo, tReason;
-    private JButton bSave;
+    private JDateChooser dcFrom, dcTo;
+    private JTextField tReason;
+    private JButton bSave, bDiscard;
 
     private ViewListener viewListener = null;
 
@@ -23,7 +24,7 @@ public class HospitalisationAdditionWindow extends JFrame implements ActionListe
         this.setHospitalisationAdditionWindowProperties();
     }
 
-    private void createHospitalisationAdditionWindow() {
+    public void createHospitalisationAdditionWindow() {
         this.lFrom = new JLabel("Hospitalizacja od:");
         this.lFrom.setBounds(50, 50, 200, 20);
         this.add(this.lFrom);
@@ -36,54 +37,69 @@ public class HospitalisationAdditionWindow extends JFrame implements ActionListe
         this.lReason.setBounds(50, 150, 200, 20);
         this.add(this.lReason);
 
-        this.tFrom = new JTextField();
-        this.tFrom.setBounds(250, 50, 200, 20);
-        this.add(this.tFrom);
+        this.dcFrom = new JDateChooser();
+        this.dcFrom.setBounds(250, 50, 200, 20);
+        this.add(this.dcFrom);
 
-        this.tTo = new JTextField();
-        this.tTo.setBounds(250, 100, 200, 20);
-        this.add(this.tTo);
+        this.dcTo = new JDateChooser();
+        this.dcTo.setBounds(250, 100, 200, 20);
+        this.add(this.dcTo);
 
         this.tReason = new JTextField();
         this.tReason.setBounds(250, 150, 200, 20);
         this.add(this.tReason);
 
         this.bSave = new JButton("Zapisz");
-        this.bSave.setBounds(175, 250, 150, 20);
+        this.bSave.setBounds(100, 250, 120, 20);
         this.add(this.bSave);
 
+        this.bDiscard = new JButton("Odrzuć");
+        this.bDiscard.setBounds(250, 250, 120, 20);
+        this.add(this.bDiscard);
+
         this.bSave.addActionListener(this);
+        this.bDiscard.addActionListener(this);
     }
 
-    private void setHospitalisationAdditionWindowProperties() {
+    public void setHospitalisationAdditionWindowProperties() {
         this.setSize(500, 400);
         this.setResizable(false);
         this.setTitle("Okno dodawania hospitalizacji pacjenta");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
         this.setVisible(false);
     }
 
     public void clear() {
-        this.tFrom.setText("");
-        this.tTo.setText("");
+        this.dcFrom.setDate(null);
+        this.dcTo.setDate(null);
         this.tReason.setText("");
     }
 
-    public JTextField gettFrom() {
-        return tFrom;
+    public Hospitalisation getNewHospitalisation() {
+        String dateFrom = dcFrom.getDate().toString();
+        String dateTo = dcTo.getDate().toString();
+        String reason = this.tReason.getText().trim();
+        return new Hospitalisation(dateFrom, dateTo, reason);
     }
 
-    public JTextField gettTo() {
-        return tTo;
-    }
-
-    public JTextField gettReason() {
-        return tReason;
-    }
+//    public String gettFrom() {
+//        return dcFrom.toString();
+//    }
+//
+//    public String gettTo() {
+//        return dcTo.toString();
+//    }
+//
+//    public String gettReason() {
+//        return tReason.getText();
+//    }
 
     public JButton getbSave() {
         return bSave;
+    }
+
+    public JButton getbDiscard() {
+        return bDiscard;
     }
 
     //listeners management
@@ -98,34 +114,5 @@ public class HospitalisationAdditionWindow extends JFrame implements ActionListe
         } catch (AppException throwables) {
             throwables.printStackTrace();
         }
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        try {
-            this.viewListener.viewChanged(this, e.getSource());
-        } catch (AppException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent mouseEvent) {
-
     }
 }

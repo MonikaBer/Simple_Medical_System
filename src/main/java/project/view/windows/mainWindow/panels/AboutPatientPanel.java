@@ -33,4 +33,10 @@ public class AboutPatientPanel extends JPanel {
         this.lSurname.setText(patient.getSurname());
         this.lPesel.setText(patient.getPesel());
     }
+
+    public void clearPatientInfo() {
+        this.lName.setText("");
+        this.lSurname.setText("");
+        this.lPesel.setText("");
+    }
 }

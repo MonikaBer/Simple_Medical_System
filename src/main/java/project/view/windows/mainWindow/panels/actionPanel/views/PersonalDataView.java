@@ -1,5 +1,6 @@
 package project.view.windows.mainWindow.panels.actionPanel.views;
 
+import project.DataParsingException;
 import project.model.person.Patient;
 
 import javax.swing.*;
@@ -69,8 +70,30 @@ public class PersonalDataView implements ActionPanelViews {
         this.tName.setText(patient.getName());
         this.tSurname.setText(patient.getSurname());
         this.tPesel.setText(patient.getPesel());
-        this.setInsurance(patient.getInsurance());
+        this.cbInsurance.setSelectedItem(patient.getInsurance());
         this.tAddress.setText(patient.getAddress());
+    }
+
+    public Patient getPatient() throws DataParsingException {
+        String name = this.tName.getText().trim();
+        String surname = this.tSurname.getText().trim();
+        String pesel = this.tPesel.getText().trim();
+        String insurance = this.cbInsurance.getSelectedItem().toString();
+        String address = this.tAddress.getText().trim();
+        try {
+            Float.parseFloat(pesel);
+            return new Patient(name, surname, pesel, insurance, address);
+        } catch (Exception exception) {
+            throw new DataParsingException();
+        }
+    }
+
+    public void clearPatientPersonalDataView() {
+        this.tName.setText("");
+        this.tSurname.setText("");
+        this.tPesel.setText("");
+        this.cbInsurance.setSelectedItem("NFZ");
+        this.tAddress.setText("");
     }
 
     @Override
@@ -102,45 +125,45 @@ public class PersonalDataView implements ActionPanelViews {
         }
     }
 
-    public JTextField gettName() {
-        return tName;
-    }
-
-    public void settName(JTextField tName) {
-        this.tName = tName;
-    }
-
-    public JTextField gettSurname() {
-        return tSurname;
-    }
-
-    public void settSurname(JTextField tSurname) {
-        this.tSurname = tSurname;
-    }
-
-    public JTextField gettPesel() {
-        return tPesel;
-    }
-
-    public void settPesel(JTextField tPesel) {
-        this.tPesel = tPesel;
-    }
-
-    public JTextField gettAddress() {
-        return tAddress;
-    }
-
-    public void settAddress(JTextField tAddress) {
-        this.tAddress = tAddress;
-    }
-
-    public String getInsurance() {
-        return cbInsurance.getSelectedItem().toString();
-    }
-
-    public void setInsurance(String insurance) {
-        this.cbInsurance.setSelectedItem(insurance);
-    }
+//    public JTextField gettName() {
+//        return tName;
+//    }
+//
+//    public void settName(JTextField tName) {
+//        this.tName = tName;
+//    }
+//
+//    public JTextField gettSurname() {
+//        return tSurname;
+//    }
+//
+//    public void settSurname(JTextField tSurname) {
+//        this.tSurname = tSurname;
+//    }
+//
+//    public JTextField gettPesel() {
+//        return tPesel;
+//    }
+//
+//    public void settPesel(JTextField tPesel) {
+//        this.tPesel = tPesel;
+//    }
+//
+//    public JTextField gettAddress() {
+//        return tAddress;
+//    }
+//
+//    public void settAddress(JTextField tAddress) {
+//        this.tAddress = tAddress;
+//    }
+//
+//    public String getInsurance() {
+//        return cbInsurance.getSelectedItem().toString();
+//    }
+//
+//    public void setInsurance(String insurance) {
+//        this.cbInsurance.setSelectedItem(insurance);
+//    }
 
     public JButton getbSave() {
         return bSave;

@@ -1,20 +1,21 @@
 package project.view.windows.otherWindows;
 
+import com.toedter.calendar.JDateChooser;
 import project.AppException;
+import project.DataParsingException;
 import project.interfaces.ViewListener;
+import project.model.MedicalTestResult;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.sql.SQLException;
 
-public class MedicalTestResultAdditionWindow extends JFrame implements ActionListener, MouseListener {
+public class MedicalTestResultAdditionWindow extends JFrame implements ActionListener {
 
+    private JDateChooser dcDate;
     private JLabel lDate, lMedicalTestType, lMedicalTestResult;
-    private JTextField tDate, tMedicalTestType, tMedicalTestResult;
-    private JButton bSave;
+    private JTextField tMedicalTestType, tMedicalTestResult;
+    private JButton bSave, bDiscard;
 
     private ViewListener viewListener = null;
 
@@ -23,7 +24,7 @@ public class MedicalTestResultAdditionWindow extends JFrame implements ActionLis
         this.setMedicalTestResultAdditionWindowProperties();
     }
 
-    private void createMedicalTestResultAdditionWindow() {
+    public void createMedicalTestResultAdditionWindow() {
         this.lDate = new JLabel("Data:");
         this.lDate.setBounds(50, 50, 200, 20);
         this.add(this.lDate);
@@ -36,9 +37,9 @@ public class MedicalTestResultAdditionWindow extends JFrame implements ActionLis
         this.lMedicalTestResult.setBounds(50, 150, 200, 20);
         this.add(this.lMedicalTestResult);
 
-        this.tDate = new JTextField();
-        this.tDate.setBounds(250, 50, 200, 20);
-        this.add(this.tDate);
+        this.dcDate = new JDateChooser();
+        this.dcDate.setBounds(250, 50, 200, 20);
+        this.add(this.dcDate);
 
         this.tMedicalTestType = new JTextField();
         this.tMedicalTestType.setBounds(250, 100, 200, 20);
@@ -49,41 +50,64 @@ public class MedicalTestResultAdditionWindow extends JFrame implements ActionLis
         this.add(this.tMedicalTestResult);
 
         this.bSave = new JButton("Zapisz");
-        this.bSave.setBounds(175, 250, 150, 20);
+        this.bSave.setBounds(100, 250, 120, 20);
         this.add(this.bSave);
 
+        this.bDiscard = new JButton("Odrzuć");
+        this.bDiscard.setBounds(250, 250, 120, 20);
+        this.add(this.bDiscard);
+
         this.bSave.addActionListener(this);
+        this.bDiscard.addActionListener(this);
     }
 
-    private void setMedicalTestResultAdditionWindowProperties() {
+    public void setMedicalTestResultAdditionWindowProperties() {
         this.setSize(500, 400);
         this.setResizable(false);
         this.setTitle("Okno dodawania wyniku badania pacjenta");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
         this.setVisible(false);
     }
 
     public void clear() {
-        this.tDate.setText("");
+        this.dcDate.setDate(null);
         this.tMedicalTestType.setText("");
         this.tMedicalTestResult.setText("");
     }
 
-    public JTextField gettDate() {
-        return tDate;
-    }
-
-    public JTextField gettMedicalTestType() {
-        return tMedicalTestType;
-    }
-
-    public JTextField gettMedicalTestResult() {
-        return tMedicalTestResult;
-    }
+//    public String gettDate() {
+//        return dcDate.toString();
+//    }
+//
+//    public JTextField gettMedicalTestType() {
+//        return tMedicalTestType;
+//    }
+//
+//    public JTextField gettMedicalTestResult() {
+//        return tMedicalTestResult;
+//    }
 
     public JButton getbSave() {
         return bSave;
+    }
+
+    public JButton getbDiscard() {
+        return bDiscard;
+    }
+
+    public MedicalTestResult getNewMedicalTestResult() throws DataParsingException {
+        String date = dcDate.toString();
+        String type = tMedicalTestType.getText().trim();
+        String result = tMedicalTestResult.getText().trim();
+        int index = result.indexOf(" ");
+        String resultNumber = result.substring(0, index).trim();
+        String units = result.substring(index).trim();
+        try {
+            Float resultFloatNumber = Float.parseFloat(resultNumber);
+            return new MedicalTestResult(date, type, resultFloatNumber, units);
+        } catch (Exception exception) {
+            throw new DataParsingException();
+        }
     }
 
     //listeners management
@@ -98,34 +122,5 @@ public class MedicalTestResultAdditionWindow extends JFrame implements ActionLis
         } catch (AppException throwables) {
             throwables.printStackTrace();
         }
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        try {
-            this.viewListener.viewChanged(this, e.getSource());
-        } catch (AppException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent mouseEvent) {
-
     }
 }

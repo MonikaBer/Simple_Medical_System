@@ -12,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.SQLException;
 
 public class MainWindow extends JFrame implements ActionListener, MouseListener {
 
@@ -54,7 +53,19 @@ public class MainWindow extends JFrame implements ActionListener, MouseListener 
         this.actionPanel = new ActionPanel(650, 500);
         this.rightPanel.add(this.actionPanel);
 
-        //add ActionListener for view elements
+        this.addListenersToElements();
+        this.pack();
+    }
+
+    public void setMainWindowProperties() {
+        this.setSize(900, 500);
+        this.setResizable(false);
+        this.setTitle("System informacji medycznej pacjenta");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
+    }
+
+    public void addListenersToElements() {
         this.menuPanel.getMClose().addActionListener(this);
         this.menuPanel.getMPatientsList().addActionListener(this);
 
@@ -79,16 +90,6 @@ public class MainWindow extends JFrame implements ActionListener, MouseListener 
         this.actionPanel.getHospitalisationsView().getbAdd().addActionListener(this);
         this.actionPanel.getHospitalisationsView().getbDelete().addActionListener(this);
         this.actionPanel.getHospitalisationsView().getbShowDesc().addActionListener(this);
-
-        this.pack();
-    }
-
-    public void setMainWindowProperties() {
-        this.setSize(900, 500);
-        this.setResizable(false);
-        this.setTitle("System informacji medycznej pacjenta");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
     }
 
     public MenuPanel getMenuPanel() {
@@ -131,22 +132,14 @@ public class MainWindow extends JFrame implements ActionListener, MouseListener 
     }
 
     @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-
-    }
+    public void mousePressed(MouseEvent mouseEvent) {}
 
     @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
+    public void mouseReleased(MouseEvent mouseEvent) {}
 
     @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-
-    }
+    public void mouseEntered(MouseEvent mouseEvent) {}
 
     @Override
-    public void mouseExited(MouseEvent mouseEvent) {
-
-    }
+    public void mouseExited(MouseEvent mouseEvent) {}
 }

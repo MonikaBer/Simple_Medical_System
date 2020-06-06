@@ -1,6 +1,6 @@
 package project.view.windows.mainWindow.panels.actionPanel.views;
 
-import project.model.MedicalTestResult;
+import project.DataParsingException;
 import project.model.person.Doctor;
 import project.model.visit.ScheduledVisit;
 import javax.swing.*;
@@ -87,7 +87,7 @@ public class ScheduledVisitsView implements ActionPanelViews {
         this.tableModel.addRow(new Object[]{scheduledVisit.getDate(), scheduledVisit.getTime(),
                 scheduledVisit.getType(), scheduledVisit.getDoctor().getName()+" "+
                 scheduledVisit.getDoctor().getSurname(), scheduledVisit.getDoctor().getSpecialisation(),
-                scheduledVisit.getPayment()});
+                scheduledVisit.getPayment().toString()});
     }
 
     public void deleteScheduledVisit() {
@@ -103,9 +103,9 @@ public class ScheduledVisitsView implements ActionPanelViews {
         String doctorName = doctor.substring(0, index).trim();
         String doctorSurname = doctor.substring(index).trim();
         String specialisation = this.tableModel.getValueAt(this.rowSelectedNr, 4).toString();
-        String payment = this.tableModel.getValueAt(this.rowSelectedNr, 5).toString();
+        Float payment = Float.parseFloat(this.tableModel.getValueAt(this.rowSelectedNr, 5).toString());
         return new ScheduledVisit(date, time, type, new Doctor(doctorName, doctorSurname, "", specialisation),
-                Float.parseFloat(payment));
+                    payment);
     }
 
     public JTable getTabScheduledVisits() {

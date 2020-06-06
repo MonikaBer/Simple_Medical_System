@@ -179,9 +179,9 @@ public class Database {
         }
     }
 
-    public void addPatient(Patient patient) throws AppException {
+    public boolean addPatient(Patient patient) throws AppException {
         try {
-            this.tablePatients.addPatient(patient);
+            return this.tablePatients.addPatient(patient);
         } catch (SQLException exception) {
             throw new AppException("Problem with addition new patient to PATIENTS table");
         }
@@ -219,6 +219,14 @@ public class Database {
         }
     }
 
+    public void updatePatient(Patient patient) throws AppException {
+        try {
+            this.tablePatients.updatePatient(patient);
+        } catch (SQLException exception) {
+            throw new AppException("Problem with updating patient in PATIENTS table");
+        }
+    }
+
     //--------------------------------------------------------------------------------------------
 
     public void printDoctors() throws AppException {
@@ -229,9 +237,9 @@ public class Database {
         }
     }
 
-    public void addDoctor(Doctor doctor) throws AppException {
+    public boolean addDoctor(Doctor doctor) throws AppException {
         try {
-            this.tableDoctors.addDoctor(doctor);
+            return this.tableDoctors.addDoctor(doctor);
         } catch (SQLException exception) {
             throw new AppException("Problem with addition new doctor to DOCTORS table");
         }
@@ -269,6 +277,14 @@ public class Database {
         }
     }
 
+    public void updateDoctor(Doctor doctor) throws AppException {
+        try {
+            this.tableDoctors.updateDoctor(doctor);
+        } catch (SQLException exception) {
+            throw new AppException("Problem with updating doctor in DOCTORS table");
+        }
+    }
+
     //--------------------------------------------------------------------------------------------
 
     public void printMedicalTestsResults() throws AppException {
@@ -279,9 +295,9 @@ public class Database {
         }
     }
 
-    public void addMedicalTestResult(String pesel, MedicalTestResult medicalTestResult) throws AppException {
+    public boolean addMedicalTestResult(String pesel, MedicalTestResult medicalTestResult) throws AppException {
         try {
-            this.tableMedicalTestsResults.addMedicalTestResult(pesel, medicalTestResult);
+            return this.tableMedicalTestsResults.addMedicalTestResult(pesel, medicalTestResult);
         } catch (SQLException exception) {
             throw new AppException("Problem with addition new medical test result to MEDICAL_TESTS_RESULTS table");
         }
@@ -312,6 +328,14 @@ public class Database {
         }
     }
 
+//    public void updateMedicalTestResult(String pesel, MedicalTestResult medicalTestResult) throws AppException {
+//        try {
+//            this.tableMedicalTestsResults.updateMedicalTestResult(pesel, medicalTestResult);
+//        } catch (SQLException exception) {
+//            throw new AppException("Problem with updating medical test result in MEDICAL_TESTS_RESULTS table");
+//        }
+//    }
+
     //--------------------------------------------------------------------------------------------
 
     public void printScheduledVisits() throws AppException {
@@ -322,9 +346,9 @@ public class Database {
         }
     }
 
-    public void addScheduledVisit(String pesel, ScheduledVisit scheduledVisit) throws AppException {
+    public boolean addScheduledVisit(String pesel, ScheduledVisit scheduledVisit) throws AppException {
         try {
-            this.tableScheduledVisits.addScheduledVisit(pesel, scheduledVisit);
+            return this.tableScheduledVisits.addScheduledVisit(pesel, scheduledVisit);
         } catch (SQLException exception) {
             throw new AppException("Problem with addition new scheduled visit to SCHEDULED_VISITS table");
         }
@@ -354,6 +378,14 @@ public class Database {
         }
     }
 
+//    public void updateScheduledVisit(String pesel, ScheduledVisit scheduledVisit) throws AppException {
+//        try {
+//            this.tableScheduledVisits.udpateScheduledVisit(pesel, scheduledVisit);
+//        } catch (SQLException exception) {
+//            throw new AppException("Problem with updating scheduled visit in SCHEDULED_VISITS table");
+//        }
+//    }
+
     //--------------------------------------------------------------------------------------------
 
     public void printArchivedVisits() throws AppException {
@@ -364,9 +396,9 @@ public class Database {
         }
     }
 
-    public void addArchivedVisit(String pesel, ArchivedVisit archivedVisit) throws AppException {
+    public boolean addArchivedVisit(String pesel, ArchivedVisit archivedVisit) throws AppException {
         try {
-            this.tableArchivedVisits.addArchivedVisit(pesel, archivedVisit);
+            return this.tableArchivedVisits.addArchivedVisit(pesel, archivedVisit);
         } catch (SQLException exception) {
             throw new AppException("Problem with addition new archived visit to ARCHIVED_VISITS table");
         }
@@ -396,6 +428,14 @@ public class Database {
         }
     }
 
+//    public void updateArchivedVisit(String pesel, ArchivedVisit archivedVisit) throws AppException {
+//        try {
+//            this.tableArchivedVisits.updateArchivedVisit(pesel, archivedVisit);
+//        } catch (SQLException exception) {
+//            throw new AppException("Problem with updating archived visit in ARCHIVED_VISITS table");
+//        }
+//    }
+
     //--------------------------------------------------------------------------------------------
 
     public void printHospitalisations() throws AppException {
@@ -406,9 +446,9 @@ public class Database {
         }
     }
 
-    public void addHospitalisation(String pesel, Hospitalisation hospitalisation) throws AppException {
+    public boolean addHospitalisation(String pesel, Hospitalisation hospitalisation) throws AppException {
         try {
-            this.tableHospitalisations.addHospitalisation(pesel, hospitalisation);
+            return this.tableHospitalisations.addHospitalisation(pesel, hospitalisation);
         } catch (SQLException exception) {
             throw new AppException("Problem with addition new hospitalisation to HOSPITALISATIONS table");
         }
@@ -437,6 +477,16 @@ public class Database {
             throw new AppException("Problem with getting patient hospitalisations from HOSPITALISATIONS table");
         }
     }
+
+//    public void updateHospitalisation(String pesel, Hospitalisation hospitalisation) throws AppException {
+//        try {
+//            this.tableHospitalisations.updateHospitalisation(pesel, hospitalisation);
+//        } catch (SQLException exception) {
+//            throw new AppException("Problem with updating hospitalisation in HOSPITALISATIONS table");
+//        }
+//    }
+
+    //--------------------------------------------------------------------------------------------
 
     public void generateData() throws AppException {
         this.createTables();

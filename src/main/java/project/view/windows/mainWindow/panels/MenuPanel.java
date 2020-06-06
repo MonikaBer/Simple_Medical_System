@@ -6,8 +6,8 @@ public class MenuPanel extends JMenu {
 
     private final JMenuBar menuBar;
     private JMenu menuApp;
-    private JMenuItem mPatientsList;
-    private JMenuItem mClose;
+    private final JMenuItem mPatientsList;
+    private final JMenuItem mClose;
 
     public MenuPanel() {
         super();

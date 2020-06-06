@@ -2,7 +2,6 @@ package project.view.windows.otherWindows;
 
 import project.AppException;
 import project.interfaces.ViewListener;
-import project.model.MedicalTestResult;
 import project.model.person.Patient;
 
 import javax.swing.*;
@@ -11,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PatientsListWindow extends JFrame implements ActionListener, MouseListener {
@@ -22,7 +20,7 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
     private int rowSelectedNr;
     private JLabel lPesel;
     private JTextField tPesel;
-    private JButton bChoose;
+    private JButton bChoose, bDelete, bChooseByPesel;
 
     private ViewListener viewListener = null;
 
@@ -31,7 +29,7 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
         this.setPatientsListWindowProperties();
     }
 
-    private void createPatientsListWindow() {
+    public void createPatientsListWindow() {
         this.tableModel = new DefaultTableModel();
 
         this.tabPatientsList = new JTable(this.tableModel) {
@@ -56,21 +54,30 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
         this.add(this.lPesel);
 
         this.tPesel = new JTextField();
-        this.tPesel.setBounds(280, 350, 150, 20);
+        this.tPesel.setBounds(280, 400, 150, 20);
         this.add(this.tPesel);
 
         this.bChoose = new JButton("Wybierz");
-        this.bChoose.setBounds(175, 400, 150, 20);
+        this.bChoose.setBounds(100, 350, 120, 20);
         this.add(this.bChoose);
 
+        this.bDelete = new JButton("Usuń");
+        this.bDelete.setBounds(250, 350, 120, 20);
+        this.add(this.bDelete);
+
+        this.bChooseByPesel = new JButton("Wybierz");
+        this.bChooseByPesel.setBounds(250, 450, 120, 20);
+        this.add(this.bChooseByPesel);
+
         this.bChoose.addActionListener(this);
+        this.bDelete.addActionListener(this);
+        this.bChooseByPesel.addActionListener(this);
     }
 
-    private void setPatientsListWindowProperties() {
+    public void setPatientsListWindowProperties() {
         this.setSize(500, 500);
         this.setResizable(false);
         this.setTitle("Okno wyboru pacjenta");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
         this.setVisible(false);
     }
@@ -91,18 +98,38 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
         return bChoose;
     }
 
+    public JButton getbDelete() {
+        return bDelete;
+    }
+
+    public JButton getbChooseByPesel() {
+        return bChooseByPesel;
+    }
+
     public void setRowSelectedNr(int rowSelectedNr) {
         this.rowSelectedNr = rowSelectedNr;
     }
 
     public void loadPatients(ArrayList<Patient> patients) {
+        this.clearTabPatientsList();
         for (int i = 0; i < patients.size(); i++) {
             this.addPatient(patients.get(i));
         }
     }
 
+    public void clearTabPatientsList() {
+        for (int i = 0; i < this.tabPatientsList.getRowCount(); i++) {
+            this.tableModel.removeRow(i);
+        }
+        this.tPesel.setText("");
+    }
+
     public void addPatient(Patient patient) {
         this.tableModel.addRow(new Object[]{patient.getName(), patient.getSurname(), patient.getPesel()});
+    }
+
+    public void deletePatient() {
+        this.tableModel.removeRow(this.rowSelectedNr);
     }
 
     public Patient getPatient() {
@@ -140,22 +167,14 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
     }
 
     @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-
-    }
+    public void mousePressed(MouseEvent mouseEvent) {}
 
     @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
+    public void mouseReleased(MouseEvent mouseEvent) {}
 
     @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-
-    }
+    public void mouseEntered(MouseEvent mouseEvent) {}
 
     @Override
-    public void mouseExited(MouseEvent mouseEvent) {
-
-    }
+    public void mouseExited(MouseEvent mouseEvent) {}
 }

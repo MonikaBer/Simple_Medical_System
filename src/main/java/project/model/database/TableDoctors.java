@@ -94,4 +94,10 @@ public class TableDoctors implements DatabaseInterface {
         }
         return doctors;
     }
+
+    public void updateDoctor(Doctor doctor) throws SQLException {
+        this.statement.executeUpdate("UPDATE DOCTORS SET doctor_name='" + doctor.getName() +
+                "', doctor_surname=" + doctor.getSurname() + "', specialisation=" + doctor.getSpecialisation() +
+                " WHERE doctor_pesel='" + doctor.getPesel() + "'");
+    }
 }

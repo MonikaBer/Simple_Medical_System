@@ -1,7 +1,5 @@
 package project.model;
 
-import java.util.Date;
-
 public class Hospitalisation {
     private String from;
     private String to;
