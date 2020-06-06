@@ -6,7 +6,6 @@ import project.model.visit.ScheduledVisit;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ScheduledVisitsView implements ActionPanelViews {
 
@@ -106,7 +105,7 @@ public class ScheduledVisitsView implements ActionPanelViews {
         String specialisation = this.tableModel.getValueAt(this.rowSelectedNr, 4).toString();
         String payment = this.tableModel.getValueAt(this.rowSelectedNr, 5).toString();
         return new ScheduledVisit(date, time, type, new Doctor(doctorName, doctorSurname, "", specialisation),
-                Double.parseDouble(payment));
+                Float.parseFloat(payment));
     }
 
     public JTable getTabScheduledVisits() {

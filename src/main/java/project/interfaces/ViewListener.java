@@ -1,9 +1,11 @@
 package project.interfaces;
 
+import project.AppException;
+
 import javax.swing.*;
 import java.sql.SQLException;
 
 public interface ViewListener {
 	
-	public void viewChanged(JFrame jFrame, Object source) throws SQLException;
+	void viewChanged(JFrame jFrame, Object source) throws AppException;
 }

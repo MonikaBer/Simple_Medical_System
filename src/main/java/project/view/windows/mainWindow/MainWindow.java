@@ -1,5 +1,6 @@
 package project.view.windows.mainWindow;
 
+import project.AppException;
 import project.interfaces.ViewListener;
 import project.view.windows.mainWindow.panels.MenuPanel;
 import project.view.windows.mainWindow.panels.AboutPatientPanel;
@@ -115,7 +116,7 @@ public class MainWindow extends JFrame implements ActionListener, MouseListener 
     public void actionPerformed(ActionEvent e) {
         try {
             this.viewListener.viewChanged(this, e.getSource());
-        } catch (SQLException throwables) {
+        } catch (AppException throwables) {
             throwables.printStackTrace();
         }
     }
@@ -124,7 +125,7 @@ public class MainWindow extends JFrame implements ActionListener, MouseListener 
     public void mouseClicked(MouseEvent e) {
         try {
             this.viewListener.viewChanged(this, e.getSource());
-        } catch (SQLException throwables) {
+        } catch (AppException throwables) {
             throwables.printStackTrace();
         }
     }

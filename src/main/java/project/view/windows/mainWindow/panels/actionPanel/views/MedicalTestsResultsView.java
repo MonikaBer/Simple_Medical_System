@@ -1,8 +1,6 @@
 package project.view.windows.mainWindow.panels.actionPanel.views;
 
 import project.model.MedicalTestResult;
-import project.model.person.Doctor;
-import project.model.visit.ScheduledVisit;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -85,7 +83,7 @@ public class MedicalTestsResultsView implements ActionPanelViews {
         String type = this.tableModel.getValueAt(this.rowSelectedNr, 1).toString();
         String resultTmp = this.tableModel.getValueAt(this.rowSelectedNr, 2).toString();
         int index = resultTmp.indexOf(" ");
-        Double result = Double.parseDouble(resultTmp.substring(0, index).trim());
+        Float result = Float.parseFloat(resultTmp.substring(0, index).trim());
         String units = resultTmp.substring(index).trim();
         return new MedicalTestResult(date, type, result, units);
     }

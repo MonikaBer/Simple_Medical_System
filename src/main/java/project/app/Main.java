@@ -2,9 +2,15 @@ package project.app;
 
 import javax.swing.SwingUtilities;
 
-import project.Database;
+import project.AppException;
 import project.controller.Controller;
+import project.model.Hospitalisation;
+import project.model.MedicalTestResult;
+import project.model.database.Database;
+import project.model.person.Doctor;
 import project.model.person.Patient;
+import project.model.visit.ArchivedVisit;
+import project.model.visit.ScheduledVisit;
 import project.view.View;
 
 import java.sql.SQLException;
@@ -21,6 +27,7 @@ public class Main {
 				//Model model = new Model();
 				try {
 					Database database = new Database();
+					database.generateData();
 					Controller controller = new Controller(view, database);
 					view.getMainWindow().addListener(controller);
 					view.getPatientsListWindow().addListener(controller);
@@ -29,26 +36,10 @@ public class Main {
 					view.getMedicalTestResultAdditionWindow().addListener(controller);
 					view.getHospitalisationAdditionWindow().addListener(controller);
 				}
-				catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
+				catch (AppException exception) {
+					System.out.println(exception.getMsg());
+					exception.printStackTrace();
 				}
-
-				//database tests
-//				try {
-//					Database database = new Database();
-//
-//					//INSERT_AND_DELETE_PATIENT_TEST
-////					database.addPatient(new Patient("Filip", "Kalski", "11111111111",
-////							"NFZ", "ul. Komputerowa, Warszawa"));
-////					database.addPatient(new Patient("Aleksandra", "Kowalska", "22222222222",
-////							"Prywatne", "ul. Krakowska 33 Poznań"));
-//
-//					//database.deletePatient("11111111111");
-//					//database.deletePatient("22222222222");
-//					//database.printPatients();
-//				} catch (ClassNotFoundException | SQLException e) {
-//					e.printStackTrace();
-//				}
 			}
 		};
 		SwingUtilities.invokeLater(program);

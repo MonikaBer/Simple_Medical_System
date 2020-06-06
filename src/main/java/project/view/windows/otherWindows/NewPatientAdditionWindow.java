@@ -1,5 +1,6 @@
 package project.view.windows.otherWindows;
 
+import project.AppException;
 import project.interfaces.ViewListener;
 
 import javax.swing.*;
@@ -130,7 +131,7 @@ public class NewPatientAdditionWindow extends JFrame implements ActionListener, 
     public void actionPerformed(ActionEvent e) {
         try {
             this.viewListener.viewChanged(this, e.getSource());
-        } catch (SQLException throwables) {
+        } catch (AppException throwables) {
             throwables.printStackTrace();
         }
     }
@@ -139,7 +140,7 @@ public class NewPatientAdditionWindow extends JFrame implements ActionListener, 
     public void mouseClicked(MouseEvent e) {
         try {
             this.viewListener.viewChanged(this, e.getSource());
-        } catch (SQLException throwables) {
+        } catch (AppException throwables) {
             throwables.printStackTrace();
         }
     }

@@ -7,9 +7,9 @@ import java.util.Date;
 public class ScheduledVisit extends Visit {
 
     private String time;
-    private Double payment;
+    private Float payment;
 
-    public ScheduledVisit(String date, String time, String type, Doctor doctor, Double payment) {
+    public ScheduledVisit(String date, String time, String type, Doctor doctor, Float payment) {
         super(date, type, doctor);
         this.time = time;
         this.payment = payment;
@@ -23,11 +23,11 @@ public class ScheduledVisit extends Visit {
         this.time = time;
     }
 
-    public Double getPayment() {
+    public Float getPayment() {
         return payment;
     }
 
-    public void setPayment(Double payment) {
+    public void setPayment(Float payment) {
         this.payment = payment;
     }
 }

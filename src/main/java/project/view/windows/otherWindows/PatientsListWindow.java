@@ -1,5 +1,6 @@
 package project.view.windows.otherWindows;
 
+import project.AppException;
 import project.interfaces.ViewListener;
 import project.model.MedicalTestResult;
 import project.model.person.Patient;
@@ -124,7 +125,7 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
     public void actionPerformed(ActionEvent e) {
         try {
             this.viewListener.viewChanged(this, e.getSource());
-        } catch (SQLException throwables) {
+        } catch (AppException throwables) {
             throwables.printStackTrace();
         }
     }
@@ -133,7 +134,7 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
     public void mouseClicked(MouseEvent e) {
         try {
             this.viewListener.viewChanged(this, e.getSource());
-        } catch (SQLException throwables) {
+        } catch (AppException throwables) {
             throwables.printStackTrace();
         }
     }

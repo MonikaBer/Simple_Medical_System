@@ -1,6 +1,7 @@
 package project.controller;
 
-import project.Database;
+import project.AppException;
+import project.model.database.Database;
 import project.interfaces.ViewListener;
 import project.model.Hospitalisation;
 import project.model.MedicalTestResult;
@@ -27,7 +28,7 @@ public class Controller implements ViewListener {
     private Database database = null;
     private Patient chosenPatient = null;
     
-    public Controller(View view, Database database) throws SQLException {
+    public Controller(View view, Database database) throws AppException {
 		this.mainWindow = view.getMainWindow();
 		this.patientsListWindow = view.getPatientsListWindow();
 		this.newPatientAdditionWindow = view.getNewPatientAdditionWindow();
@@ -40,7 +41,7 @@ public class Controller implements ViewListener {
     }
 
 	@Override
-	public void viewChanged(JFrame window, Object source) throws SQLException {
+	public void viewChanged(JFrame window, Object source) throws AppException {
 		if (window == this.mainWindow) {
 			if (source == this.mainWindow.getMenuPanel().getMClose()) {
 				this.mainWindow.dispose();
@@ -71,7 +72,7 @@ public class Controller implements ViewListener {
 				chosenPatient.setPesel(this.mainWindow.getActionPanel().getPersonalDataView().gettPesel().getText());
 				chosenPatient.setInsurance(this.mainWindow.getActionPanel().getPersonalDataView().getInsurance());
 				chosenPatient.setAddress(this.mainWindow.getActionPanel().getPersonalDataView().gettAddress().getText());
-				if (database.ifPatientExist(chosenPatient.getPesel())) {
+				if (database.ifPatientExists(chosenPatient.getPesel())) {
 					database.deletePatient(chosenPatient.getPesel());
 				}
 				database.addPatient(chosenPatient);
@@ -90,7 +91,7 @@ public class Controller implements ViewListener {
 					this.mainWindow.getActionPanel().getScheduledVisitsView().deleteScheduledVisit();
 					ArchivedVisit archivedVisit = new ArchivedVisit(scheduledVisit.getDate(), scheduledVisit.getType(),
 							scheduledVisit.getDoctor(), "");
-					database.addArchivedVisit(chosenPatient, archivedVisit);
+					database.addArchivedVisit(chosenPatient.getPesel(), archivedVisit);
 					this.mainWindow.getActionPanel().getArchivedVisitsView().addArchivedVisit(archivedVisit);
 				}
 			}
@@ -170,7 +171,7 @@ public class Controller implements ViewListener {
 			if (source == this.patientsListWindow.getbChoose()) {
 				String pesel = this.patientsListWindow.gettPesel().getText();
 				if (!pesel.equals("")) {
-					if (this.database.ifPatientExist(pesel)) {
+					if (this.database.ifPatientExists(pesel)) {
 						chosenPatient = this.database.getPatient(pesel);
 						this.mainWindow.getAboutPatientPanel().setPatientInfo(chosenPatient);
 						this.mainWindow.getActionPanel().loadPatientData(chosenPatient, this.database);
@@ -228,12 +229,12 @@ public class Controller implements ViewListener {
 				int index = doctor.indexOf(" ");
 				String doctorName = doctor.substring(0, index).trim();
 				String doctorSurname = doctor.substring(index).trim();
-				Double payment = Double.parseDouble(this.visitAdditionWindow.gettPayment().getText());
+				Float payment = Float.parseFloat(this.visitAdditionWindow.gettPayment().getText());
 				//TODO: check inscribed data
 				ScheduledVisit scheduledVisit = new ScheduledVisit(date, time, type, new Doctor(doctorName, doctorSurname,
 						"", ""), payment);
 				//TODO: check if this scheduled visit exist in database
-				database.addScheduledVisit(chosenPatient, scheduledVisit);
+				database.addScheduledVisit(chosenPatient.getPesel(), scheduledVisit);
 				this.mainWindow.getActionPanel().getScheduledVisitsView().addScheduledVisit(scheduledVisit);
 				//clear incribed data in visitAdditionWindow
 				this.visitAdditionWindow.clear();
@@ -249,12 +250,12 @@ public class Controller implements ViewListener {
 				String type = this.medicalTestResultAdditionWindow.gettMedicalTestType().getText();
 				String resultTmp = this.medicalTestResultAdditionWindow.gettMedicalTestResult().getText();
 				int index = resultTmp.indexOf(" ");
-				Double result = Double.parseDouble(resultTmp.substring(0, index).trim());
+				Float result = Float.parseFloat(resultTmp.substring(0, index).trim());
 				String units = resultTmp.substring(index).trim();
 				//TODO: check inscribed data
 				MedicalTestResult medicalTestResult = new MedicalTestResult(date, type, result, units);
 				//TODO: check if this medical test result exist in database
-				database.addMedicalTestResult(chosenPatient, medicalTestResult);
+				database.addMedicalTestResult(chosenPatient.getPesel(), medicalTestResult);
 				this.mainWindow.getActionPanel().getMedicalTestsResultsView().addMedicalTestResult(medicalTestResult);
 				//clear incribed data in medicalTestResultAdditionWindow
 				this.medicalTestResultAdditionWindow.clear();
@@ -272,7 +273,7 @@ public class Controller implements ViewListener {
 				//TODO: check inscribed data
 				Hospitalisation hospitalisation = new Hospitalisation(from, to, reason);
 				//TODO: check if this hospitalisation exist in database
-				database.addHospitalisation(chosenPatient, hospitalisation);
+				database.addHospitalisation(chosenPatient.getPesel(), hospitalisation);
 				this.mainWindow.getActionPanel().getHospitalisationsView().addHospitalisation(hospitalisation);
 				//clear incribed data in hospitalisationAdditionWindow
 				this.hospitalisationAdditionWindow.clear();

@@ -1,6 +1,7 @@
 package project.view.windows.mainWindow.panels.actionPanel;
 
-import project.Database;
+import project.AppException;
+import project.model.database.Database;
 import project.model.Hospitalisation;
 import project.model.MedicalTestResult;
 import project.model.person.Patient;
@@ -34,7 +35,7 @@ public class ActionPanel extends JPanel {
         this.hospitalisationsView = new HospitalisationsView(this);
     }
 
-    public void loadPatientData(Patient patient, Database database) throws SQLException {
+    public void loadPatientData(Patient patient, Database database) throws AppException {
         this.personalDataView.loadPatientPersonalData(patient);
         ArrayList<MedicalTestResult> medicalTestsResults = database.getPatientMedicalTestResults(patient.getPesel());
         this.medicalTestsResultsView.loadPatientMedicalTestsResults(medicalTestsResults);

@@ -1,5 +1,6 @@
 package project.view.windows.otherWindows;
 
+import project.AppException;
 import project.interfaces.ViewListener;
 
 import javax.swing.*;
@@ -125,7 +126,7 @@ public class VisitAdditionWindow extends JFrame implements ActionListener, Mouse
     public void actionPerformed(ActionEvent e) {
         try {
             this.viewListener.viewChanged(this, e.getSource());
-        } catch (SQLException throwables) {
+        } catch (AppException throwables) {
             throwables.printStackTrace();
         }
     }
@@ -134,7 +135,7 @@ public class VisitAdditionWindow extends JFrame implements ActionListener, Mouse
     public void mouseClicked(MouseEvent e) {
         try {
             this.viewListener.viewChanged(this, e.getSource());
-        } catch (SQLException throwables) {
+        } catch (AppException throwables) {
             throwables.printStackTrace();
         }
     }

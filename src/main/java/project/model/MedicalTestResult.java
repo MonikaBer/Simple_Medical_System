@@ -1,15 +1,12 @@
 package project.model;
 
-import java.util.Date;
-
-
 public class MedicalTestResult {
 	private String date;
 	private String type;
-	private Double result;
+	private Float result;
 	private String units;
 
-	public MedicalTestResult(String date, String type, Double result, String units) {
+	public MedicalTestResult(String date, String type, Float result, String units) {
 		this.date = date;
 		this.type = type;
 		this.result = result;
@@ -32,11 +29,11 @@ public class MedicalTestResult {
 		this.type = type;
 	}
 
-	public Double getResult() {
+	public Float getResult() {
 		return result;
 	}
-	
-	public void setResult(Double result) {
+
+	public void setResult(Float result) {
 		this.result = result;
 	}
 
