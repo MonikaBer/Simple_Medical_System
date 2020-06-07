@@ -54,35 +54,32 @@ public class TableDoctors implements DatabaseInterface {
                     "VALUES('" + doctor.getName() + "','" + doctor.getSurname() + "','" + doctor.getPesel() + "','" +
                     doctor.getSpecialisation() + "')");
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public boolean deleteDoctor(String pesel) throws SQLException {
         if (this.ifDoctorExists(pesel)) {
             this.statement.execute("DELETE FROM DOCTORS WHERE doctor_pesel='" + pesel + "'");
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public boolean ifDoctorExists(String pesel) throws SQLException {
         this.result = this.statement.executeQuery("SELECT * FROM DOCTORS WHERE doctor_pesel='" + pesel + "'");
         if (!this.result.next()) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     public Doctor getDoctor(String pesel) throws SQLException {
         this.result = this.statement.executeQuery("SELECT * FROM DOCTORS WHERE doctor_pesel='" + pesel + "'");
-        if (!this.result.next())
-            return null;
-        return new Doctor(this.result.getString("doctor_name"), this.result.getString("doctor_surname"),
+        if (this.result.next())
+            return new Doctor(this.result.getString("doctor_name"), this.result.getString("doctor_surname"),
                 this.result.getString("doctor_pesel"), this.result.getString("specialisation"));
+        return null;
     }
 
     public ArrayList<Doctor> getDoctors() throws SQLException {

@@ -49,14 +49,6 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
 
         this.rowSelectedNr = -1;
 
-        this.lPesel = new JLabel("PESEL pacjenta:");
-        this.lPesel.setBounds(70, 350, 150, 20);
-        this.add(this.lPesel);
-
-        this.tPesel = new JTextField();
-        this.tPesel.setBounds(280, 400, 150, 20);
-        this.add(this.tPesel);
-
         this.bChoose = new JButton("Wybierz");
         this.bChoose.setBounds(100, 350, 120, 20);
         this.add(this.bChoose);
@@ -65,8 +57,16 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
         this.bDelete.setBounds(250, 350, 120, 20);
         this.add(this.bDelete);
 
-        this.bChooseByPesel = new JButton("Wybierz");
-        this.bChooseByPesel.setBounds(250, 450, 120, 20);
+        this.lPesel = new JLabel("PESEL pacjenta:");
+        this.lPesel.setBounds(100, 400, 150, 20);
+        this.add(this.lPesel);
+
+        this.tPesel = new JTextField();
+        this.tPesel.setBounds(250, 400, 150, 20);
+        this.add(this.tPesel);
+
+        this.bChooseByPesel = new JButton("Wybierz po PESELU");
+        this.bChooseByPesel.setBounds(135, 430, 200, 20);
         this.add(this.bChooseByPesel);
 
         this.bChoose.addActionListener(this);
@@ -118,8 +118,8 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
     }
 
     public void clearTabPatientsList() {
-        for (int i = 0; i < this.tabPatientsList.getRowCount(); i++) {
-            this.tableModel.removeRow(i);
+        while (this.tabPatientsList.getRowCount() != 0) {
+            this.tableModel.removeRow(this.tabPatientsList.getRowCount()-1);
         }
         this.tPesel.setText("");
     }
@@ -133,9 +133,9 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
     }
 
     public Patient getPatient() {
-        String name = this.tableModel.getValueAt(this.rowSelectedNr, 0).toString();
-        String surname = this.tableModel.getValueAt(this.rowSelectedNr, 1).toString();
-        String pesel = this.tableModel.getValueAt(this.rowSelectedNr, 2).toString();
+        String name = this.tableModel.getValueAt(this.rowSelectedNr, 0).toString().trim();
+        String surname = this.tableModel.getValueAt(this.rowSelectedNr, 1).toString().trim();
+        String pesel = this.tableModel.getValueAt(this.rowSelectedNr, 2).toString().trim();
         return new Patient(name, surname, pesel, "", "");
     }
 

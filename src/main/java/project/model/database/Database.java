@@ -10,18 +10,20 @@ import project.model.visit.ScheduledVisit;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.function.DoubleToIntFunction;
 
 public class Database {
 
+    private ResultSet result = null;
     private Connection connection = null;
     private DatabaseMetaData dbmd = null;
-    Statement statement = null;
-    TablePatients tablePatients = null;
-    TableDoctors tableDoctors = null;
-    TableMedicalTestsResults tableMedicalTestsResults = null;
-    TableScheduledVisits tableScheduledVisits = null;
-    TableArchivedVisits tableArchivedVisits = null;
-    TableHospitalisations tableHospitalisations = null;
+    private Statement statement = null;
+    private TablePatients tablePatients = null;
+    private TableDoctors tableDoctors = null;
+    private TableMedicalTestsResults tableMedicalTestsResults = null;
+    private TableScheduledVisits tableScheduledVisits = null;
+    private TableArchivedVisits tableArchivedVisits = null;
+    private TableHospitalisations tableHospitalisations = null;
 
     public Database() throws AppException {
         try {
@@ -207,11 +209,13 @@ public class Database {
         try {
             return this.tablePatients.getPatient(pesel);
         } catch (SQLException exception) {
+            System.out.println("aaaaa");
             throw new AppException("Problem with getting patient from PATIENTS table");
         }
     }
 
     public ArrayList<Patient> getPatients() throws AppException {
+
         try {
             return this.tablePatients.getPatients();
         } catch (SQLException exception) {
@@ -517,6 +521,16 @@ public class Database {
                 "Zapalenie płuc"));
         this.addHospitalisation("22222222222", new Hospitalisation("30.05.2019", "04.06.2019",
                 "Poród"));
+
+//        Patient patient = new Patient("Aleksandra", "Nowakowska", "22222222222",
+//                "Prywatne", "Warszawa");
+//        try {
+//            this.statement.executeUpdate("UPDATE PATIENTS SET patient_name='" + patient.getName() +
+//                    "', patient_surname='" + patient.getSurname() + "', insurance='" + patient.getInsurance() +
+//                    "', address='" + patient.getAddress() + "' WHERE patient_pesel='" + patient.getPesel() + "'");
+//        } catch (Exception exception) {
+//            System.out.println("ups");
+//        }
 
         this.printPatients();
         this.printDoctors();

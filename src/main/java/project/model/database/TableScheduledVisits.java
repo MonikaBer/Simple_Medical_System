@@ -1,5 +1,6 @@
 package project.model.database;
 
+import project.AppException;
 import project.model.person.Doctor;
 import project.model.visit.ScheduledVisit;
 
@@ -63,9 +64,8 @@ public class TableScheduledVisits implements DatabaseInterface {
                     scheduledVisit.getPayment().toString() + "','" + patientPesel + "','" +
                     scheduledVisit.getDoctor().getPesel() + "')");
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public boolean deleteScheduledVisit(String pesel, String date, String time) throws SQLException {
@@ -73,10 +73,8 @@ public class TableScheduledVisits implements DatabaseInterface {
             this.statement.execute("DELETE FROM SCHEDULED_VISITS WHERE patient_pesel='" + pesel +
                     "' AND date='" + date + "' AND time='" + time + "'");
             return true;
-        } else {
-            return false;
         }
-
+        return false;
     }
 
     public boolean ifScheduledVisitExists(String pesel, String date, String time) throws SQLException {
@@ -84,21 +82,18 @@ public class TableScheduledVisits implements DatabaseInterface {
                 pesel + "' AND date='" + date + "' AND time='" + time + "'");
         if (!this.result.next()) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
-    public ArrayList<ScheduledVisit> getPatientScheduledVisits(String pesel) throws SQLException {
+    public ArrayList<ScheduledVisit> getPatientScheduledVisits(String pesel) throws SQLException, AppException {
         ArrayList<ScheduledVisit> scheduledVisits = new ArrayList<>();
-        this.result = this.statement.executeQuery("SELECT * FROM SCHEDULED_VISITS WHERE patient_pesel='" +
-                pesel + "'");
+        this.result = this.statement.executeQuery("SELECT * FROM SCHEDULED_VISITS NATURAL JOIN DOCTORS WHERE " +
+                "SCHEDULED_VISITS.patient_pesel='" + pesel + "'");
         while (this.result.next()) {
-            this.result2 = this.statement.executeQuery("SELECT * FROM DOCTORS WHERE doctor_pesel='" +
-                    this.result.getString("doctor_pesel") + "'");
-            Doctor doctor = new Doctor(this.result2.getString("doctor_name"),
-                    this.result2.getString("doctor_surname"), this.result2.getString("doctor_pesel"),
-                    this.result2.getString("specialisation"));
+            Doctor doctor = new Doctor(this.result.getString("doctor_name"),
+                    this.result.getString("doctor_surname"), this.result.getString("doctor_pesel"),
+                    this.result.getString("specialisation"));
             scheduledVisits.add(new ScheduledVisit(this.result.getString("date"),
                     this.result.getString("time"), this.result.getString("type"),
                     doctor, Float.parseFloat(this.result.getString("payment"))));

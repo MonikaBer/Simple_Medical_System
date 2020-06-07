@@ -81,7 +81,7 @@ public class PersonalDataView implements ActionPanelViews {
         String insurance = this.cbInsurance.getSelectedItem().toString();
         String address = this.tAddress.getText().trim();
         try {
-            Float.parseFloat(pesel);
+            Double.parseDouble(pesel);
             return new Patient(name, surname, pesel, insurance, address);
         } catch (Exception exception) {
             throw new DataParsingException();
@@ -110,7 +110,8 @@ public class PersonalDataView implements ActionPanelViews {
             this.cbInsurance.setVisible(true);
             this.tAddress.setVisible(true);
             this.bSave.setVisible(true);
-        } else{
+            this.tPesel.setEnabled(false);
+        } else {
             this.lName.setVisible(false);
             this.lSurname.setVisible(false);
             this.lPesel.setVisible(false);

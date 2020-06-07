@@ -4,16 +4,8 @@ import javax.swing.SwingUtilities;
 
 import project.AppException;
 import project.controller.Controller;
-import project.model.Hospitalisation;
-import project.model.MedicalTestResult;
 import project.model.database.Database;
-import project.model.person.Doctor;
-import project.model.person.Patient;
-import project.model.visit.ArchivedVisit;
-import project.model.visit.ScheduledVisit;
 import project.view.View;
-
-import java.sql.SQLException;
 
 
 public class Main {

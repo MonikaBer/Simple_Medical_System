@@ -1,7 +1,6 @@
 package project.model.database;
 
 import project.model.person.Doctor;
-import project.model.person.Patient;
 import project.model.visit.ArchivedVisit;
 
 import java.sql.DatabaseMetaData;
@@ -62,9 +61,8 @@ public class TableArchivedVisits implements DatabaseInterface {
                     + "','" + archivedVisit.getDescription() + "','" + pesel + "','" +
                     archivedVisit.getDoctor().getPesel() + "')");
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public boolean deleteArchivedVisit(String patientPesel, String date, String doctorPesel) throws SQLException {
@@ -72,9 +70,8 @@ public class TableArchivedVisits implements DatabaseInterface {
             this.statement.execute("DELETE FROM ARCHIVED_VISITS WHERE patient_pesel='" + patientPesel +
                     "' AND doctor_pesel='" + doctorPesel + "'AND date='" + date + "'");
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public boolean ifArchivedVisitExists(String patientPesel, String date, String doctorPesel) throws SQLException {
@@ -82,21 +79,18 @@ public class TableArchivedVisits implements DatabaseInterface {
                 patientPesel + "' AND date='" + date + "' AND doctor_pesel='" + doctorPesel + "'");
         if (!this.result.next()) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     public ArrayList<ArchivedVisit> getPatientArchivedVisits(String pesel) throws SQLException {
         ArrayList<ArchivedVisit> archivedVisits = new ArrayList<>();
-        this.result = this.statement.executeQuery("SELECT * FROM ARCHIVED_VISITS WHERE patient_pesel='" +
-                pesel + "'");
+        this.result = this.statement.executeQuery("SELECT * FROM ARCHIVED_VISITS NATURAL JOIN DOCTORS WHERE " +
+                "ARCHIVED_VISITS.patient_pesel='" + pesel + "'");
         while (this.result.next()) {
-            this.result2 = this.statement.executeQuery("SELECT * FROM DOCTORS WHERE doctor_pesel='" +
-                    this.result.getString("doctor_pesel") + "'");
-            Doctor doctor = new Doctor(this.result2.getString("doctor_name"),
-                    this.result2.getString("doctor_surname"), this.result2.getString("doctor_pesel"),
-                    this.result2.getString("specialisation"));
+            Doctor doctor = new Doctor(this.result.getString("doctor_name"),
+                    this.result.getString("doctor_surname"), this.result.getString("doctor_pesel"),
+                    this.result.getString("specialisation"));
             archivedVisits.add(new ArchivedVisit(this.result.getString("date"),
                     this.result.getString("type"), doctor, this.result.getString("description")));
         }

@@ -60,9 +60,8 @@ public class TableMedicalTestsResults implements DatabaseInterface {
                     "','" + medicalTestResult.getResult().toString() + "', '" + medicalTestResult.getUnits() + "','" +
                     pesel + "')");
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public boolean deleteMedicalTestResult(String pesel, String date, String type) throws SQLException {
@@ -70,9 +69,9 @@ public class TableMedicalTestsResults implements DatabaseInterface {
             this.statement.execute("DELETE FROM MEDICAL_TESTS_RESULTS WHERE patient_pesel='" + pesel + "' AND date='" +
                     date + "' AND type='" + type + "'");
             return true;
-        } else {
-            return false;
         }
+        return false;
+
     }
 
     public boolean ifMedicalTestResultExists(String pesel, String date, String type) throws SQLException {
@@ -80,9 +79,8 @@ public class TableMedicalTestsResults implements DatabaseInterface {
                 pesel + "' AND date='" + date + "' AND type='" + type + "'");
         if (!this.result.next()) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     public ArrayList<MedicalTestResult> getPatientMedicalTestsResults(String pesel) throws SQLException {

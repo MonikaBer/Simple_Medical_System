@@ -7,7 +7,6 @@ import project.model.database.Database;
 import project.interfaces.ViewListener;
 import project.model.Hospitalisation;
 import project.model.MedicalTestResult;
-import project.model.person.Doctor;
 import project.model.person.Patient;
 import project.model.visit.ArchivedVisit;
 import project.model.visit.ScheduledVisit;
@@ -16,6 +15,7 @@ import project.view.windows.mainWindow.MainWindow;
 import project.view.windows.otherWindows.*;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class Controller implements ViewListener {
 
@@ -37,44 +37,70 @@ public class Controller implements ViewListener {
 		this.hospitalisationAdditionWindow = view.getHospitalisationAdditionWindow();
     	this.database = database;
 
-		this.patientsListWindow.loadPatients(this.database.getPatients());
+//		this.patientsListWindow.loadPatients(this.database.getPatients());
     }
 
 	@Override
 	public void viewChanged(JFrame window, Object source) throws AppException {
-		if (window == this.mainWindow) {
+    	this.database.printPatients();
+//		this.database.printDoctors();
+//		this.database.printMedicalTestsResults();
+//		this.database.printScheduledVisits();
+//		this.database.printArchivedVisits();
+//		this.database.printHospitalisations();
+
+    	if (window == this.mainWindow) {
 			if (source == this.mainWindow.getMenuPanel().getMClose()) {
 				this.mainWindow.dispose();
 			}
 			else if (source == this.mainWindow.getMenuPanel().getMPatientsList()) {
-				this.patientsListWindow.loadPatients(database.getPatients());
-				this.patientsListWindow.setVisible(true);
+				ArrayList<Patient> patients = database.getPatients();
+				this.patientsListWindow.loadPatients(patients);
 				this.mainWindow.setEnabled(false);
+				this.patientsListWindow.setVisible(true);
 			}
 			else if (source == this.mainWindow.getSelectionPanel().getbPersonalData()) {
-				this.mainWindow.getActionPanel().setPersonalDataViewVisibility(true);
-				this.mainWindow.getActionPanel().getPersonalDataView().
-						loadPatientPersonalData(database.getPatient(chosenPatient.getPesel()));
+				if (chosenPatient != null) {
+					this.mainWindow.getActionPanel().setPersonalDataViewVisibility(true);
+					Patient patient = database.getPatient(chosenPatient.getPesel());
+					this.mainWindow.getActionPanel().getPersonalDataView().loadPatientPersonalData(patient);
+				}
 			}
 			else if (source == this.mainWindow.getSelectionPanel().getbScheduledVisits()) {
-				this.mainWindow.getActionPanel().setScheduledVisitsViewVisibility(true);
-				this.mainWindow.getActionPanel().getScheduledVisitsView().
-						loadPatientScheduledVisits(database.getPatientScheduledVisits(chosenPatient.getPesel()));
+				if (chosenPatient != null) {
+					this.mainWindow.getActionPanel().setScheduledVisitsViewVisibility(true);
+					ArrayList<ScheduledVisit> scheduledVisits =
+							database.getPatientScheduledVisits(chosenPatient.getPesel());
+					this.mainWindow.getActionPanel().getScheduledVisitsView().
+							loadPatientScheduledVisits(scheduledVisits);
+				}
 			}
 			else if (source == this.mainWindow.getSelectionPanel().getbMedicalTestsResults()) {
-				this.mainWindow.getActionPanel().setMedicalTestsResultsViewVisibility(true);
-				this.mainWindow.getActionPanel().getMedicalTestsResultsView().
-						loadPatientMedicalTestsResults(database.getPatientMedicalTestResults(chosenPatient.getPesel()));
+				if (chosenPatient != null) {
+					this.mainWindow.getActionPanel().setMedicalTestsResultsViewVisibility(true);
+					ArrayList<MedicalTestResult> medicalTestsResults =
+							database.getPatientMedicalTestResults(chosenPatient.getPesel());
+					this.mainWindow.getActionPanel().getMedicalTestsResultsView().
+							loadPatientMedicalTestsResults(medicalTestsResults);
+				}
 			}
 			else if (source == this.mainWindow.getSelectionPanel().getbArchivedVisits()) {
-				this.mainWindow.getActionPanel().setArchivedVisitsViewVisibility(true);
-				this.mainWindow.getActionPanel().getArchivedVisitsView().
-						loadPatientArchivedVisits(database.getPatientArchivedVisits(chosenPatient.getPesel()));
+				if (chosenPatient != null) {
+					this.mainWindow.getActionPanel().setArchivedVisitsViewVisibility(true);
+					ArrayList<ArchivedVisit> archivedVisits =
+							database.getPatientArchivedVisits(chosenPatient.getPesel());
+					this.mainWindow.getActionPanel().getArchivedVisitsView().
+							loadPatientArchivedVisits(archivedVisits);
+				}
 			}
 			else if (source == this.mainWindow.getSelectionPanel().getbHospitalisations()) {
-				this.mainWindow.getActionPanel().setHospitalisationsViewVisibility(true);
-				this.mainWindow.getActionPanel().getHospitalisationsView().
-						loadPatientHospitalisations(database.getPatientHospitalisations(chosenPatient.getPesel()));
+				if (chosenPatient != null) {
+					this.mainWindow.getActionPanel().setHospitalisationsViewVisibility(true);
+					ArrayList<Hospitalisation> hospitalisations =
+							database.getPatientHospitalisations(chosenPatient.getPesel());
+					this.mainWindow.getActionPanel().getHospitalisationsView().
+							loadPatientHospitalisations(hospitalisations);
+				}
 			}
 			else if (source == this.mainWindow.getActionPanel().getPersonalDataView().getbSave()) {
 				//save patient's data
@@ -85,8 +111,8 @@ public class Controller implements ViewListener {
 						Helper.showWarningDialog(this.mainWindow, "W bazie już istnieje inny pacjent o tym samym PESELU");
 						return;
 					}
+					database.updatePatient(newPatientData);
 					chosenPatient = newPatientData;
-					database.updatePatient(chosenPatient);
 					this.mainWindow.getAboutPatientPanel().setPatientInfo(chosenPatient);
 					//this.mainWindow.getActionPanel().getPersonalDataView().loadPatientPersonalData(chosenPatient);
 				} catch (DataParsingException exception) {
@@ -116,9 +142,9 @@ public class Controller implements ViewListener {
 				}
 			}
 			else if (source == this.mainWindow.getActionPanel().getScheduledVisitsView().getbAdd()) {
+				this.mainWindow.setEnabled(false);
 				this.visitAdditionWindow.clear();
 				this.visitAdditionWindow.setVisible(true);
-				this.mainWindow.setEnabled(false);
 			}
 			else if (source == this.mainWindow.getActionPanel().getScheduledVisitsView().getbDelete()) {
 				//delete this visit
@@ -134,9 +160,9 @@ public class Controller implements ViewListener {
 				}
 			}
 			else if (source == this.mainWindow.getActionPanel().getMedicalTestsResultsView().getbAdd()) {
+				this.mainWindow.setEnabled(false);
 				this.medicalTestResultAdditionWindow.clear();
 				this.medicalTestResultAdditionWindow.setVisible(true);
-				this.mainWindow.setEnabled(false);
 			}
 			else if (source == this.mainWindow.getActionPanel().getMedicalTestsResultsView().getbDelete()) {
 				//delete this medical test result
@@ -168,9 +194,9 @@ public class Controller implements ViewListener {
 				//show description from this archived visit
 			}
 			else if (source == this.mainWindow.getActionPanel().getHospitalisationsView().getbAdd()) {
+				this.mainWindow.setEnabled(false);
 				this.hospitalisationAdditionWindow.clear();
 				this.hospitalisationAdditionWindow.setVisible(true);
-				this.mainWindow.setEnabled(false);
 			}
 			else if (source == this.mainWindow.getActionPanel().getHospitalisationsView().getbDelete()) {
 				//delete this hospitalisation
@@ -196,22 +222,26 @@ public class Controller implements ViewListener {
 				this.patientsListWindow.setRowSelectedNr(this.patientsListWindow.getTabPatientsList().getSelectedRow());
 				if (this.patientsListWindow.getRowSelectedNr() != -1) {
 					Patient patient = this.patientsListWindow.getPatient();
-					this.patientsListWindow.deletePatient();
-					database.deletePatient(patient.getPesel());
+					//this.patientsListWindow.deletePatient();
+					this.database.deletePatient(patient.getPesel());
+					ArrayList<Patient> patients = this.database.getPatients();
+					this.patientsListWindow.clear();
+					this.patientsListWindow.loadPatients(patients);
 				}
 			} else if (source == this.patientsListWindow.getbChoose()) {
 				this.patientsListWindow.setRowSelectedNr(this.patientsListWindow.getTabPatientsList().getSelectedRow());
 				if (this.patientsListWindow.getRowSelectedNr() != -1) {
 					chosenPatient = this.patientsListWindow.getPatient();
+					chosenPatient = this.database.getPatient(chosenPatient.getPesel());
 					this.patientsListWindow.setVisible(false);
+					this.mainWindow.setEnabled(true);
 					this.mainWindow.getAboutPatientPanel().setPatientInfo(chosenPatient);
 					this.mainWindow.getActionPanel().loadPatientData(chosenPatient, this.database);
-					this.mainWindow.setEnabled(true);
 				}
 			} else if (source == this.patientsListWindow.getbChooseByPesel()) {
 				String pesel = this.patientsListWindow.gettPesel().getText().trim();
 				try {
-					Float.parseFloat(pesel);
+					Double.parseDouble(pesel);
 				} catch (Exception exception) {
 					Helper.showWarningDialog(this.patientsListWindow, "Błędny pesel");
 					return;
@@ -219,9 +249,9 @@ public class Controller implements ViewListener {
 				if (this.database.ifPatientExists(pesel)) {
 					chosenPatient = this.database.getPatient(pesel);
 					this.patientsListWindow.setVisible(false);
+					this.mainWindow.setEnabled(true);
 					this.mainWindow.getAboutPatientPanel().setPatientInfo(chosenPatient);
 					this.mainWindow.getActionPanel().loadPatientData(chosenPatient, this.database);
-					this.mainWindow.setEnabled(true);
 				} else {
 					int odp = Helper.showConfirmDialog("Pacjenta o tym PESELU nie ma w bazie. " +
 							"Czy chcesz dodać nowego pacjenta?");
@@ -229,7 +259,6 @@ public class Controller implements ViewListener {
 						this.patientsListWindow.setEnabled(false);
 						this.newPatientAdditionWindow.clear();
 						this.newPatientAdditionWindow.setVisible(true);
-						//} else if (odp == JOptionPane.NO_OPTION || odp == JOptionPane.CLOSED_OPTION) {
 					}
 				}
 			}
@@ -241,24 +270,24 @@ public class Controller implements ViewListener {
 				Patient patient = null;
 				try {
 					patient = this.newPatientAdditionWindow.getNewPatient();
+					if (this.database.ifPatientExists(patient.getPesel())) {
+						Helper.showWarningDialog(this.newPatientAdditionWindow,
+								"Pacjent o takim PESELU już istnieje w bazie");
+						return;
+					}
+					chosenPatient = patient;
+					this.database.addPatient(chosenPatient);
+					this.patientsListWindow.clear();
+					this.newPatientAdditionWindow.clear();
+					this.newPatientAdditionWindow.setVisible(false);
+					this.patientsListWindow.setVisible(false);
+					this.mainWindow.setEnabled(true);
+					this.mainWindow.getAboutPatientPanel().setPatientInfo(chosenPatient);
+					this.mainWindow.getActionPanel().loadPatientData(chosenPatient, this.database);
 				} catch (DataParsingException exception) {
 					Helper.showWarningDialog(this.newPatientAdditionWindow, "Błędne dane");
 					return;
 				}
-				if (this.database.ifPatientExists(patient.getPesel())) {
-					Helper.showWarningDialog(this.newPatientAdditionWindow,
-							"Pacjent o takim PESELU już istnieje w bazie");
-					return;
-				}
-				chosenPatient = patient;
-				this.database.addPatient(chosenPatient);
-				this.patientsListWindow.clear();
-				this.newPatientAdditionWindow.clear();
-				this.newPatientAdditionWindow.setVisible(false);
-				this.patientsListWindow.setVisible(false);
-				this.mainWindow.getAboutPatientPanel().setPatientInfo(chosenPatient);
-				this.mainWindow.getActionPanel().loadPatientData(chosenPatient, this.database);
-				this.mainWindow.setEnabled(true);
 			} else if (source == this.newPatientAdditionWindow.getbDiscard()) {
 				this.newPatientAdditionWindow.clear();
 				this.newPatientAdditionWindow.setVisible(false);
@@ -271,21 +300,21 @@ public class Controller implements ViewListener {
 				ScheduledVisit scheduledVisit = null;
 				try {
 					scheduledVisit = this.visitAdditionWindow.getNewScheduledVisit();
+					if (this.database.ifScheduledVisitExists(chosenPatient.getPesel(), scheduledVisit.getDate(),
+							scheduledVisit.getTime())) {
+						Helper.showWarningDialog(this.visitAdditionWindow,
+								"Nie można dodać takiej wizyty, bo podobna już jest w bazie");
+						return;
+					}
+					this.visitAdditionWindow.clear();
+					this.visitAdditionWindow.setVisible(false);
+					this.mainWindow.setEnabled(true);
+					this.database.addScheduledVisit(chosenPatient.getPesel(), scheduledVisit);
+					this.mainWindow.getActionPanel().getScheduledVisitsView().addScheduledVisit(scheduledVisit);
 				} catch (DataParsingException exception) {
 					Helper.showWarningDialog(this.visitAdditionWindow, "Błędne dane");
 					return;
 				}
-				if (this.database.ifScheduledVisitExists(chosenPatient.getPesel(), scheduledVisit.getDate(),
-						scheduledVisit.getTime())) {
-					Helper.showWarningDialog(this.visitAdditionWindow,
-							"Nie można dodać takiej wizyty, bo podobna już jest w bazie");
-					return;
-				}
-				this.visitAdditionWindow.clear();
-				this.visitAdditionWindow.setVisible(false);
-				this.mainWindow.setEnabled(true);
-				this.database.addScheduledVisit(chosenPatient.getPesel(), scheduledVisit);
-				this.mainWindow.getActionPanel().getScheduledVisitsView().addScheduledVisit(scheduledVisit);
 			} else if (source == this.visitAdditionWindow.getbDiscard()) {
 				this.visitAdditionWindow.clear();
 				this.visitAdditionWindow.setVisible(false);
@@ -298,22 +327,22 @@ public class Controller implements ViewListener {
 					MedicalTestResult medicalTestResult = null;
 					try {
 						medicalTestResult = this.medicalTestResultAdditionWindow.getNewMedicalTestResult();
+						if (this.database.ifMedicalTestResultExists(chosenPatient.getPesel(), medicalTestResult.getDate(),
+								medicalTestResult.getType())) {
+							Helper.showWarningDialog(this.medicalTestResultAdditionWindow,
+									"Nie można dodać takiego badania, bo podobne już jest w bazie");
+							return;
+						}
+						this.medicalTestResultAdditionWindow.clear();
+						this.medicalTestResultAdditionWindow.setVisible(false);
+						this.mainWindow.setEnabled(true);
+						this.database.addMedicalTestResult(chosenPatient.getPesel(), medicalTestResult);
+						this.mainWindow.getActionPanel().getMedicalTestsResultsView().
+								addMedicalTestResult(medicalTestResult);
 					} catch (DataParsingException exception) {
 						Helper.showWarningDialog(this.medicalTestResultAdditionWindow, "Błędne dane");
 						return;
 					}
-					if (this.database.ifMedicalTestResultExists(chosenPatient.getPesel(), medicalTestResult.getDate(),
-							medicalTestResult.getType())) {
-						Helper.showWarningDialog(this.medicalTestResultAdditionWindow,
-								"Nie można dodać takiego badania, bo podobne już jest w bazie");
-						return;
-					}
-					this.medicalTestResultAdditionWindow.clear();
-					this.medicalTestResultAdditionWindow.setVisible(false);
-					this.mainWindow.setEnabled(true);
-					this.database.addMedicalTestResult(chosenPatient.getPesel(), medicalTestResult);
-					this.mainWindow.getActionPanel().getMedicalTestsResultsView().
-							addMedicalTestResult(medicalTestResult);
 				} else if (source == this.medicalTestResultAdditionWindow.getbDiscard()) {
 					this.medicalTestResultAdditionWindow.clear();
 					this.medicalTestResultAdditionWindow.setVisible(false);

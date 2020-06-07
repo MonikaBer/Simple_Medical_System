@@ -56,9 +56,8 @@ public class TableHospitalisations implements DatabaseInterface {
                     "('" + hospitalisation.getFrom() + "','" + hospitalisation.getTo() + "','" +
                     hospitalisation.getReason() + "','" + pesel + "')");
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public boolean deleteHospitalisation(String pesel, String dateFrom, String dateTo) throws SQLException {
@@ -66,9 +65,8 @@ public class TableHospitalisations implements DatabaseInterface {
             this.statement.execute("DELETE FROM HOSPITALISATIONS WHERE patient_pesel='" + pesel +
                     "' AND date_from='" + dateFrom + "' AND date_to='" + dateTo + "'");
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public boolean ifHospitalisationExists(String pesel, String dateFrom, String dateTo) throws SQLException {
@@ -76,9 +74,8 @@ public class TableHospitalisations implements DatabaseInterface {
                 pesel + "' AND date_from='" + dateFrom + "' AND date_to='" + dateTo + "'");
         if (!this.result.next()) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     public ArrayList<Hospitalisation> getPatientHospitalisations(String pesel) throws SQLException {

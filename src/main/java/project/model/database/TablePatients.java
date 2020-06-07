@@ -51,13 +51,11 @@ public class TablePatients implements DatabaseInterface {
     public boolean addPatient(Patient patient) throws SQLException {
         if (!this.ifPatientExists(patient.getPesel())) {
             this.statement.execute("INSERT INTO PATIENTS (patient_name, patient_surname, patient_pesel, " +
-                    "insurance, address) VALUES" +
-                    "('" + patient.getName() + "','" + patient.getSurname() + "','" + patient.getPesel() + "','" +
-                    patient.getInsurance() + "','" + patient.getAddress() + "')");
+                    "insurance, address) VALUES('" + patient.getName() + "','" + patient.getSurname() + "','" +
+                    patient.getPesel() + "','" + patient.getInsurance() + "','" + patient.getAddress() + "')");
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public boolean deletePatient(String pesel) throws SQLException {
@@ -68,25 +66,25 @@ public class TablePatients implements DatabaseInterface {
             this.statement.execute("DELETE FROM HOSPITALISATIONS WHERE patient_pesel='" + pesel + "'");
             this.statement.execute("DELETE FROM PATIENTS WHERE patient_pesel='" + pesel + "'");
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public boolean ifPatientExists(String pesel) throws SQLException {
         this.result = this.statement.executeQuery("SELECT * FROM PATIENTS WHERE patient_pesel='" + pesel + "'");
         if (!this.result.next()) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     public Patient getPatient(String pesel) throws SQLException {
         this.result = this.statement.executeQuery("SELECT * FROM PATIENTS WHERE patient_pesel='" + pesel + "'");
-        return new Patient(this.result.getString("patient_name"), this.result.getString("patient_surname"),
-                this.result.getString("patient_pesel"), this.result.getString("insurance"),
-                this.result.getString("address"));
+        if (this.result.next())
+            return new Patient(this.result.getString("patient_name"), this.result.getString("patient_surname"),
+                    this.result.getString("patient_pesel"), this.result.getString("insurance"),
+                    this.result.getString("address"));
+        return null;
     }
 
     public ArrayList<Patient> getPatients() throws SQLException {
@@ -102,7 +100,7 @@ public class TablePatients implements DatabaseInterface {
 
     public void updatePatient(Patient patient) throws SQLException {
         this.statement.executeUpdate("UPDATE PATIENTS SET patient_name='" + patient.getName() +
-                "', patient_surname=" + patient.getSurname() + "', insurance=" + patient.getInsurance() +
-                "', address=" + patient.getAddress() + " WHERE patient_pesel='" + patient.getPesel() + "'");
+                "', patient_surname='" + patient.getSurname() + "', insurance='" + patient.getInsurance() +
+                "', address='" + patient.getAddress() + "' WHERE patient_pesel='" + patient.getPesel() + "'");
     }
 }
