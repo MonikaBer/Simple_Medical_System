@@ -5,5 +5,7 @@ Program for managing patient's medical information (patients' personal data, sch
 Java 11, Swing, Maven, Apache Derby. 
 
 ## Usage
+```bash
 mvn package
 java -jar ./target/project-1.0.0.jar
+```
