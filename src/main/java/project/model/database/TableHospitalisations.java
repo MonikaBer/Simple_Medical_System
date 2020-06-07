@@ -1,5 +1,6 @@
 package project.model.database;
 
+import project.interfaces.DatabaseInterface;
 import project.model.Hospitalisation;
 
 import java.sql.DatabaseMetaData;

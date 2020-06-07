@@ -1,7 +1,7 @@
 package project.model.database;
 
+import project.interfaces.DatabaseInterface;
 import project.model.MedicalTestResult;
-import project.model.person.Patient;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;

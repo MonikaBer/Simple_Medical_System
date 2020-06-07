@@ -1,10 +1,10 @@
 package project.model.database;
 
 import project.AppException;
+import project.interfaces.DatabaseInterface;
 import project.model.person.Doctor;
 import project.model.visit.ScheduledVisit;
 
-import javax.print.Doc;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;

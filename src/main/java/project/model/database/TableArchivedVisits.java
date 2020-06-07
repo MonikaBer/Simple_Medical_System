@@ -1,5 +1,6 @@
 package project.model.database;
 
+import project.interfaces.DatabaseInterface;
 import project.model.person.Doctor;
 import project.model.visit.ArchivedVisit;
 import project.model.visit.ScheduledVisit;

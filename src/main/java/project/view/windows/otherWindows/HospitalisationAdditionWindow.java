@@ -3,9 +3,9 @@ package project.view.windows.otherWindows;
 import project.AppException;
 import project.DataParsingException;
 import project.Helper;
-import project.interfaces.ViewListener;
 
 import com.toedter.calendar.JDateChooser;
+import project.interfaces.HospitalisationAdditionWindowListener;
 import project.model.Hospitalisation;
 
 import javax.swing.*;
@@ -19,7 +19,7 @@ public class HospitalisationAdditionWindow extends JFrame implements ActionListe
     private JTextField tReason;
     private JButton bSave, bDiscard;
 
-    private ViewListener viewListener = null;
+    private HospitalisationAdditionWindowListener viewListener = null;
 
     public HospitalisationAdditionWindow() {
         this.createHospitalisationAdditionWindow();
@@ -88,18 +88,6 @@ public class HospitalisationAdditionWindow extends JFrame implements ActionListe
         return new Hospitalisation(dateFrom, dateTo, reason);
     }
 
-//    public String gettFrom() {
-//        return dcFrom.toString();
-//    }
-//
-//    public String gettTo() {
-//        return dcTo.toString();
-//    }
-//
-//    public String gettReason() {
-//        return tReason.getText();
-//    }
-
     public JButton getbSave() {
         return bSave;
     }
@@ -109,14 +97,14 @@ public class HospitalisationAdditionWindow extends JFrame implements ActionListe
     }
 
     //listeners management
-    public void addListener(ViewListener viewListener) {
+    public void addListener(HospitalisationAdditionWindowListener viewListener) {
         this.viewListener = viewListener;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            this.viewListener.viewChanged(this, e.getSource());
+            this.viewListener.hospitalisationAdditionWindowChanged(this, e.getSource());
         } catch (AppException throwables) {
             throwables.printStackTrace();
         }

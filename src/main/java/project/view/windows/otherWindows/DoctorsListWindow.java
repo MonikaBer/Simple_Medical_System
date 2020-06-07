@@ -1,7 +1,7 @@
 package project.view.windows.otherWindows;
 
 import project.AppException;
-import project.interfaces.ViewListener;
+import project.interfaces.DoctorsListWindowListener;
 import project.model.person.Doctor;
 
 import javax.swing.*;
@@ -20,7 +20,7 @@ public class DoctorsListWindow extends JFrame implements ActionListener, MouseLi
     private int rowSelectedNr;
     private JButton bOk;
 
-    private ViewListener viewListener = null;
+    private DoctorsListWindowListener viewListener = null;
 
     public DoctorsListWindow() {
         this.createDoctorsListWindow();
@@ -109,14 +109,14 @@ public class DoctorsListWindow extends JFrame implements ActionListener, MouseLi
 
 
     //listeners management
-    public void addListener(ViewListener viewListener) {
+    public void addListener(DoctorsListWindowListener viewListener) {
         this.viewListener = viewListener;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            this.viewListener.viewChanged(this, e.getSource());
+            this.viewListener.doctorsListWindowChanged(this, e.getSource());
         } catch (AppException throwables) {
             throwables.printStackTrace();
         }
@@ -125,7 +125,7 @@ public class DoctorsListWindow extends JFrame implements ActionListener, MouseLi
     @Override
     public void mouseClicked(MouseEvent e) {
         try {
-            this.viewListener.viewChanged(this, e.getSource());
+            this.viewListener.doctorsListWindowChanged(this, e.getSource());
         } catch (AppException throwables) {
             throwables.printStackTrace();
         }

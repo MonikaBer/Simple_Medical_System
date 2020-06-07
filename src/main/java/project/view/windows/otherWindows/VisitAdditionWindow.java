@@ -4,7 +4,7 @@ import com.toedter.calendar.JDateChooser;
 import project.AppException;
 import project.DataParsingException;
 import project.Helper;
-import project.interfaces.ViewListener;
+import project.interfaces.VisitAdditionWindowListener;
 import project.model.person.Doctor;
 import project.model.visit.ScheduledVisit;
 
@@ -26,7 +26,7 @@ public class VisitAdditionWindow extends JFrame implements ActionListener {
     private JButton bDiscard;
     private JButton bShowDoctors;
 
-    private ViewListener viewListener = null;
+    private VisitAdditionWindowListener viewListener = null;
 
     public VisitAdditionWindow() {
         this.createVisitAdditionWindow();
@@ -119,7 +119,7 @@ public class VisitAdditionWindow extends JFrame implements ActionListener {
         String doctorPesel = tDoctorPesel.getText().trim();
         try {
             Float payment = Float.parseFloat(tPayment.getText().trim());
-            Double doubleDoctorPesel = Double.parseDouble(doctorPesel);
+            Double.parseDouble(doctorPesel);
             return new ScheduledVisit(date, time, type,
                     new Doctor("", "", doctorPesel, ""), payment);
         } catch (Exception exception) {
@@ -144,14 +144,14 @@ public class VisitAdditionWindow extends JFrame implements ActionListener {
     }
 
     //listeners management
-    public void addListener(ViewListener viewListener) {
+    public void addListener(VisitAdditionWindowListener viewListener) {
         this.viewListener = viewListener;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            this.viewListener.viewChanged(this, e.getSource());
+            this.viewListener.visitAdditionWindowChanged(this, e.getSource());
         } catch (AppException throwables) {
             throwables.printStackTrace();
         }

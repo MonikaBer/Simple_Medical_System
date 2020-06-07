@@ -1,7 +1,8 @@
 package project.view.windows.otherWindows;
 
 import project.AppException;
-import project.interfaces.ViewListener;
+import project.DataParsingException;
+import project.interfaces.PatientsListWindowListener;
 import project.model.person.Patient;
 
 import javax.swing.*;
@@ -22,7 +23,7 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
     private JTextField tPesel;
     private JButton bChoose, bDelete, bChooseByPesel;
 
-    private ViewListener viewListener = null;
+    private PatientsListWindowListener viewListener = null;
 
     public PatientsListWindow() {
         this.createPatientsListWindow();
@@ -91,10 +92,6 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
         return rowSelectedNr;
     }
 
-    public JTextField gettPesel() {
-        return tPesel;
-    }
-
     public JButton getbChoose() {
         return bChoose;
     }
@@ -140,19 +137,31 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
         return new Patient(name, surname, pesel, "", "");
     }
 
+    public String getPesel() throws DataParsingException {
+        String pesel = this.tPesel.getText().trim();
+        if (pesel.length() != 11)
+            throw new DataParsingException();
+        try {
+            Double.parseDouble(pesel);
+        } catch (Exception exception) {
+            throw new DataParsingException();
+        }
+        return pesel;
+    }
+
     public void clear() {
         this.tPesel.setText("");
     }
 
     //listeners management
-    public void addListener(ViewListener viewListener) {
+    public void addListener(PatientsListWindowListener viewListener) {
         this.viewListener = viewListener;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            this.viewListener.viewChanged(this, e.getSource());
+            this.viewListener.patientsListWindowChanged(this, e.getSource());
         } catch (AppException throwables) {
             throwables.printStackTrace();
         }
@@ -161,7 +170,7 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
     @Override
     public void mouseClicked(MouseEvent e) {
         try {
-            this.viewListener.viewChanged(this, e.getSource());
+            this.viewListener.patientsListWindowChanged(this, e.getSource());
         } catch (AppException throwables) {
             throwables.printStackTrace();
         }

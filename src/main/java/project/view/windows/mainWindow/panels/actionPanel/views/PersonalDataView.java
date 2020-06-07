@@ -126,46 +126,6 @@ public class PersonalDataView implements ActionPanelViews {
         }
     }
 
-//    public JTextField gettName() {
-//        return tName;
-//    }
-//
-//    public void settName(JTextField tName) {
-//        this.tName = tName;
-//    }
-//
-//    public JTextField gettSurname() {
-//        return tSurname;
-//    }
-//
-//    public void settSurname(JTextField tSurname) {
-//        this.tSurname = tSurname;
-//    }
-//
-//    public JTextField gettPesel() {
-//        return tPesel;
-//    }
-//
-//    public void settPesel(JTextField tPesel) {
-//        this.tPesel = tPesel;
-//    }
-//
-//    public JTextField gettAddress() {
-//        return tAddress;
-//    }
-//
-//    public void settAddress(JTextField tAddress) {
-//        this.tAddress = tAddress;
-//    }
-//
-//    public String getInsurance() {
-//        return cbInsurance.getSelectedItem().toString();
-//    }
-//
-//    public void setInsurance(String insurance) {
-//        this.cbInsurance.setSelectedItem(insurance);
-//    }
-
     public JButton getbSave() {
         return bSave;
     }

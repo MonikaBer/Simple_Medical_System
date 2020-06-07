@@ -1,6 +1,5 @@
 package project.view.windows.mainWindow.panels.actionPanel.views;
 
-import project.DataParsingException;
 import project.model.MedicalTestResult;
 
 import javax.swing.*;

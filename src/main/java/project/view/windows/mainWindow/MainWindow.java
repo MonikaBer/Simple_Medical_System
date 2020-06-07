@@ -1,7 +1,7 @@
 package project.view.windows.mainWindow;
 
 import project.AppException;
-import project.interfaces.ViewListener;
+import project.interfaces.MainWindowListener;
 import project.view.windows.mainWindow.panels.MenuPanel;
 import project.view.windows.mainWindow.panels.AboutPatientPanel;
 import project.view.windows.mainWindow.panels.SelectionPanel;
@@ -21,7 +21,7 @@ public class MainWindow extends JFrame implements ActionListener, MouseListener 
     private SelectionPanel selectionPanel;
     private ActionPanel actionPanel;
 
-    private ViewListener viewListener = null;
+    private MainWindowListener viewListener = null;
 
     public MainWindow() {
         this.createMainWindow();
@@ -85,11 +85,9 @@ public class MainWindow extends JFrame implements ActionListener, MouseListener 
         this.actionPanel.getMedicalTestsResultsView().getbDelete().addActionListener(this);
 
         this.actionPanel.getArchivedVisitsView().getbDelete().addActionListener(this);
-        this.actionPanel.getArchivedVisitsView().getbShowDesc().addActionListener(this);
 
         this.actionPanel.getHospitalisationsView().getbAdd().addActionListener(this);
         this.actionPanel.getHospitalisationsView().getbDelete().addActionListener(this);
-        this.actionPanel.getHospitalisationsView().getbShowDesc().addActionListener(this);
     }
 
     public MenuPanel getMenuPanel() {
@@ -109,14 +107,14 @@ public class MainWindow extends JFrame implements ActionListener, MouseListener 
     }
 
     //listeners management
-    public void addListener(ViewListener viewListener) {
+    public void addListener(MainWindowListener viewListener) {
         this.viewListener = viewListener;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            this.viewListener.viewChanged(this, e.getSource());
+            this.viewListener.mainWindowChanged(this, e.getSource());
         } catch (AppException throwables) {
             throwables.printStackTrace();
         }
@@ -125,7 +123,7 @@ public class MainWindow extends JFrame implements ActionListener, MouseListener 
     @Override
     public void mouseClicked(MouseEvent e) {
         try {
-            this.viewListener.viewChanged(this, e.getSource());
+            this.viewListener.mainWindowChanged(this, e.getSource());
         } catch (AppException throwables) {
             throwables.printStackTrace();
         }

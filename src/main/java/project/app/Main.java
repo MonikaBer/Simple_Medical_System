@@ -16,10 +16,10 @@ public class Main {
 			@Override
 			public void run() {
 				View view = new View();
-				//Model model = new Model();
 				try {
 					Database database = new Database();
-					database.generateData();
+					database.createTables();
+					database.generateDoctors();
 					Controller controller = new Controller(view, database);
 					view.getMainWindow().addListener(controller);
 					view.getPatientsListWindow().addListener(controller);

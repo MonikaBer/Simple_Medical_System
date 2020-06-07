@@ -2,8 +2,6 @@ package project.model.visit;
 
 import project.model.person.Doctor;
 
-import java.util.Date;
-
 public class ArchivedVisit extends Visit {
 
     private String description;

@@ -1,7 +1,7 @@
 package project.model.database;
 
+import project.interfaces.DatabaseInterface;
 import project.model.person.Doctor;
-import project.model.person.Patient;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -90,11 +90,5 @@ public class TableDoctors implements DatabaseInterface {
                     this.result.getString("doctor_pesel"), this.result.getString("specialisation")));
         }
         return doctors;
-    }
-
-    public void updateDoctor(Doctor doctor) throws SQLException {
-        this.statement.executeUpdate("UPDATE DOCTORS SET doctor_name='" + doctor.getName() +
-                "', doctor_surname=" + doctor.getSurname() + "', specialisation=" + doctor.getSpecialisation() +
-                " WHERE doctor_pesel='" + doctor.getPesel() + "'");
     }
 }

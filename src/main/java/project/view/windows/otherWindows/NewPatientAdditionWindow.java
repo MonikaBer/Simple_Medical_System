@@ -2,7 +2,7 @@ package project.view.windows.otherWindows;
 
 import project.AppException;
 import project.DataParsingException;
-import project.interfaces.ViewListener;
+import project.interfaces.NewPatientAdditionWindowListener;
 import project.model.person.Patient;
 
 import javax.swing.*;
@@ -21,7 +21,7 @@ public class NewPatientAdditionWindow extends JFrame implements ActionListener {
     private JButton bSave;
     private JButton bDiscard;
 
-    private ViewListener viewListener = null;
+    private NewPatientAdditionWindowListener viewListener = null;
 
     public NewPatientAdditionWindow() {
         this.createNewPatientWindow();
@@ -100,30 +100,6 @@ public class NewPatientAdditionWindow extends JFrame implements ActionListener {
         this.tAddress.setText("");
     }
 
-//    public JTextField gettName() {
-//        return tName;
-//    }
-//
-//    public JTextField gettSurname() {
-//        return tSurname;
-//    }
-//
-//    public JTextField gettPesel() {
-//        return tPesel;
-//    }
-//
-//    public JTextField gettAddress() {
-//        return tAddress;
-//    }
-//
-//    public String getInsurance() {
-//        return cbInsurance.getSelectedItem().toString();
-//    }
-
-//    public void setInsurance(String insurance) {
-//        this.cbInsurance.setSelectedItem(insurance);
-//    }
-
     public Patient getNewPatient() throws DataParsingException {
         String name = tName.getText().trim();
         String surname = tSurname.getText().trim();
@@ -149,14 +125,14 @@ public class NewPatientAdditionWindow extends JFrame implements ActionListener {
     }
 
     //listeners management
-    public void addListener(ViewListener viewListener) {
+    public void addListener(NewPatientAdditionWindowListener viewListener) {
         this.viewListener = viewListener;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            this.viewListener.viewChanged(this, e.getSource());
+            this.viewListener.newPatientAdditionWindowChanged(this, e.getSource());
         } catch (AppException throwables) {
             throwables.printStackTrace();
         }

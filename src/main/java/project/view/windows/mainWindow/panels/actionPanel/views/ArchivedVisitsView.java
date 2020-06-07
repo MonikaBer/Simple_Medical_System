@@ -13,7 +13,7 @@ public class ArchivedVisitsView implements ActionPanelViews {
     private JTable tabArchivedVisits;
     private JScrollPane spArchivedVisits;
     private int rowSelectedNr;
-    private JButton bDelete, bShowDesc;
+    private JButton bDelete;
 
     public ArchivedVisitsView(JPanel actionPanel) {
         this.tableModel = new DefaultTableModel();
@@ -40,10 +40,6 @@ public class ArchivedVisitsView implements ActionPanelViews {
         this.bDelete.setBounds(150, 400, 150, 20);
         actionPanel.add(this.bDelete);
 
-        this.bShowDesc = new JButton("Zobacz opis");
-        this.bShowDesc.setBounds(350, 400, 150, 20);
-        actionPanel.add(this.bShowDesc);
-
         this.setVisibility(false);
     }
 
@@ -66,12 +62,10 @@ public class ArchivedVisitsView implements ActionPanelViews {
             this.tabArchivedVisits.setVisible(true);
             this.spArchivedVisits.setVisible(true);
             this.bDelete.setVisible(true);
-            this.bShowDesc.setVisible(true);
         } else{
             this.tabArchivedVisits.setVisible(false);
             this.spArchivedVisits.setVisible(false);
             this.bDelete.setVisible(false);
-            this.bShowDesc.setVisible(false);
         }
     }
 
@@ -97,10 +91,6 @@ public class ArchivedVisitsView implements ActionPanelViews {
                 "");
     }
 
-    public void showScheduledVisitDescription() {
-        //show message dialog with description
-    }
-
     public JTable getTabArchivedVisits() {
         return tabArchivedVisits;
     }
@@ -111,10 +101,6 @@ public class ArchivedVisitsView implements ActionPanelViews {
 
     public JButton getbDelete() {
         return bDelete;
-    }
-
-    public JButton getbShowDesc() {
-        return bShowDesc;
     }
 
     public void setRowSelectedNr(int rowSelectedNr) {

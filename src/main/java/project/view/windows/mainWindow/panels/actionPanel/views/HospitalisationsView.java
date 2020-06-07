@@ -42,10 +42,6 @@ public class HospitalisationsView implements ActionPanelViews {
         this.bDelete.setBounds(250, 400, 150, 20);
         actionPanel.add(this.bDelete);
 
-        this.bShowDesc = new JButton("Czytaj opis");
-        this.bShowDesc.setBounds(450, 400, 150, 20);
-        actionPanel.add(this.bShowDesc);
-
         this.setVisibility(false);
     }
 
@@ -69,13 +65,11 @@ public class HospitalisationsView implements ActionPanelViews {
             this.spHospitalisations.setVisible(true);
             this.bAdd.setVisible(true);
             this.bDelete.setVisible(true);
-            this.bShowDesc.setVisible(true);
         } else{
             this.tabHospitalisations.setVisible(false);
             this.spHospitalisations.setVisible(false);
             this.bAdd.setVisible(false);
             this.bDelete.setVisible(false);
-            this.bShowDesc.setVisible(false);
         }
     }
 
@@ -95,10 +89,6 @@ public class HospitalisationsView implements ActionPanelViews {
         return new Hospitalisation(from, to, reason);
     }
 
-    public void showHospitalisationDescription() {
-        //show message dialog with hospitalisation description
-    }
-
     public JTable getTabHospitalisations() {
         return tabHospitalisations;
     }
@@ -113,10 +103,6 @@ public class HospitalisationsView implements ActionPanelViews {
 
     public JButton getbDelete() {
         return bDelete;
-    }
-
-    public JButton getbShowDesc() {
-        return bShowDesc;
     }
 
     public void setRowSelectedNr(int rowSelectedNr) {

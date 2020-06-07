@@ -4,7 +4,7 @@ import com.toedter.calendar.JDateChooser;
 import project.AppException;
 import project.DataParsingException;
 import project.Helper;
-import project.interfaces.ViewListener;
+import project.interfaces.MedicalTestResultAdditionWindowListener;
 import project.model.MedicalTestResult;
 
 import javax.swing.*;
@@ -18,7 +18,7 @@ public class MedicalTestResultAdditionWindow extends JFrame implements ActionLis
     private JTextField tMedicalTestType, tMedicalTestResult;
     private JButton bSave, bDiscard;
 
-    private ViewListener viewListener = null;
+    private MedicalTestResultAdditionWindowListener viewListener = null;
 
     public MedicalTestResultAdditionWindow() {
         this.createMedicalTestResultAdditionWindow();
@@ -77,18 +77,6 @@ public class MedicalTestResultAdditionWindow extends JFrame implements ActionLis
         this.tMedicalTestResult.setText("");
     }
 
-//    public String gettDate() {
-//        return dcDate.toString();
-//    }
-//
-//    public JTextField gettMedicalTestType() {
-//        return tMedicalTestType;
-//    }
-//
-//    public JTextField gettMedicalTestResult() {
-//        return tMedicalTestResult;
-//    }
-
     public JButton getbSave() {
         return bSave;
     }
@@ -117,14 +105,14 @@ public class MedicalTestResultAdditionWindow extends JFrame implements ActionLis
     }
 
     //listeners management
-    public void addListener(ViewListener viewListener) {
+    public void addListener(MedicalTestResultAdditionWindowListener viewListener) {
         this.viewListener = viewListener;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            this.viewListener.viewChanged(this, e.getSource());
+            this.viewListener.medicalTestResultAdditionWindowChanged(this, e.getSource());
         } catch (AppException throwables) {
             throwables.printStackTrace();
         }

@@ -1,6 +1,5 @@
 package project.view.windows.mainWindow.panels.actionPanel.views;
 
-import project.DataParsingException;
 import project.model.person.Doctor;
 import project.model.visit.ScheduledVisit;
 import javax.swing.*;

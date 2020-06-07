@@ -10,7 +10,6 @@ import project.model.visit.ScheduledVisit;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.function.DoubleToIntFunction;
 
 public class Database {
 
@@ -281,14 +280,6 @@ public class Database {
         }
     }
 
-    public void updateDoctor(Doctor doctor) throws AppException {
-        try {
-            this.tableDoctors.updateDoctor(doctor);
-        } catch (SQLException exception) {
-            throw new AppException("Problem with updating doctor in DOCTORS table");
-        }
-    }
-
     //--------------------------------------------------------------------------------------------
 
     public void printMedicalTestsResults() throws AppException {
@@ -332,14 +323,6 @@ public class Database {
         }
     }
 
-//    public void updateMedicalTestResult(String pesel, MedicalTestResult medicalTestResult) throws AppException {
-//        try {
-//            this.tableMedicalTestsResults.updateMedicalTestResult(pesel, medicalTestResult);
-//        } catch (SQLException exception) {
-//            throw new AppException("Problem with updating medical test result in MEDICAL_TESTS_RESULTS table");
-//        }
-//    }
-
     //--------------------------------------------------------------------------------------------
 
     public void printScheduledVisits() throws AppException {
@@ -381,14 +364,6 @@ public class Database {
             throw new AppException("Problem with getting patient scheduled visits from SCHEDULED_VISITS table");
         }
     }
-
-//    public void updateScheduledVisit(String pesel, ScheduledVisit scheduledVisit) throws AppException {
-//        try {
-//            this.tableScheduledVisits.udpateScheduledVisit(pesel, scheduledVisit);
-//        } catch (SQLException exception) {
-//            throw new AppException("Problem with updating scheduled visit in SCHEDULED_VISITS table");
-//        }
-//    }
 
     //--------------------------------------------------------------------------------------------
 
@@ -433,14 +408,6 @@ public class Database {
         }
     }
 
-//    public void updateArchivedVisit(String pesel, ArchivedVisit archivedVisit) throws AppException {
-//        try {
-//            this.tableArchivedVisits.updateArchivedVisit(pesel, archivedVisit);
-//        } catch (SQLException exception) {
-//            throw new AppException("Problem with updating archived visit in ARCHIVED_VISITS table");
-//        }
-//    }
-
     //--------------------------------------------------------------------------------------------
 
     public void printHospitalisations() throws AppException {
@@ -483,118 +450,24 @@ public class Database {
         }
     }
 
-//    public void updateHospitalisation(String pesel, Hospitalisation hospitalisation) throws AppException {
-//        try {
-//            this.tableHospitalisations.updateHospitalisation(pesel, hospitalisation);
-//        } catch (SQLException exception) {
-//            throw new AppException("Problem with updating hospitalisation in HOSPITALISATIONS table");
-//        }
-//    }
-
     //--------------------------------------------------------------------------------------------
 
-    public void generateData() throws AppException {
-        this.createTables();
-        this.addPatient(new Patient("Filip", "Kalski", "11111111111",
-                    "NFZ", "ul. Komputerowa, Warszawa"));
-        this.addPatient(new Patient("Aleksandra", "Kowalska", "11111111112",
-                "Prywatne", "ul. Krakowska 33, Poznań"));
-        this.addPatient(new Patient("Stanisław", "Napiórkowski", "11111111113",
-                "Prywatne", "ul. Nieznana 25, Podkowa Leśna"));
-        this.addPatient(new Patient("Anna", "Przybyła", "11111111114",
-                "NFZ", "ul. Miła 18, Lubliniec"));
-
-        this.addDoctor(new Doctor("Robert", "Kowalski", "22222222221", "internista"));
-        this.addDoctor(new Doctor("Anna", "Wrońska", "22222222222", "laryngolog"));
-        this.addDoctor(new Doctor("Jakub", "Dobry", "22222222223", "okulista"));
-        this.addDoctor(new Doctor("Michał", "Złoty", "22222222224", "ortopeda"));
-        this.addDoctor(new Doctor("Paulina", "Andegaweńska", "22222222225", "ortopeda"));
-        this.addDoctor(new Doctor("Antonina", "Zawirska", "22222222226", "kardiolog"));
-        this.addDoctor(new Doctor("Konrad", "Tenorowski", "22222222227", "psycholog"));
-        this.addDoctor(new Doctor("Aleksander", "Chodzikowski", "22222222228", "neurolog"));
-
-        this.addMedicalTestResult("11111111111", new MedicalTestResult("01.01.2018",
-                    "hemoglobina", Float.parseFloat("20.2"), "mg/dl"));
-        this.addMedicalTestResult("11111111111", new MedicalTestResult("02.01.2018",
-                    "limfocyty", Float.parseFloat("7.8"), "mg/dl"));
-        this.addMedicalTestResult("11111111111", new MedicalTestResult("02.01.2018",
-                "glukoza", Float.parseFloat("85"), "mg/dl"));
-        this.addMedicalTestResult("11111111111", new MedicalTestResult("03.01.2018",
-                "hematokryt", Float.parseFloat("11.3"), "mg/dl"));
-        this.addMedicalTestResult("11111111112", new MedicalTestResult("01.01.2018",
-                "bilirubina", Float.parseFloat("0.8"), "mg/dl"));
-        this.addMedicalTestResult("11111111112", new MedicalTestResult("01.01.2018",
-                "glukoza", Float.parseFloat("1.2"), "mg/dl"));
-        this.addMedicalTestResult("11111111112", new MedicalTestResult("02.01.2018",
-                "limfocyty", Float.parseFloat("7.4"), "mg/dl"));
-        this.addMedicalTestResult("11111111113", new MedicalTestResult("01.01.2018",
-                "hemoglobina", Float.parseFloat("20.2"), "mg/dl"));
-        this.addMedicalTestResult("11111111113", new MedicalTestResult("02.01.2018",
-                "limfocyty", Float.parseFloat("7.8"), "mg/dl"));
-        this.addMedicalTestResult("11111111113", new MedicalTestResult("02.01.2018",
-                "glukoza", Float.parseFloat("85"), "mg/dl"));
-        this.addMedicalTestResult("11111111113", new MedicalTestResult("03.01.2018",
-                "hematokryt", Float.parseFloat("11.3"), "mg/dl"));
-        this.addMedicalTestResult("11111111114", new MedicalTestResult("01.01.2018",
-                "hemoglobina", Float.parseFloat("20.2"), "mg/dl"));
-        this.addMedicalTestResult("11111111114", new MedicalTestResult("02.01.2018",
-                "limfocyty", Float.parseFloat("7.8"), "mg/dl"));
-        this.addMedicalTestResult("11111111114", new MedicalTestResult("02.01.2018",
-                "glukoza", Float.parseFloat("85"), "mg/dl"));
-        this.addMedicalTestResult("11111111114", new MedicalTestResult("03.01.2018",
-                "hematokryt", Float.parseFloat("11.3"), "mg/dl"));
-
-
-        this.addScheduledVisit("11111111111", new ScheduledVisit("01.01.2021", "7:00",
-                    "zabieg", this.getDoctor("22222222224"), Float.parseFloat("50.5")));
-        this.addScheduledVisit("11111111111", new ScheduledVisit("02.07.2021", "7:00",
-                    "porada", this.getDoctor("22222222223"), Float.parseFloat("0.0")));
-        this.addScheduledVisit("11111111111", new ScheduledVisit("28.07.2020", "13:35",
-                "porada", this.getDoctor("22222222227"), Float.parseFloat("225.25")));
-        this.addScheduledVisit("11111111112", new ScheduledVisit("10.01.2021", "7:00",
-                "zabieg", this.getDoctor("22222222222"), Float.parseFloat("50.5")));
-        this.addScheduledVisit("11111111112", new ScheduledVisit("10.07.2021", "7:00",
-                "porada", this.getDoctor("22222222221"), Float.parseFloat("0.0")));
-        this.addScheduledVisit("11111111112", new ScheduledVisit("30.07.2020", "13:35",
-                "badanie", this.getDoctor("22222222228"), Float.parseFloat("100.55")));
-        this.addScheduledVisit("11111111113", new ScheduledVisit("10.08.2021", "7:00",
-                "zabieg", this.getDoctor("22222222222"), Float.parseFloat("50.5")));
-        this.addScheduledVisit("11111111113", new ScheduledVisit("10.08.2021", "7:00",
-                "porada", this.getDoctor("22222222221"), Float.parseFloat("0.0")));
-        this.addScheduledVisit("11111111113", new ScheduledVisit("30.08.2020", "13:35",
-                "badanie", this.getDoctor("22222222228"), Float.parseFloat("100.55")));
-        this.addScheduledVisit("11111111114", new ScheduledVisit("10.01.2022", "7:00",
-                "zabieg", this.getDoctor("22222222222"), Float.parseFloat("50.5")));
-        this.addScheduledVisit("11111111114", new ScheduledVisit("10.07.2022", "7:00",
-                "porada", this.getDoctor("22222222221"), Float.parseFloat("0.0")));
-        this.addScheduledVisit("11111111114", new ScheduledVisit("30.07.2022", "13:35",
-                "badanie", this.getDoctor("22222222228"), Float.parseFloat("100.55")));
-
-
-        this.addHospitalisation("11111111111", new Hospitalisation("20.05.2020", "24.05.2020",
-                "Zapalenie płuc"));
-        this.addHospitalisation("11111111111", new Hospitalisation("30.05.2019", "04.06.2019",
-                "Operacja skoliozy"));
-        this.addHospitalisation("11111111112", new Hospitalisation("20.07.2020", "24.07.2020",
-                "Dializa"));
-        this.addHospitalisation("11111111112", new Hospitalisation("30.07.2019", "04.08.2019",
-                "Grypa"));
-        this.addHospitalisation("11111111113", new Hospitalisation("20.07.2020", "24.07.2020",
-                "Zapalenie oskrzeli"));
-        this.addHospitalisation("11111111113", new Hospitalisation("30.07.2019", "04.08.2019",
-                "Leczenie cukrzycy"));
-        this.addHospitalisation("11111111114", new Hospitalisation("20.07.2020", "24.07.2020",
-                "Cytomegalia"));
-        this.addHospitalisation("11111111114", new Hospitalisation("30.07.2019", "04.08.2019",
-                "Leczenie pourazowe"));
-
-
-        this.printPatients();
-        this.printDoctors();
-        this.printMedicalTestsResults();
-        this.printScheduledVisits();
-        this.printArchivedVisits();
-        this.printHospitalisations();
-        //this.deleteTables();
+    public void generateDoctors() throws AppException {
+        this.addDoctor(new Doctor("Robert", "Kowalski",
+                "22222222221", "internista"));
+        this.addDoctor(new Doctor("Anna", "Wrońska",
+                "22222222222", "laryngolog"));
+        this.addDoctor(new Doctor("Jakub", "Dobry",
+                "22222222223", "okulista"));
+        this.addDoctor(new Doctor("Michał", "Złoty",
+                "22222222224", "ortopeda"));
+        this.addDoctor(new Doctor("Paulina", "Andegaweńska",
+                "22222222225", "ortopeda"));
+        this.addDoctor(new Doctor("Antonina", "Zawirska",
+                "22222222226", "kardiolog"));
+        this.addDoctor(new Doctor("Konrad", "Tenorowski",
+                "22222222227", "psycholog"));
+        this.addDoctor(new Doctor("Aleksander", "Chodzikowski",
+                "22222222228", "neurolog"));
     }
 }
