@@ -497,41 +497,97 @@ public class Database {
         this.createTables();
         this.addPatient(new Patient("Filip", "Kalski", "11111111111",
                     "NFZ", "ul. Komputerowa, Warszawa"));
-        this.addPatient(new Patient("Aleksandra", "Kowalska", "22222222222",
-                "Prywatne", "ul. Krakowska 33 Poznań"));
+        this.addPatient(new Patient("Aleksandra", "Kowalska", "11111111112",
+                "Prywatne", "ul. Krakowska 33, Poznań"));
+        this.addPatient(new Patient("Stanisław", "Napiórkowski", "11111111113",
+                "Prywatne", "ul. Nieznana 25, Podkowa Leśna"));
+        this.addPatient(new Patient("Anna", "Przybyła", "11111111114",
+                "NFZ", "ul. Miła 18, Lubliniec"));
 
-        this.addDoctor(new Doctor("Robert", "Kowalski", "55555555555", "internista"));
-        this.addDoctor(new Doctor("Anna", "Kowalska", "45555555555", "laryngolog"));
+        this.addDoctor(new Doctor("Robert", "Kowalski", "22222222221", "internista"));
+        this.addDoctor(new Doctor("Anna", "Wrońska", "22222222222", "laryngolog"));
+        this.addDoctor(new Doctor("Jakub", "Dobry", "22222222223", "okulista"));
+        this.addDoctor(new Doctor("Michał", "Złoty", "22222222224", "ortopeda"));
+        this.addDoctor(new Doctor("Paulina", "Andegaweńska", "22222222225", "ortopeda"));
+        this.addDoctor(new Doctor("Antonina", "Zawirska", "22222222226", "kardiolog"));
+        this.addDoctor(new Doctor("Konrad", "Tenorowski", "22222222227", "psycholog"));
+        this.addDoctor(new Doctor("Aleksander", "Chodzikowski", "22222222228", "neurolog"));
 
-        this.addMedicalTestResult("11111111111", new MedicalTestResult("24.05.2019",
+        this.addMedicalTestResult("11111111111", new MedicalTestResult("01.01.2018",
                     "hemoglobina", Float.parseFloat("20.2"), "mg/dl"));
-        this.addMedicalTestResult("11111111111", new MedicalTestResult("11.10.2018",
+        this.addMedicalTestResult("11111111111", new MedicalTestResult("02.01.2018",
                     "limfocyty", Float.parseFloat("7.8"), "mg/dl"));
+        this.addMedicalTestResult("11111111111", new MedicalTestResult("02.01.2018",
+                "glukoza", Float.parseFloat("85"), "mg/dl"));
+        this.addMedicalTestResult("11111111111", new MedicalTestResult("03.01.2018",
+                "hematokryt", Float.parseFloat("11.3"), "mg/dl"));
+        this.addMedicalTestResult("11111111112", new MedicalTestResult("01.01.2018",
+                "bilirubina", Float.parseFloat("0.8"), "mg/dl"));
+        this.addMedicalTestResult("11111111112", new MedicalTestResult("01.01.2018",
+                "glukoza", Float.parseFloat("1.2"), "mg/dl"));
+        this.addMedicalTestResult("11111111112", new MedicalTestResult("02.01.2018",
+                "limfocyty", Float.parseFloat("7.4"), "mg/dl"));
+        this.addMedicalTestResult("11111111113", new MedicalTestResult("01.01.2018",
+                "hemoglobina", Float.parseFloat("20.2"), "mg/dl"));
+        this.addMedicalTestResult("11111111113", new MedicalTestResult("02.01.2018",
+                "limfocyty", Float.parseFloat("7.8"), "mg/dl"));
+        this.addMedicalTestResult("11111111113", new MedicalTestResult("02.01.2018",
+                "glukoza", Float.parseFloat("85"), "mg/dl"));
+        this.addMedicalTestResult("11111111113", new MedicalTestResult("03.01.2018",
+                "hematokryt", Float.parseFloat("11.3"), "mg/dl"));
+        this.addMedicalTestResult("11111111114", new MedicalTestResult("01.01.2018",
+                "hemoglobina", Float.parseFloat("20.2"), "mg/dl"));
+        this.addMedicalTestResult("11111111114", new MedicalTestResult("02.01.2018",
+                "limfocyty", Float.parseFloat("7.8"), "mg/dl"));
+        this.addMedicalTestResult("11111111114", new MedicalTestResult("02.01.2018",
+                "glukoza", Float.parseFloat("85"), "mg/dl"));
+        this.addMedicalTestResult("11111111114", new MedicalTestResult("03.01.2018",
+                "hematokryt", Float.parseFloat("11.3"), "mg/dl"));
 
-        this.addScheduledVisit("11111111111", new ScheduledVisit("11.02.2020", "15:00",
-                    "zabieg", this.getDoctor("55555555555"), Float.parseFloat("50.5")));
-        this.addScheduledVisit("22222222222", new ScheduledVisit("22.07.2020", "9:00",
-                    "porada", this.getDoctor("45555555555"), Float.parseFloat("0.0")));
-//
-//        this.addArchivedVisit("22222222222", new ArchivedVisit("08.03.2019", "zabieg",
-//                    this.getDoctor("55555555555"), "Leczenie pourazowe stawu łokciowego pomyślne"));
-//        this.addArchivedVisit("11111111111", new ArchivedVisit("23.08.2017", "porada",
-//                    this.getDoctor("45555555555"), "Staw nadgarstkowy z rozpoznaniem cieśni"));
+
+        this.addScheduledVisit("11111111111", new ScheduledVisit("01.01.2021", "7:00",
+                    "zabieg", this.getDoctor("22222222224"), Float.parseFloat("50.5")));
+        this.addScheduledVisit("11111111111", new ScheduledVisit("02.07.2021", "7:00",
+                    "porada", this.getDoctor("22222222223"), Float.parseFloat("0.0")));
+        this.addScheduledVisit("11111111111", new ScheduledVisit("28.07.2020", "13:35",
+                "porada", this.getDoctor("22222222227"), Float.parseFloat("225.25")));
+        this.addScheduledVisit("11111111112", new ScheduledVisit("10.01.2021", "7:00",
+                "zabieg", this.getDoctor("22222222222"), Float.parseFloat("50.5")));
+        this.addScheduledVisit("11111111112", new ScheduledVisit("10.07.2021", "7:00",
+                "porada", this.getDoctor("22222222221"), Float.parseFloat("0.0")));
+        this.addScheduledVisit("11111111112", new ScheduledVisit("30.07.2020", "13:35",
+                "badanie", this.getDoctor("22222222228"), Float.parseFloat("100.55")));
+        this.addScheduledVisit("11111111113", new ScheduledVisit("10.08.2021", "7:00",
+                "zabieg", this.getDoctor("22222222222"), Float.parseFloat("50.5")));
+        this.addScheduledVisit("11111111113", new ScheduledVisit("10.08.2021", "7:00",
+                "porada", this.getDoctor("22222222221"), Float.parseFloat("0.0")));
+        this.addScheduledVisit("11111111113", new ScheduledVisit("30.08.2020", "13:35",
+                "badanie", this.getDoctor("22222222228"), Float.parseFloat("100.55")));
+        this.addScheduledVisit("11111111114", new ScheduledVisit("10.01.2022", "7:00",
+                "zabieg", this.getDoctor("22222222222"), Float.parseFloat("50.5")));
+        this.addScheduledVisit("11111111114", new ScheduledVisit("10.07.2022", "7:00",
+                "porada", this.getDoctor("22222222221"), Float.parseFloat("0.0")));
+        this.addScheduledVisit("11111111114", new ScheduledVisit("30.07.2022", "13:35",
+                "badanie", this.getDoctor("22222222228"), Float.parseFloat("100.55")));
+
 
         this.addHospitalisation("11111111111", new Hospitalisation("20.05.2020", "24.05.2020",
                 "Zapalenie płuc"));
-        this.addHospitalisation("22222222222", new Hospitalisation("30.05.2019", "04.06.2019",
-                "Poród"));
+        this.addHospitalisation("11111111111", new Hospitalisation("30.05.2019", "04.06.2019",
+                "Operacja skoliozy"));
+        this.addHospitalisation("11111111112", new Hospitalisation("20.07.2020", "24.07.2020",
+                "Dializa"));
+        this.addHospitalisation("11111111112", new Hospitalisation("30.07.2019", "04.08.2019",
+                "Grypa"));
+        this.addHospitalisation("11111111113", new Hospitalisation("20.07.2020", "24.07.2020",
+                "Zapalenie oskrzeli"));
+        this.addHospitalisation("11111111113", new Hospitalisation("30.07.2019", "04.08.2019",
+                "Leczenie cukrzycy"));
+        this.addHospitalisation("11111111114", new Hospitalisation("20.07.2020", "24.07.2020",
+                "Cytomegalia"));
+        this.addHospitalisation("11111111114", new Hospitalisation("30.07.2019", "04.08.2019",
+                "Leczenie pourazowe"));
 
-//        Patient patient = new Patient("Aleksandra", "Nowakowska", "22222222222",
-//                "Prywatne", "Warszawa");
-//        try {
-//            this.statement.executeUpdate("UPDATE PATIENTS SET patient_name='" + patient.getName() +
-//                    "', patient_surname='" + patient.getSurname() + "', insurance='" + patient.getInsurance() +
-//                    "', address='" + patient.getAddress() + "' WHERE patient_pesel='" + patient.getPesel() + "'");
-//        } catch (Exception exception) {
-//            System.out.println("ups");
-//        }
 
         this.printPatients();
         this.printDoctors();
