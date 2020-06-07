@@ -46,13 +46,13 @@ public class Controller implements ViewListener {
 
 	@Override
 	public void viewChanged(JFrame window, Object source) throws AppException {
-    	this.database.printPatients();
-		this.database.printDoctors();
-		this.database.printMedicalTestsResults();
-		this.database.printScheduledVisits();
-		this.database.printArchivedVisits();
-		this.database.printHospitalisations();
-		System.out.println("\n---------------------------------------------------------------------------------\n");
+//    	this.database.printPatients();
+//		this.database.printDoctors();
+//		this.database.printMedicalTestsResults();
+//		this.database.printScheduledVisits();
+//		this.database.printArchivedVisits();
+//		this.database.printHospitalisations();
+//		System.out.println("\n---------------------------------------------------------------------------------\n");
 
     	if (window == this.mainWindow) {
 			if (source == this.mainWindow.getMenuPanel().getMClose()) {
@@ -63,6 +63,7 @@ public class Controller implements ViewListener {
 				this.patientsListWindow.loadPatients(patients);
 				this.mainWindow.setEnabled(false);
 				this.patientsListWindow.setVisible(true);
+				this.patientsListWindow.setEnabled(true);
 			}
 			else if (source == this.mainWindow.getSelectionPanel().getbPersonalData()) {
 				if (chosenPatient != null) {
@@ -363,7 +364,14 @@ public class Controller implements ViewListener {
 
 		else if (window == this.hospitalisationAdditionWindow) {
 			if (source == this.hospitalisationAdditionWindow.getbSave()) {
-				Hospitalisation hospitalisation = this.hospitalisationAdditionWindow.getNewHospitalisation();
+				Hospitalisation hospitalisation = null;
+				try {
+					hospitalisation = this.hospitalisationAdditionWindow.getNewHospitalisation();
+				} catch (DataParsingException exception) {
+					Helper.showWarningDialog(this.hospitalisationAdditionWindow,
+							"Niepoprawna kolejność dat");
+					return;
+				}
 				if (this.database.ifHospitalisationExists(chosenPatient.getPesel(), hospitalisation.getFrom(),
 						hospitalisation.getTo())) {
 					Helper.showWarningDialog(this.hospitalisationAdditionWindow,

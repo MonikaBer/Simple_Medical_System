@@ -33,4 +33,12 @@ public class Helper {
         stringBuilder.append(year);
         return stringBuilder.toString();
     }
+
+    public static boolean ifDatesOrderIsCorrect(Date from, Date to) {
+        Calendar calendarFrom = Calendar.getInstance(TimeZone.getTimeZone("Europe/Warsaw"));
+        calendarFrom.setTime(from);
+        Calendar calendarTo = Calendar.getInstance(TimeZone.getTimeZone("Europe/Warsaw"));
+        calendarTo.setTime(to);
+        return calendarFrom.before(calendarTo);
+    }
 }

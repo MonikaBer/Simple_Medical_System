@@ -3,7 +3,6 @@ package project.view.windows.otherWindows;
 import project.AppException;
 import project.interfaces.ViewListener;
 import project.model.person.Doctor;
-import project.model.person.Patient;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -50,7 +49,7 @@ public class DoctorsListWindow extends JFrame implements ActionListener, MouseLi
         this.rowSelectedNr = -1;
 
         this.bOk = new JButton("Ok");
-        this.bOk.setBounds(135, 430, 200, 20);
+        this.bOk.setBounds(135, 400, 200, 20);
         this.add(this.bOk);
 
         this.bOk.addActionListener(this);

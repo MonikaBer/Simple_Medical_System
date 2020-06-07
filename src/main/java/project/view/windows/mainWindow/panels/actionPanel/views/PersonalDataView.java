@@ -56,7 +56,7 @@ public class PersonalDataView implements ActionPanelViews {
         actionPanel.add(this.cbInsurance);
 
         this.tAddress = new JTextField();
-        this.tAddress.setBounds(250, 250, 150, 20);
+        this.tAddress.setBounds(250, 250, 360, 20);
         actionPanel.add(this.tAddress);
 
         this.bSave = new JButton("Zapisz");

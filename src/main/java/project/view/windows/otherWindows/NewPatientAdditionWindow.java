@@ -130,9 +130,10 @@ public class NewPatientAdditionWindow extends JFrame implements ActionListener {
         String pesel = tPesel.getText().trim();
         String insurance = cbInsurance.getSelectedItem().toString();
         String address = tAddress.getText().trim();
-
+        if (pesel.length() != 11)
+            throw new DataParsingException();
         try {
-            Float.parseFloat(pesel);
+            Double.parseDouble(pesel);
             return new Patient(name, surname, pesel, insurance, address);
         } catch (Exception exception) {
             throw new DataParsingException();

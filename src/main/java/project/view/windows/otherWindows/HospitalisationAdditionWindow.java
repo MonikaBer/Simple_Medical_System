@@ -1,6 +1,7 @@
 package project.view.windows.otherWindows;
 
 import project.AppException;
+import project.DataParsingException;
 import project.Helper;
 import project.interfaces.ViewListener;
 
@@ -77,9 +78,12 @@ public class HospitalisationAdditionWindow extends JFrame implements ActionListe
         this.tReason.setText("");
     }
 
-    public Hospitalisation getNewHospitalisation() {
+    public Hospitalisation getNewHospitalisation() throws DataParsingException {
         String dateFrom = Helper.dateToString(dcFrom.getDate());
         String dateTo = Helper.dateToString(dcTo.getDate());
+        if (!Helper.ifDatesOrderIsCorrect(dcFrom.getDate(), dcTo.getDate())) {
+            throw new DataParsingException();
+        }
         String reason = this.tReason.getText().trim();
         return new Hospitalisation(dateFrom, dateTo, reason);
     }
