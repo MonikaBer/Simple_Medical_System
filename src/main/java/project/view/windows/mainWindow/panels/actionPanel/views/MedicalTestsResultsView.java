@@ -55,8 +55,8 @@ public class MedicalTestsResultsView implements ActionPanelViews {
     }
 
     public void clearTabMedicalTestsResults() {
-        for (int i = 0; i < this.tabMedicalTestsResults.getRowCount(); i++) {
-            this.tableModel.removeRow(i);
+        while (this.tabMedicalTestsResults.getRowCount() != 0) {
+            this.tableModel.removeRow(this.tabMedicalTestsResults.getRowCount()-1);
         }
     }
 

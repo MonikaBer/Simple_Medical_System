@@ -1,6 +1,7 @@
 package project.view.windows.otherWindows;
 
 import project.AppException;
+import project.Helper;
 import project.interfaces.ViewListener;
 
 import com.toedter.calendar.JDateChooser;
@@ -67,6 +68,7 @@ public class HospitalisationAdditionWindow extends JFrame implements ActionListe
         this.setTitle("Okno dodawania hospitalizacji pacjenta");
         this.setLayout(null);
         this.setVisible(false);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     public void clear() {
@@ -76,8 +78,8 @@ public class HospitalisationAdditionWindow extends JFrame implements ActionListe
     }
 
     public Hospitalisation getNewHospitalisation() {
-        String dateFrom = dcFrom.getDate().toString();
-        String dateTo = dcTo.getDate().toString();
+        String dateFrom = Helper.dateToString(dcFrom.getDate());
+        String dateTo = Helper.dateToString(dcTo.getDate());
         String reason = this.tReason.getText().trim();
         return new Hospitalisation(dateFrom, dateTo, reason);
     }

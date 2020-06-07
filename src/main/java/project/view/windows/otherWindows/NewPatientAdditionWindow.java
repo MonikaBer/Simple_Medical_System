@@ -89,6 +89,7 @@ public class NewPatientAdditionWindow extends JFrame implements ActionListener {
         this.setTitle("Okno dodawania nowego pacjenta");
         this.setLayout(null);
         this.setVisible(false);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     public void clear() {

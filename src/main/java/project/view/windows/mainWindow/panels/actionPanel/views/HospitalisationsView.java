@@ -57,8 +57,8 @@ public class HospitalisationsView implements ActionPanelViews {
     }
 
     public void clearTabHospitalisations() {
-        for (int i = 0; i < this.tabHospitalisations.getRowCount(); i++) {
-            this.tableModel.removeRow(i);
+        while (this.tabHospitalisations.getRowCount() != 0) {
+            this.tableModel.removeRow(this.tabHospitalisations.getRowCount()-1);
         }
     }
 

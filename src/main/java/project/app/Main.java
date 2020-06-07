@@ -27,6 +27,7 @@ public class Main {
 					view.getVisitAdditionWindow().addListener(controller);
 					view.getMedicalTestResultAdditionWindow().addListener(controller);
 					view.getHospitalisationAdditionWindow().addListener(controller);
+					view.getDoctorsListWindow().addListener(controller);
 				}
 				catch (AppException exception) {
 					System.out.println(exception.getMsg());

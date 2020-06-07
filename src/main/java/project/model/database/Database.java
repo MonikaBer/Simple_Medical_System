@@ -400,9 +400,10 @@ public class Database {
         }
     }
 
-    public boolean addArchivedVisit(String pesel, ArchivedVisit archivedVisit) throws AppException {
+    public boolean addArchivedVisit(String pesel, ArchivedVisit archivedVisit, ScheduledVisit scheduledVisit)
+            throws AppException {
         try {
-            return this.tableArchivedVisits.addArchivedVisit(pesel, archivedVisit);
+            return this.tableArchivedVisits.addArchivedVisit(pesel, archivedVisit, scheduledVisit);
         } catch (SQLException exception) {
             throw new AppException("Problem with addition new archived visit to ARCHIVED_VISITS table");
         }
@@ -511,11 +512,11 @@ public class Database {
                     "zabieg", this.getDoctor("55555555555"), Float.parseFloat("50.5")));
         this.addScheduledVisit("22222222222", new ScheduledVisit("22.07.2020", "9:00",
                     "porada", this.getDoctor("45555555555"), Float.parseFloat("0.0")));
-
-        this.addArchivedVisit("22222222222", new ArchivedVisit("08.03.2019", "zabieg",
-                    this.getDoctor("55555555555"), "Leczenie pourazowe stawu łokciowego pomyślne"));
-        this.addArchivedVisit("11111111111", new ArchivedVisit("23.08.2017", "porada",
-                    this.getDoctor("45555555555"), "Staw nadgarstkowy z rozpoznaniem cieśni"));
+//
+//        this.addArchivedVisit("22222222222", new ArchivedVisit("08.03.2019", "zabieg",
+//                    this.getDoctor("55555555555"), "Leczenie pourazowe stawu łokciowego pomyślne"));
+//        this.addArchivedVisit("11111111111", new ArchivedVisit("23.08.2017", "porada",
+//                    this.getDoctor("45555555555"), "Staw nadgarstkowy z rozpoznaniem cieśni"));
 
         this.addHospitalisation("11111111111", new Hospitalisation("20.05.2020", "24.05.2020",
                 "Zapalenie płuc"));

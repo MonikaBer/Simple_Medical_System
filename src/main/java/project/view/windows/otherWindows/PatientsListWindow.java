@@ -80,6 +80,7 @@ public class PatientsListWindow extends JFrame implements ActionListener, MouseL
         this.setTitle("Okno wyboru pacjenta");
         this.setLayout(null);
         this.setVisible(false);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     public JTable getTabPatientsList() {

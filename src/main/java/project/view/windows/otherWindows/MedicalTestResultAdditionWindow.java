@@ -3,6 +3,7 @@ package project.view.windows.otherWindows;
 import com.toedter.calendar.JDateChooser;
 import project.AppException;
 import project.DataParsingException;
+import project.Helper;
 import project.interfaces.ViewListener;
 import project.model.MedicalTestResult;
 
@@ -67,6 +68,7 @@ public class MedicalTestResultAdditionWindow extends JFrame implements ActionLis
         this.setTitle("Okno dodawania wyniku badania pacjenta");
         this.setLayout(null);
         this.setVisible(false);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     public void clear() {
@@ -96,12 +98,16 @@ public class MedicalTestResultAdditionWindow extends JFrame implements ActionLis
     }
 
     public MedicalTestResult getNewMedicalTestResult() throws DataParsingException {
-        String date = dcDate.toString();
+        String date = Helper.dateToString(dcDate.getDate());
         String type = tMedicalTestType.getText().trim();
         String result = tMedicalTestResult.getText().trim();
         int index = result.indexOf(" ");
+        if (index >= result.length() || index == -1)
+            throw new DataParsingException();
         String resultNumber = result.substring(0, index).trim();
         String units = result.substring(index).trim();
+        if (resultNumber.length() == 0 || units.length() == 0)
+            throw new DataParsingException();
         try {
             Float resultFloatNumber = Float.parseFloat(resultNumber);
             return new MedicalTestResult(date, type, resultFloatNumber, units);

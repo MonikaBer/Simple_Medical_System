@@ -2,6 +2,7 @@ package project.model.database;
 
 import project.model.person.Doctor;
 import project.model.visit.ArchivedVisit;
+import project.model.visit.ScheduledVisit;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -54,13 +55,22 @@ public class TableArchivedVisits implements DatabaseInterface {
         }
     }
 
-    public boolean addArchivedVisit(String pesel, ArchivedVisit archivedVisit) throws SQLException {
+    public boolean addArchivedVisit(String pesel, ArchivedVisit archivedVisit, ScheduledVisit scheduledVisit)
+            throws SQLException {
         if (!this.ifArchivedVisitExists(pesel, archivedVisit.getDate(), archivedVisit.getDoctor().getPesel())) {
-            this.statement.execute("INSERT INTO ARCHIVED_VISITS (date, type, description, patient_pesel, " +
-                    "doctor_pesel)" + " VALUES" + "('" + archivedVisit.getDate() + "','" + archivedVisit.getType()
-                    + "','" + archivedVisit.getDescription() + "','" + pesel + "','" +
-                    archivedVisit.getDoctor().getPesel() + "')");
-            return true;
+            this.result = this.statement.executeQuery("SELECT * FROM SCHEDULED_VISITS NATURAL JOIN DOCTORS WHERE " +
+                    "SCHEDULED_VISITS.patient_pesel='" + pesel + "' AND SCHEDULED_VISITS.date='" +
+                    scheduledVisit.getDate() + "' AND SCHEDULED_VISITS.time='" + scheduledVisit.getTime() + "'");
+            if (this.result.next()) {
+                Doctor doctor = new Doctor(this.result.getString("doctor_name"),
+                        this.result.getString("doctor_surname"), this.result.getString("doctor_pesel"),
+                        this.result.getString("specialisation"));
+                this.statement.execute("INSERT INTO ARCHIVED_VISITS (date, type, description, patient_pesel, " +
+                        "doctor_pesel)" + " VALUES" + "('" + archivedVisit.getDate() + "','" + archivedVisit.getType()
+                        + "','" + archivedVisit.getDescription() + "','" + pesel + "','" +
+                        doctor.getPesel() + "')");
+                return true;
+            }
         }
         return false;
     }

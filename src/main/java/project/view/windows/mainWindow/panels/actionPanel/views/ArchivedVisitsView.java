@@ -55,8 +55,8 @@ public class ArchivedVisitsView implements ActionPanelViews {
     }
 
     public void clearTabArchivedVisits() {
-        for (int i = 0; i < this.tabArchivedVisits.getRowCount(); i++) {
-            this.tableModel.removeRow(i);
+        while (this.tabArchivedVisits.getRowCount() != 0) {
+            this.tableModel.removeRow(this.tabArchivedVisits.getRowCount()-1);
         }
     }
 

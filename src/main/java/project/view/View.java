@@ -14,6 +14,7 @@ public class View {
 	private HospitalisationAdditionWindow hospitalisationAdditionWindow;
 	private MedicalTestResultAdditionWindow medicalTestResultAdditionWindow;
 	private VisitAdditionWindow visitAdditionWindow;
+	private DoctorsListWindow doctorsListWindow;
 
 	public View() {
 		this.mainWindow = new MainWindow();
@@ -22,6 +23,7 @@ public class View {
 		this.visitAdditionWindow = new VisitAdditionWindow();
 		this.medicalTestResultAdditionWindow = new MedicalTestResultAdditionWindow();
 		this.hospitalisationAdditionWindow = new HospitalisationAdditionWindow();
+		this.doctorsListWindow = new DoctorsListWindow();
 	}
 
 	public MainWindow getMainWindow() {
@@ -70,5 +72,13 @@ public class View {
 
 	public void setNewPatientAdditionWindow(NewPatientAdditionWindow newPatientAdditionWindow) {
 		this.newPatientAdditionWindow = newPatientAdditionWindow;
+	}
+
+	public DoctorsListWindow getDoctorsListWindow() {
+		return doctorsListWindow;
+	}
+
+	public void setDoctorsListWindow(DoctorsListWindow doctorsListWindow) {
+		this.doctorsListWindow = doctorsListWindow;
 	}
 }

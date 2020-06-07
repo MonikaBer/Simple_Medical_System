@@ -78,8 +78,8 @@ public class ScheduledVisitsView implements ActionPanelViews {
     }
 
     public void clearTabScheduledVisits() {
-        for (int i = 0; i < this.tabScheduledVisits.getRowCount(); i++) {
-            this.tableModel.removeRow(i);
+        while (this.tabScheduledVisits.getRowCount() != 0) {
+            this.tableModel.removeRow(this.tabScheduledVisits.getRowCount()-1);
         }
     }
 
