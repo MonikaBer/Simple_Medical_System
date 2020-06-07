@@ -6,6 +6,9 @@ tmp/
 *.swp
 *~.nib
 *.iml
+*.log
 
 /.metadata/
 /target/
+/SimpleMedicalSystem/
+
